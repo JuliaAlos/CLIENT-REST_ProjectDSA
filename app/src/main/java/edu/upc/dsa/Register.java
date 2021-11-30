@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register extends AppCompatActivity {
-    public static final String BASE_URL = "http://192.168.0.87:8080/dsaApp/";
+    public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     TextView username;
     TextView fullName;
     TextView email;
