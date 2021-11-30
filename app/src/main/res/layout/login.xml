@@ -16,10 +16,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.703" />
+        app:layout_constraintVertical_bias="0.547" />
 
     <TextView
         android:id="@+id/loginTextView"
@@ -80,4 +80,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.268" />
+
+    <TextView
+        android:id="@+id/toRegisterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="72dp"
+        android:text="You don't have an account?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginDoneButton" />
+
+    <Button
+        android:id="@+id/toRegisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="189dp"
+        android:onClick="loginToRegister"
+        android:text="Register"
+        app:layout_constraintStart_toEndOf="@+id/toRegisterTextView"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

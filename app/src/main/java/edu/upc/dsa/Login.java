@@ -2,6 +2,7 @@ package edu.upc.dsa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,7 @@ public class Login extends AppCompatActivity {
     TextView loginName;
     TextView loginPassword;
     ApiInterface apiInterface;
-    public static final String API_URL = "https://192.168.43.120:8080/dsaApp/";
+    public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class Login extends AppCompatActivity {
                     return;
                 }
                 LoginUserTO loginUserTO =response.body();
-                Toast.makeText(Login.this, "Welcome again" + loginUserTO.getUserName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "Welcome again " + loginUserTO.getUserName(), Toast.LENGTH_LONG).show();
                 Log.d("Login user", "Successful loginUser "+ loginUserTO.getUserName());
             }
 
@@ -58,5 +59,10 @@ public class Login extends AppCompatActivity {
                 Log.d("Login user", "Error loginUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
+    }
+
+    public void loginToRegister(View view){
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
     }
 }
