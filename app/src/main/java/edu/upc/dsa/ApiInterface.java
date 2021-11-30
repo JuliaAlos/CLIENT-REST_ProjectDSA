@@ -11,7 +11,4 @@ public interface ApiInterface {
     @POST("user/login")
     Call<LoginUserTO> loginUser(@Body LoginUserTO user);
 
-    @POST("user/login")
-    Call<LoginUserTO> loginUser(@Body LoginUserTO user);
-
 }
