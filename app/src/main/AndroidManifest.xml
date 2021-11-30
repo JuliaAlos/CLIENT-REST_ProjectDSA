@@ -14,7 +14,7 @@ package="edu.upc.dsa">
     android:theme="@style/Theme.ProjectDSA">
 
     <activity
-        android:name=".Register"
+        android:name=".Login"
         android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

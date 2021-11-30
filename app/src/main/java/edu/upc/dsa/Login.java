@@ -20,7 +20,7 @@ public class Login extends AppCompatActivity {
     TextView loginName;
     TextView loginPassword;
     ApiInterface apiInterface;
-    public static final String API_URL = "https://192.168.43.120:8080/dsaApp/";
+    public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
