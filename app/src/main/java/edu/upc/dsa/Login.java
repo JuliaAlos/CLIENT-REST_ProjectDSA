@@ -23,6 +23,11 @@ public class Login extends AppCompatActivity {
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try{
+        Thread.sleep(2000);}
+        catch (Exception e){}
+
+        setTheme(R.style.Theme_ProjectDSA);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         Retrofit retrofit = new Retrofit.Builder()
