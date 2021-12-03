@@ -41,8 +41,9 @@ public class SplashScreen extends AppCompatActivity {
         LoginUserTO user = new LoginUserTO(sharedPref.getString("user",null), sharedPref.getString("password",null));
         Log.d("SplashScreen", "Check if user is already login --> " + user.getUserName());
         if(sharedPref.getString("user",null)==null){
-            Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+            Intent intent = new Intent(SplashScreen.this, Login.class);
             startActivity(intent);
+            return;
         }
         Call<LoginUserTO> call = apiInterface.loginUser(user);
         call.enqueue(new Callback<LoginUserTO>() {
