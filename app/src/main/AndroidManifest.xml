@@ -21,12 +21,26 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Register"
+            android:exported="true"/>
+        <activity
+            android:name=".Dashboard"
+            android:exported="true"/>
+        <activity
+            android:name=".Store"
+            android:exported="true"/>
+        <activity
+            android:name=".Ranking"
+            android:exported="true"/>
+        <activity
+            android:name=".Forum"
+            android:exported="true"/>
+        <activity
+            android:name=".Stats"
             android:exported="true"/>
     </application>
 

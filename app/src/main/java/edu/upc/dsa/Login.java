@@ -52,8 +52,10 @@ public class Login extends AppCompatActivity {
     public void loginButtonClick(View view) {
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
-        progressBar= (CardView) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+
+       // progressBar= (CardView) findViewById(R.id.progressBar);
+        //progressBar.setVisibility(View.VISIBLE);
+
 
         LoginUserTO user = new LoginUserTO(loginName.getText().toString(), loginPassword.getText().toString());
         Log.d("LoginUser", "Login user --> " + user.getUserName());
@@ -61,10 +63,11 @@ public class Login extends AppCompatActivity {
         call.enqueue(new Callback<LoginUserTO>() {
             @Override
             public void onResponse(Call<LoginUserTO> call, Response<LoginUserTO> response) {
+
                 if(!response.isSuccessful()){
                     Log.d("LoginUser", "Error loginUser"+response.code());
                     Toast.makeText(Login.this, "User name not registered" , Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
                     return;
                 }
                 LoginUserTO loginUserTO =response.body();
@@ -73,11 +76,12 @@ public class Login extends AppCompatActivity {
                 saveSharedPreferences(loginUserTO);
                 Intent intent = new Intent(Login.this, HomeActivity.class);
                 startActivity(intent);
+
             }
 
             @Override
             public void onFailure(Call<LoginUserTO> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
                 Log.d("LoginUser", "Error loginUser in getting response from service using retrofit: "+t.getMessage());
             }
