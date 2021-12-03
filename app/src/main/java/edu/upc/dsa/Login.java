@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity {
     public void loginButtonClick(View view) {
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
+        Intent intentDashboard = new Intent(this, Dashboard.class);
 
         LoginUserTO user = new LoginUserTO(loginName.getText().toString(), loginPassword.getText().toString());
         Log.d("Login user", "Login user --> " + user.getUserName());
@@ -43,14 +44,16 @@ public class Login extends AppCompatActivity {
         call.enqueue(new Callback<LoginUserTO>() {
             @Override
             public void onResponse(Call<LoginUserTO> call, Response<LoginUserTO> response) {
-                if(!response.isSuccessful()){
-                    Log.d("LoginUser", "Error loginUser"+response.code());
-                    Toast.makeText(Login.this, "User name not registered" , Toast.LENGTH_LONG).show();
+                if (!response.isSuccessful()) {
+                    Log.d("LoginUser", "Error loginUser" + response.code());
+                    Toast.makeText(Login.this, "User name not registered", Toast.LENGTH_LONG).show();
                     return;
                 }
-                LoginUserTO loginUserTO =response.body();
+                LoginUserTO loginUserTO = response.body();
                 Toast.makeText(Login.this, "Welcome again " + loginUserTO.getUserName(), Toast.LENGTH_LONG).show();
-                Log.d("Login user", "Successful loginUser "+ loginUserTO.getUserName());
+                Log.d("Login user", "Successful loginUser " + loginUserTO.getUserName());
+
+                startActivity(intentDashboard);
             }
 
             @Override

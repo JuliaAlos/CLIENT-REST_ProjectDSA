@@ -10,5 +10,4 @@ public interface ApiInterface {
     Call<UserTO> addUser(@Body RegisterUserTO user);
     @POST("user/login")
     Call<LoginUserTO> loginUser(@Body LoginUserTO user);
-
 }
