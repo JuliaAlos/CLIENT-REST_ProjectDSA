@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.nio.channels.InterruptedByTimeoutException;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -75,20 +78,23 @@ public class HomeActivity extends AppCompatActivity
   public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
     int title;
     switch (menuItem.getItemId()) {
-      case R.id.nav_camera:
+      case R.id.nav_profile:
         title = R.string.menu_profile;
         break;
-      case R.id.nav_gallery:
-        title = R.string.menu_gallery;
+      case R.id.nav_stats:
+        title = R.string.menu_stats;
+        Intent intentStats = new Intent(this, Stats.class);
+        startActivity(intentStats);
         break;
-      case R.id.nav_manage:
-        title = R.string.menu_tools;
+      case R.id.nav_forum:
+        title = R.string.menu_forum;
+        Intent intentForum = new Intent(this, Forum.class);
+        startActivity(intentForum);
         break;
-      case R.id.nav_share:
-        title = R.string.menu_share;
-        break;
-      case R.id.nav_send:
-        title = R.string.menu_send;
+      case R.id.nav_ranking:
+        title = R.string.menu_ranking;
+        Intent intentRanking = new Intent(this, Ranking.class);
+        startActivity(intentRanking);
         break;
       default:
         throw new IllegalArgumentException("menu option not implemented!!");
