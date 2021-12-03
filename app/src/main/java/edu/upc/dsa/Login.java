@@ -40,11 +40,7 @@ public class Login extends AppCompatActivity {
                 .build();
         apiInterface = retrofit.create(ApiInterface.class);
 
-        checkSharedPreferences();
-        try{
-            Thread.sleep(1000);
-        }catch(Exception e){}
-        setTheme(R.style.Theme_ProjectDSA);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
@@ -104,33 +100,5 @@ public class Login extends AppCompatActivity {
         editor.commit();
     }
 
-    public void checkSharedPreferences(){
-        SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-        LoginUserTO user = new LoginUserTO(sharedPref.getString("user",null), sharedPref.getString("password",null));
-        Log.d("LoginUser", "Check if user is already login --> " + user.getUserName());
-        if(sharedPref.getString("user",null)==null)
-            return;
-        Call<LoginUserTO> call = apiInterface.loginUser(user);
-        call.enqueue(new Callback<LoginUserTO>() {
-            @Override
-            public void onResponse(Call<LoginUserTO> call, Response<LoginUserTO> response) {
-                if(!response.isSuccessful()){
-                    Log.d("LoginUser", "Error loginUser");
-                    Toast.makeText(Login.this, "User must do login" , Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(Login.this, "Welcome again " + user.getUserName(), Toast.LENGTH_LONG).show();
-                Log.d("LoginUser", "Successful loginUser "+ user.getUserName());
-                Intent intent = new Intent(Login.this, HomeActivity.class);
-                startActivity(intent);
-            }
 
-            @Override
-            public void onFailure(Call<LoginUserTO> call, Throwable t) {
-                Toast.makeText(Login.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
-                Log.d("LoginUser", "Error in getting response from service: "+t.getMessage());
-            }
-        });
-
-    }
 }
