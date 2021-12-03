@@ -7,12 +7,25 @@
     android:background="@drawable/fondologin"
     tools:context=".Register">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:minHeight="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/toRegisterTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        android:visibility="gone"/>
+
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="loginButtonClick"
         android:text="DONE"
@@ -38,13 +51,13 @@
     <EditText
         android:id="@+id/loginPasswordTextView"
         android:layout_width="193dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="84dp"
         android:ems="10"
         android:inputType="textPassword"
+        android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/loginPassword"
+        app:layout_constraintStart_toStartOf="@+id/loginUsernamePlainText"
         app:layout_constraintTop_toBottomOf="@+id/loginUsernamePlainText" />
 
     <TextView
@@ -81,6 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="@color/white"
         android:hint="'Your username'"
         android:inputType="textPersonName"
         android:textSize="16sp"

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class Login extends AppCompatActivity {
 
     TextView loginName;
     TextView loginPassword;
-    CardView progressBar;
+    ProgressBar progressBar;
 
     ApiInterface apiInterface;
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
@@ -53,8 +54,8 @@ public class Login extends AppCompatActivity {
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
 
-       // progressBar= (CardView) findViewById(R.id.progressBar);
-        //progressBar.setVisibility(View.VISIBLE);
+        progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
 
         LoginUserTO user = new LoginUserTO(loginName.getText().toString(), loginPassword.getText().toString());
@@ -67,7 +68,7 @@ public class Login extends AppCompatActivity {
                 if(!response.isSuccessful()){
                     Log.d("LoginUser", "Error loginUser"+response.code());
                     Toast.makeText(Login.this, "User name not registered" , Toast.LENGTH_LONG).show();
-                    //progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
                 LoginUserTO loginUserTO =response.body();
@@ -81,7 +82,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginUserTO> call, Throwable t) {
-                //progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
                 Log.d("LoginUser", "Error loginUser in getting response from service using retrofit: "+t.getMessage());
             }

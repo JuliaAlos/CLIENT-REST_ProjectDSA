@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity
     int title;
     switch (menuItem.getItemId()) {
       case R.id.nav_camera:
-        title = R.string.menu_camera;
+        title = R.string.menu_profile;
         break;
       case R.id.nav_gallery:
         title = R.string.menu_gallery;

@@ -6,7 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_click">Title click</string>
-    <string name="menu_camera">Camera</string>
+    <string name="menu_profile">Profile</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
