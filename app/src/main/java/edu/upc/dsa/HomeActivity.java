@@ -28,7 +28,10 @@ public class HomeActivity extends AppCompatActivity
   private DrawerLayout drawerLayout;
   //TextView headerTitle;
   //SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-
+  public void storeClick(View view) {
+    Intent intent = new Intent(this, Stats.class);
+    startActivity(intent);
+  }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
