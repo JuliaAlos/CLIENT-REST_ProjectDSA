@@ -31,6 +31,7 @@ public class SplashScreen extends AppCompatActivity {
                 .build();
         apiInterface = retrofit.create(ApiInterface.class);
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.splash_screen);
         checkSharedPreferences();
 
