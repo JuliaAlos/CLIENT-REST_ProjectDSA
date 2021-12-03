@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/loginDoneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp" />
+    </androidx.cardview.widget.CardView>
+
+
     <Button
         android:id="@+id/loginDoneButton"
         android:layout_width="wrap_content"
@@ -16,10 +34,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.703" />
+        app:layout_constraintVertical_bias="0.622" />
 
     <TextView
         android:id="@+id/loginTextView"
@@ -56,15 +74,12 @@
         android:id="@+id/loginPasswordTextView"
         android:layout_width="193dp"
         android:layout_height="34dp"
+        android:layout_marginStart="30dp"
         android:ems="10"
         android:inputType="textPassword"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.756"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintStart_toEndOf="@+id/loginPassword"
+        app:layout_constraintTop_toTopOf="@+id/loginPassword" />
 
     <EditText
         android:id="@+id/loginUsernamePlainText"
@@ -74,10 +89,27 @@
         android:hint="'Your username'"
         android:inputType="textPersonName"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.763"
+        app:layout_constraintStart_toStartOf="@+id/loginPasswordTextView"
+        app:layout_constraintTop_toTopOf="@+id/loginUserName" />
+
+    <TextView
+        android:id="@+id/toRegisterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="72dp"
+        android:text="You don't have an account?"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintTop_toBottomOf="@+id/loginDoneButton" />
+
+    <Button
+        android:id="@+id/toRegisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="189dp"
+        android:onClick="loginToRegister"
+        android:text="Register"
+        app:layout_constraintStart_toEndOf="@+id/toRegisterTextView"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,6 +67,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserTO> call, Throwable t) {
                 Toast.makeText(Register.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
+
                 Log.d("AddUser", "Error addUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
