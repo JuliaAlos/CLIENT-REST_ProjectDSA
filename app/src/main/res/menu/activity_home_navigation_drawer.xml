@@ -5,36 +5,32 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_profile"
             android:title="@string/menu_profile" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
     </group>
 
     <group
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:id="@+id/nav_stats"
+            android:icon="@drawable/ic_menu_stats"
+            android:title="Stats" />
     </group>
 
     <item android:title="@string/menu_group">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="@string/menu_share" />
+                    android:id="@+id/nav_forum"
+                    android:icon="@drawable/ic_menu_forum"
+                    android:title="Forum" />
 
                 <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="@string/menu_send" />
+                    android:id="@+id/nav_ranking"
+                    android:icon="@drawable/ic_menu_ranking"
+                    android:title="Ranking" />
             </group>
         </menu>
     </item>
