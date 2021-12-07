@@ -26,6 +26,12 @@
             android:name=".Login"
             android:exported="true" />
         <activity
+            android:name=".VideoTemplate"
+            android:exported="true" />
+        <activity
+            android:name=".Insignia"
+            android:exported="true" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
