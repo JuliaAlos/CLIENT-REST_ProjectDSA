@@ -29,6 +29,12 @@
             android:name=".VideoTemplate"
             android:exported="true" />
         <activity
+            android:name=".Hangar"
+            android:exported="true" />
+        <activity
+            android:name=".Fleet"
+            android:exported="true" />
+        <activity
             android:name=".Insignia"
             android:exported="true" />
         <activity

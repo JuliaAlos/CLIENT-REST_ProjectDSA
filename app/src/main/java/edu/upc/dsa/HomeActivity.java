@@ -144,12 +144,12 @@ public class HomeActivity extends AppCompatActivity
   /** Map related functions */
 
   public void hangarClick(View view) {
-    Intent intent = new Intent(this, VideoTemplate.class);
+    Intent intent = new Intent(this, Hangar.class);
     startActivity(intent);
   }
 
   public void insigniaClick(View view) {
-    Intent intent = new Intent(this, VideoTemplate.class);
+    Intent intent = new Intent(this, Insignia.class);
     startActivity(intent);
   }
 

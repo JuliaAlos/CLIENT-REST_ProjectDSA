@@ -7,10 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import edu.upc.dsa.models.LoginUserTO;
+import edu.upc.dsa.transferObjects.LoginUserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

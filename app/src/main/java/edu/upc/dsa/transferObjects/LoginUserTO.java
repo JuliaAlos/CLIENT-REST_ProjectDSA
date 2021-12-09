@@ -1,4 +1,4 @@
-package edu.upc.dsa.models;
+package edu.upc.dsa.transferObjects;
 
 public class LoginUserTO {
     private String userName;

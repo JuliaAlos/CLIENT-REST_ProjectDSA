@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import edu.upc.dsa.models.*;
+import edu.upc.dsa.transferObjects.RegisterUserTO;
+import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
