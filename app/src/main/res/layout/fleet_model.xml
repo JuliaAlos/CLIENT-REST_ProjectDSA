@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/descriptionID"
-                    android:text="Author"
+                    android:text="Engines lives"
                     android:textSize="15dp"/>
 
             </LinearLayout>

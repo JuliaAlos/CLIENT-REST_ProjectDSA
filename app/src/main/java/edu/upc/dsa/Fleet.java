@@ -35,7 +35,7 @@ public class Fleet extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.insignias);
+        setContentView(R.layout.fleet);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -49,14 +49,14 @@ public class Fleet extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /**
+
         //----RECYCLERVIEW-----
         RecyclerView recyclerView;
         RecyclerAdapter adapter;
         recyclerView = findViewById(R.id.recyclerViewID);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerAdapter(this,listPlanes);
+        adapter = new RecyclerAdapter(this, listPlanes);
         recyclerView.setAdapter(adapter);
         //--------------------
 
@@ -76,7 +76,6 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-         */
     }
 
     private void getAllPlanes() throws IOException {
