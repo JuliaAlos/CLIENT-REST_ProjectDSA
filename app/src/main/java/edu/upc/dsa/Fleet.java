@@ -84,7 +84,7 @@ public class Fleet extends AppCompatActivity {
          */
 
         AdapRecPlane adapter = new AdapRecPlane(this, list);
-        rec = findViewById(R.id.storeRec);
+        rec = findViewById(R.id.recyclerViewID);
         rec.setAdapter(adapter);
         rec.setLayoutManager(new LinearLayoutManager(this));
 

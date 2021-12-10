@@ -33,7 +33,7 @@ public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.store, parent, false);
+        View view = inflater.inflate(R.layout.fleet, parent, false);
         return new ViewHolder(view);
     }
 
