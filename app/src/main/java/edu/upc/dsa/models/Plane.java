@@ -1,6 +1,6 @@
 package edu.upc.dsa.models;
 
-public class Plane {
+public class Plane extends ViewModel{
     private String model;
     private Integer velX;
     private Integer velY;
@@ -9,8 +9,8 @@ public class Plane {
     private Integer fuelConsumptionRate;
 
 
-    public Plane(){}
-    public Plane(String model, Integer velX, Integer velY, Double gravity, Integer enginesLife, Integer fuelConsumptionRate){
+    public Plane(int image, String description, Double qualification,String model, Integer velX, Integer velY, Double gravity, Integer enginesLife, Integer fuelConsumptionRate){
+        super(image, description, qualification);
         this.model = model;
         this.velX = velX;
         this.velY = velY;

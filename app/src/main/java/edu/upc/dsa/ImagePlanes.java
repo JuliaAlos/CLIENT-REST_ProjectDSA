@@ -6,11 +6,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import edu.upc.dsa.models.Plane;
-import edu.upc.dsa.models.PlaneViewModel;
-
 public class ImagePlanes extends AppCompatActivity {
 
     ImageView ImagePlanesView;

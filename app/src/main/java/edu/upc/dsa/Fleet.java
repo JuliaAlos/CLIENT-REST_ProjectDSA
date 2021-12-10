@@ -1,6 +1,5 @@
 package edu.upc.dsa;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import edu.upc.dsa.models.AdapRecPlane;
 import edu.upc.dsa.models.Plane;
-import edu.upc.dsa.models.PlaneViewModel;
+import edu.upc.dsa.models.ViewModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,12 +34,12 @@ public class Fleet extends AppCompatActivity {
     List<Plane> listPlanes;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
 
-    ArrayList<PlaneViewModel> list = new ArrayList<PlaneViewModel>();
+    ArrayList<Plane> list = new ArrayList<Plane>();
     RecyclerView rec;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.insignias);
+        setContentView(R.layout.fleet);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -54,14 +53,14 @@ public class Fleet extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /**
+/*
         //----RECYCLERVIEW-----
         RecyclerView recyclerView;
         RecyclerAdapter adapter;
         recyclerView = findViewById(R.id.recyclerViewID);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerAdapter(this,listPlanes);
+        adapter = new RecyclerAdapter(this, listPlanes);
         recyclerView.setAdapter(adapter);
         //--------------------
 
@@ -81,12 +80,14 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+
          */
 
         AdapRecPlane adapter = new AdapRecPlane(this, list);
         rec = findViewById(R.id.storeRec);
         rec.setAdapter(adapter);
         rec.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private void getAllPlanes() throws IOException {
@@ -100,11 +101,11 @@ public class Fleet extends AppCompatActivity {
     }
 
 
-    public ArrayList<PlaneViewModel> data (){
-        list.add(new PlaneViewModel(R.drawable.a,"Motores europeos", 2.0, "Airbus", 2, 500, 300, 50));
-        list.add(new PlaneViewModel(R.drawable.b,"Motores estadunidenses", 2.0, "Boeing", 2, 500, 300, 50));
-        list.add(new PlaneViewModel(R.drawable.c,"Vuelo básico", 1.0, "Cessna", 1, 100, 100, 20));
-        list.add(new PlaneViewModel(R.drawable.f,"Vuelo profesional", 4.0, "Caza", 4, 1000, 500, 100));
+    public ArrayList<Plane> data (){
+        list.add(new Plane(R.drawable.a,"Motores europeos", 2.0, "Airbuss",500,200,9.81, 2,500));
+        list.add(new Plane(R.drawable.b,"Motores estadunidenses", 2.0, "Boeing",500,200,9.81, 2,500));
+        list.add(new Plane(R.drawable.c,"Vuelo básico", 1.0, "Cessna",500,200,9.81, 2,500));
+        list.add(new Plane(R.drawable.f,"Vuelo profesional", 4.0, "Caza",500,200,9.81, 2,500));
         return list;
     }
 

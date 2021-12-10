@@ -3,7 +3,6 @@ package edu.upc.dsa.models;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,9 @@ import edu.upc.dsa.R;
 public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
 
     Context context;
-    ArrayList<PlaneViewModel> list;
+    ArrayList<Plane> list;
 
-    public AdapRecPlane (Context context, ArrayList<PlaneViewModel> list){
+    public AdapRecPlane (Context context, ArrayList<Plane> list){
         this.context = context;
         this.list = list;
     }
@@ -41,9 +40,9 @@ public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
     @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.image.setImageResource(list.get(position).image);
+        holder.image.setImageResource(list.get(position).getImagePlane());
         holder.text1.setText(list.get(position).getModel());
-        holder.text2.setText(list.get(position).description);
+        holder.text2.setText(list.get(position).getDescription());
         holder.bar.setRating((float) list.get(position).getQualification());
         holder.main.setOnClickListener(new View.OnClickListener() {
             @Override
