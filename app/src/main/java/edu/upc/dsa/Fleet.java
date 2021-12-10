@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.upc.dsa.models.AdapRecPlane;
 import edu.upc.dsa.models.Plane;
+import edu.upc.dsa.models.PlaneViewModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -32,6 +34,9 @@ public class Fleet extends AppCompatActivity {
     ApiInterface apiInterface;
     List<Plane> listPlanes;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
+
+    ArrayList<PlaneViewModel> list = new ArrayList<PlaneViewModel>();
+    RecyclerView rec;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,11 @@ public class Fleet extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
          */
+
+        AdapRecPlane adapter = new AdapRecPlane(this, list);
+        rec = findViewById(R.id.storeRec);
+        rec.setAdapter(adapter);
+        rec.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void getAllPlanes() throws IOException {
@@ -87,6 +97,15 @@ public class Fleet extends AppCompatActivity {
         {
             System.out.println(plane.getModel());
         }
+    }
+
+
+    public ArrayList<PlaneViewModel> data (){
+        list.add(new PlaneViewModel(R.drawable.a,"Motores europeos", 2.0, "Airbus", 2, 500, 300, 50));
+        list.add(new PlaneViewModel(R.drawable.b,"Motores estadunidenses", 2.0, "Boeing", 2, 500, 300, 50));
+        list.add(new PlaneViewModel(R.drawable.c,"Vuelo básico", 1.0, "Cessna", 1, 100, 100, 20));
+        list.add(new PlaneViewModel(R.drawable.f,"Vuelo profesional", 4.0, "Caza", 4, 1000, 500, 100));
+        return list;
     }
 
 }
