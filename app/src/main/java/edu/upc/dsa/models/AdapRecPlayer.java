@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import edu.upc.dsa.ImagePlanes;
 import edu.upc.dsa.R;
 
-public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
+public class AdapRecPlayer extends RecyclerView.Adapter<AdapRecPlayer.ViewHolder>{
 
     Context context;
-    ArrayList<Plane> list;
+    ArrayList<Player> list;
 
-    public AdapRecPlane (Context context, ArrayList<Plane> list){
+    public AdapRecPlayer (Context context, ArrayList<Player> list){
         this.context = context;
         this.list = list;
     }
@@ -33,7 +33,7 @@ public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fleet, parent, false);
+        View view = inflater.inflate(R.layout.ranking, parent, false);
         return new ViewHolder(view);
     }
 
@@ -41,17 +41,12 @@ public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.image.setImageResource(list.get(position).getImage());
-        holder.text1.setText(list.get(position).getModel());
-        holder.text2.setText(list.get(position).getDescription());
+        holder.text1.setText(list.get(position).getPlayerName());
+        holder.text2.setText(list.get(position).getRol());
+        holder.text3.setText(list.get(position).getBitcoins());
+        holder.text4.setText(list.get(position).getMaxDistance());
+        holder.text5.setText(list.get(position).getTimeOfFlight());
         holder.bar.setRating((float) list.get(position).getQualification());
-        holder.main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent (context, ImagePlanes.class);
-                intent.putExtra("planeData", list.get(position).getImage());
-                context.startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -63,15 +58,20 @@ public class AdapRecPlane extends RecyclerView.Adapter<AdapRecPlane.ViewHolder>{
         ImageView image;
         TextView text1;
         TextView text2;
+        TextView text3;
+        TextView text4;
+        TextView text5;
         RatingBar bar;
-        ConstraintLayout main;
         public ViewHolder(@NonNull View vista) {
             super(vista);
-            image = vista.findViewById(R.id.imRec);
-            text1 = vista.findViewById(R.id.tiRec);
-            text2 = vista.findViewById(R.id.desRec);
-            bar = vista.findViewById(R.id.ratingBarRec);
-            main = vista.findViewById(R.id.main);
+            image = vista.findViewById(R.id.imagePlayer);
+            text1 = vista.findViewById(R.id.playerName);
+            text2 = vista.findViewById(R.id.rol);
+            text3 = vista.findViewById(R.id.bitcoins);
+            text4 = vista.findViewById(R.id.maxDistance);
+            text5 = vista.findViewById(R.id.timeOfFlight);
+            bar = vista.findViewById(R.id.ratingBarRanking);
         }
     }
 }
+

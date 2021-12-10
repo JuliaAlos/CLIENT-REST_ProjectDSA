@@ -13,13 +13,12 @@ public class ViewModel {
         this.qualification = qualification;
 
     }
-    public int getImagePlane(){
+    public int getImage(){
         return this.image;
     }
     public String getDescription(){
         return this.description;
     }
-
     public double getQualification(){
         return this.qualification;
     }
