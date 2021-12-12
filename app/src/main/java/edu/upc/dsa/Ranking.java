@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import edu.upc.dsa.models.AdapRecPlane;
-import edu.upc.dsa.models.AdapRecPlayer;
-import edu.upc.dsa.models.Plane;
 import edu.upc.dsa.models.Player;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

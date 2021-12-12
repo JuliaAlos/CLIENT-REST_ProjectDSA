@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.upc.dsa.models.AdapRecPlane;
 import edu.upc.dsa.models.Plane;
-import edu.upc.dsa.models.ViewModel;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,9 +34,7 @@ public class Fleet extends AppCompatActivity {
     ApiInterface apiInterface;
     List<Plane> listPlanes;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
-
-    ArrayList<Plane> list = new ArrayList<Plane>();
-    RecyclerView rec;
+    RecyclerView recyclerView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,24 +46,7 @@ public class Fleet extends AppCompatActivity {
                 .build();
 
         apiInterface = retrofit.create(ApiInterface.class);
-        try {
-            getAllPlanes();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-/*
-        //----RECYCLERVIEW-----
-        RecyclerView recyclerView;
-        RecyclerAdapter adapter;
         recyclerView = findViewById(R.id.recyclerViewID);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerAdapter(this, listPlanes);
-        recyclerView.setAdapter(adapter);
-        //--------------------
-
-
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
@@ -80,27 +62,49 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
-         */
-
-        AdapRecPlane adapter = new AdapRecPlane(this, list);
-        rec = findViewById(R.id.recyclerViewID);
-        rec.setAdapter(adapter);
-        rec.setLayoutManager(new LinearLayoutManager(this));
+        try {
+            getAllPlanes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
+
+    public void initializeRecyclerView(List<Plane> planes){
+        RecyclerAdapter myAdapter= new RecyclerAdapter(this, planes);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+    }
+
+    /************ API OPERATIONS ********************************/
 
     private void getAllPlanes() throws IOException {
         Call<List<Plane>> call = apiInterface.getAllPlanes();
-        //Fetch and print the results.
-        listPlanes = call.execute().body();
-        for (Plane plane : listPlanes)
-        {
-            System.out.println(plane.getModel());
-        }
+        call.enqueue(new Callback<List<Plane>>() {
+            @Override
+            public void onResponse(Call<List<Plane>> call, Response<List<Plane>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("MYAPP", "Error" + response.code());
+                    return;
+                }
+
+                listPlanes = response.body();
+                for (Plane plane : listPlanes) {
+                    Log.d("MYAPP", plane.getModel());
+                }
+                initializeRecyclerView(listPlanes);
+            }
+
+            @Override
+            public void onFailure(Call<List<Plane>> call, Throwable t) {
+                Log.d("MYAPP", "Error:" + t.getMessage());
+            }
+        });
     }
 
-
+/**
     public ArrayList<Plane> data (){
         list.add(new Plane(R.drawable.a,"Motores europeos", 2.0, "Airbuss",500,200,9.81, 2,500));
         list.add(new Plane(R.drawable.b,"Motores estadunidenses", 2.0, "Boeing",500,200,9.81, 2,500));
@@ -108,5 +112,7 @@ public class Fleet extends AppCompatActivity {
         list.add(new Plane(R.drawable.f,"Vuelo profesional", 4.0, "Caza",500,200,9.81, 2,500));
         return list;
     }
+ */
+
 
 }

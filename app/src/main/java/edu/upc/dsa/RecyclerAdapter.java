@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,35 +25,38 @@ import edu.upc.dsa.models.Plane;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    List<Plane> data = new ArrayList<>();
+    List<Plane> planes;
     Context context;
-    public static final String EXTRA_MESSAGE_1 = "com.example.myfirstapp.MESSAGE";
 
-    //Methods to modify the list of tracks. These should be imported from the server.
-
-    //We create a constructor.
     public RecyclerAdapter(Context context, List<Plane> data){
-        this.data = data;
+        this.planes = data;
         this.context = context;
     }
 
+    //To create the views.
     @NonNull
-    //To create teh views.
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.fleet,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        View view = layoutInflater.inflate(R.layout.fleet_model,parent,false);
+        return new ViewHolder(view);
     }
 
     //To insert data into the views.
     @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Once we have the data set, we put the data in the holder to display it.
-        holder.title.setText(data.get(position).getModel());
-        holder.description.setText(data.get(position).getEnginesLife());
-        holder.transparentButton.setText(data.get(position).getEnginesLife());
+        Plane plane = planes.get(position);
+
+        if (plane.getModel().equals("AirbusA320")){
+            holder.imageView.setImageResource(R.drawable.a320_entry);
+        }
+        if (plane.getModel().equals("Cessna")){
+            holder.imageView.setImageResource(R.drawable.cessna_entry);
+        }
+
+        //And here the IF's with the model, to match them with the corresponding layout.
+
         /**
         holder.transparentButton.setOnClickListener(new View.OnClickListener() {
             //This is the code so that when a particular track is clicked, its information appears in the new layout.
@@ -70,18 +75,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     //Creates the number of views.
     @Override
     public int getItemCount() {
-        return data.size();
+        return planes.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView description;
-        Button transparentButton;
+        TextView title, description;
+        ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tiRec);
-            description = itemView.findViewById(R.id.desRec);
-            /*transparentButton = itemView.findViewById(R.id.transparentButtonID);*/
+            imageView = itemView.findViewById(R.id.entryImageID);
+
         }
     }
 }

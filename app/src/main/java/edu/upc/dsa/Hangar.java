@@ -25,7 +25,6 @@ public class Hangar extends AppCompatActivity {
     }
 
     public void returnClick(View view) {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        finish();
     }
 }
