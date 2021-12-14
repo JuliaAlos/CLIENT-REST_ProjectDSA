@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import edu.upc.dsa.models.*;
+import edu.upc.dsa.transferObjects.RegisterUserTO;
+import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,7 +47,7 @@ public class Register extends AppCompatActivity {
         this.fullName = (TextView) findViewById(R.id.fullNamePlainText);
         this.email = (TextView) findViewById(R.id.emailPlainText);
         this.password = (TextView) findViewById(R.id.passwordTextView);
-        Intent intentDashboard = new Intent(this, Dashboard.class);
+        Intent intentHomeActivity = new Intent(this, HomeActivity.class);
 
         RegisterUserTO user = new RegisterUserTO(username.getText().toString(),
                 password.getText().toString(),fullName.getText().toString(),email.getText().toString());
@@ -64,7 +65,7 @@ public class Register extends AppCompatActivity {
                 UserTO userTO =response.body();
                 Toast.makeText(Register.this, "Welcome " + userTO.getUserName(), Toast.LENGTH_LONG).show();
                 Log.d("AddUser", "Successful addUser "+ userTO.getUserName());
-                startActivity(intentDashboard);
+                startActivity(intentHomeActivity);
             }
 
             @Override

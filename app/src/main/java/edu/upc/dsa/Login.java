@@ -1,7 +1,6 @@
 package edu.upc.dsa;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
-import edu.upc.dsa.models.*;
+import edu.upc.dsa.transferObjects.LoginUserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +44,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginButtonClick(View view) {
+
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
 
@@ -83,6 +81,11 @@ public class Login extends AppCompatActivity {
                 Log.d("LoginUser", "Error loginUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
+
+
+
+        Intent intent = new Intent(Login.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     public void loginToRegister(View view){

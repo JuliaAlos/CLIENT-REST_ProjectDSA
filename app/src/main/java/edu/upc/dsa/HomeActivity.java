@@ -19,8 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.nio.channels.InterruptedByTimeoutException;
-
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
@@ -140,6 +138,19 @@ public class HomeActivity extends AppCompatActivity
     SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
     headerTitle = (TextView) findViewById(R.id.header_title);
     headerTitle.setText(sharedPref.getString("user","Hola"));
+  }
+
+
+  /** Map related functions */
+
+  public void hangarClick(View view) {
+    Intent intent = new Intent(this, Hangar.class);
+    startActivity(intent);
+  }
+
+  public void insigniaClick(View view) {
+    Intent intent = new Intent(this, Insignia.class);
+    startActivity(intent);
   }
 
 }

@@ -29,6 +29,18 @@
             android:name=".Login"
             android:exported="true" />
         <activity
+            android:name=".VideoTemplate"
+            android:exported="true" />
+        <activity
+            android:name=".Hangar"
+            android:exported="true" />
+        <activity
+            android:name=".Fleet"
+            android:exported="true" />
+        <activity
+            android:name=".Insignia"
+            android:exported="true" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
@@ -38,7 +50,9 @@
             android:name=".Dashboard"
             android:exported="true" />
         <activity
-            android:name=".Store"
+            android:name=".ImagePlanes"
+            android:parentActivityName=".Fleet"
+            android:theme ="@style/Theme.AppCompat.NoActionBar"
             android:exported="true" />
         <activity
             android:name=".Ranking"

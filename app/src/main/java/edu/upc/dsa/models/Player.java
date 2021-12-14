@@ -1,6 +1,6 @@
 package edu.upc.dsa.models;
 
-public class Player {
+public class Player extends ViewModel {
 
     private String playerName;
     private Integer maxDistance;
@@ -8,9 +8,8 @@ public class Player {
     private Integer timeOfFlight;
     private Integer bitcoins;
 
-    public Player(){}
-    public Player(String playerName){
-        this();
+    public Player(int image, String description, Double qualification, String playerName, Integer maxDistance, String rol, Integer timeOfFlight, Integer bitcoins){
+      super(image, description, qualification);
         this.playerName=playerName;
         this.maxDistance=0;
         this.rol = "Beginner";

@@ -27,7 +27,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void storeClick(View view){
-        Intent intent = new Intent(this, Store.class);
+        Intent intent = new Intent(this, Fleet.class);
         startActivity(intent);
     }
 
