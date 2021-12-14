@@ -27,6 +27,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     List<Plane> planes;
     Context context;
+    Integer numPlanes;
+    Integer totalNumPlanes = 3;
 
     public RecyclerAdapter(Context context, List<Plane> data){
         this.planes = data;
@@ -48,14 +50,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         //Once we have the data set, we put the data in the holder to display it.
         Plane plane = planes.get(position);
 
-        if (plane.getModel().equals("AirbusA320")){
-            holder.imageView.setImageResource(R.drawable.a320_entry);
-        }
-        if (plane.getModel().equals("Cessna")){
-            holder.imageView.setImageResource(R.drawable.cessna_entry);
+        switch (plane.getModel()) {
+            case "Airbus":
+                holder.imageView.setImageResource(R.drawable.a320_entry);
+                break;
+            case "Cessna":
+                holder.imageView.setImageResource(R.drawable.cessna_entry);
+                break;
+            case "Fighter":
+                holder.imageView.setImageResource(R.drawable.fighter_entry);
+                break;
         }
 
-        //And here the IF's with the model, to match them with the corresponding layout.
 
         /**
         holder.transparentButton.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +81,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     //Creates the number of views.
     @Override
     public int getItemCount() {
-        return planes.size();
+        this.numPlanes = planes.size();
+        return this.numPlanes;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

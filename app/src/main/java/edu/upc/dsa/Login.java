@@ -44,6 +44,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginButtonClick(View view) {
+
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
 
@@ -80,6 +81,11 @@ public class Login extends AppCompatActivity {
                 Log.d("LoginUser", "Error loginUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
+
+
+
+        Intent intent = new Intent(Login.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     public void loginToRegister(View view){
