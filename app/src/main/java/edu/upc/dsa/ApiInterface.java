@@ -3,7 +3,9 @@ package edu.upc.dsa;
 import java.util.List;
 
 import edu.upc.dsa.models.Plane;
+import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.transferObjects.LoginUserTO;
+import edu.upc.dsa.transferObjects.PlaneTO;
 import edu.upc.dsa.transferObjects.RegisterUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
@@ -17,5 +19,7 @@ public interface ApiInterface {
     @POST("user/login")
     Call<LoginUserTO> loginUser(@Body LoginUserTO user);
     @GET("planes/GetAllPlanes")
-    Call<List<Plane>> getAllPlanes();
+    Call<List<PlaneModel>> getAllPlanes();
+    @GET("planes/GetListPlanesPlayer")
+    Call<List<PlaneTO>> getListPlanesPlayer();
 }

@@ -22,17 +22,20 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import edu.upc.dsa.models.Plane;
+import edu.upc.dsa.models.PlaneModel;
+import edu.upc.dsa.transferObjects.PlaneTO;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    List<Plane> planes;
+    List<PlaneTO> planesPlayer; //
+    List<PlaneModel> allPlanes;
     Context context;
     Integer numPlanes;
-    Integer totalNumPlanes = 3;
 
-    public RecyclerAdapter(Context context, List<Plane> data){
-        this.planes = data;
+    public RecyclerAdapter(Context context, List<PlaneModel> data, List<PlaneTO> planesPlayer){
+        this.allPlanes = data;
         this.context = context;
+        this.planesPlayer = planesPlayer;
     }
 
     //To create the views.
@@ -48,7 +51,44 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Once we have the data set, we put the data in the holder to display it.
-        Plane plane = planes.get(position);
+        PlaneModel plane = allPlanes.get(position);
+
+        for (PlaneModel planeModel : allPlanes){
+            String currentPlane = planeModel.getModel();
+            int i = 0;
+            int found = 0;
+            while ((found == 0) && (i < this.planesPlayer.size())){
+                if (currentPlane.equals(this.planesPlayer.get(i).getModel())){
+                    found = 1;
+                }
+            }
+            if (found == 1){
+                if (currentPlane.equals("Airbus")){
+                    holder.imageView.setImageResource(R.drawable.a320_entry);
+                }
+                if (currentPlane.equals("Cessna")){
+                    holder.imageView.setImageResource(R.drawable.cessna_entry);
+                }
+                if (currentPlane.equals("Fighter")){
+                    holder.imageView.setImageResource(R.drawable.fighter_entry);
+                }
+
+            }
+            if (found == 0){
+                if (currentPlane.equals("Airbus")){
+                    holder.imageView.setImageResource(R.drawable.a320_bw_entry);
+                }
+                if (currentPlane.equals("Cessna")){
+                    holder.imageView.setImageResource(R.drawable.cessna_bw_entry);
+                }
+                if (currentPlane.equals("Fighter")){
+                    holder.imageView.setImageResource(R.drawable.fighter_bw_entry);
+                }
+
+            }
+        }
+
+
 
         switch (plane.getModel()) {
             case "Airbus":
@@ -81,7 +121,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     //Creates the number of views.
     @Override
     public int getItemCount() {
-        this.numPlanes = planes.size();
+        this.numPlanes = allPlanes.size();
         return this.numPlanes;
     }
 

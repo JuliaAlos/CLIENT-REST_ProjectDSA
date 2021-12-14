@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginButtonClick(View view) {
-
+        /**
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
 
@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
+         */
 
         Intent intent = new Intent(Login.this, HomeActivity.class);
         startActivity(intent);
