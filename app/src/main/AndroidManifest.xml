@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ProjectDSA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Profile"
+            android:exported="true" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/SplashTheme">
