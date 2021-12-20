@@ -97,6 +97,11 @@ public class HomeActivity extends AppCompatActivity
         Intent intentRanking = new Intent(this, Ranking.class);
         startActivity(intentRanking);
         break;
+      case R.id.nav_hangar:
+        title = R.string.menu_hangar;
+        Intent intentHangar = new Intent(this, Hangar.class);
+        startActivity(intentHangar);
+        break;
       default:
         throw new IllegalArgumentException("menu option not implemented!!");
     }

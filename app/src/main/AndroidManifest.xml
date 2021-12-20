@@ -13,6 +13,11 @@
         android:theme="@style/Theme.ProjectDSA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Ranking"
+            android:exported="true"
+            android:label="@string/title_activity_ranking2"
+            android:theme="@style/Theme.ProjectDSA.NoActionBar" />
+        <activity
             android:name=".Profile"
             android:exported="true" />
         <activity
@@ -51,12 +56,9 @@
             android:exported="true" />
         <activity
             android:name=".ImagePlanes"
+            android:exported="true"
             android:parentActivityName=".Fleet"
-            android:theme ="@style/Theme.AppCompat.NoActionBar"
-            android:exported="true" />
-        <activity
-            android:name=".Ranking"
-            android:exported="true" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Forum"
             android:exported="true" />

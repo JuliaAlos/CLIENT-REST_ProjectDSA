@@ -11,10 +11,10 @@ public class Player extends ViewModel {
     public Player(int image, String description, Double qualification, String playerName, Integer maxDistance, String rol, Integer timeOfFlight, Integer bitcoins){
       super(image, description, qualification);
         this.playerName=playerName;
-        this.maxDistance=0;
-        this.rol = "Beginner";
-        this.timeOfFlight=0;
-        this.bitcoins=0;
+        this.maxDistance=maxDistance;
+        this.rol = rol;
+        this.timeOfFlight=timeOfFlight;
+        this.bitcoins=bitcoins;
     }
 
     /**********************************************************************
