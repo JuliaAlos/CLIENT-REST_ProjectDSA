@@ -52,9 +52,6 @@
             android:name=".Register"
             android:exported="true" />
         <activity
-            android:name=".Dashboard"
-            android:exported="true" />
-        <activity
             android:name=".ImagePlanes"
             android:exported="true"
             android:parentActivityName=".Fleet"

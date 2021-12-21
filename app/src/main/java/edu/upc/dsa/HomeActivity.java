@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +21,24 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DrawerLayout.DrawerListener {
 
+  ApiInterface apiInterface;
+  public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
+
+  private String userName;
+  ProgressBar progressBar;
+
   private DrawerLayout drawerLayout;
-  //TextView headerTitle;
-  //SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+
   public void storeClick(View view) {
     Intent intent = new Intent(this, Stats.class);
     startActivity(intent);
@@ -64,8 +77,106 @@ public class HomeActivity extends AppCompatActivity
                 Toast.LENGTH_SHORT).show();
       }
     });
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    apiInterface = retrofit.create(ApiInterface.class);
+    SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+    userName = sharedPref.getString("user","Hola");
+    progressBar= findViewById(R.id.progressBar);
+
   }
 
+  @Override
+  public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+    switch (menuItem.getItemId()) {
+      case R.id.nav_profile:
+        break;
+      case R.id.nav_stats:
+        Intent intentStats = new Intent(this, Stats.class);
+        startActivity(intentStats);
+        break;
+      case R.id.nav_forum:
+        Intent intentForum = new Intent(this, Forum.class);
+        startActivity(intentForum);
+        break;
+      case R.id.nav_ranking:
+        Intent intentRanking = new Intent(this, Ranking.class);
+        startActivity(intentRanking);
+        break;
+      case R.id.nav_hangar:
+        Intent intentHangar = new Intent(this, Hangar.class);
+        startActivity(intentHangar);
+        break;
+      case R.id.nav_logout:
+        logout();
+        break;
+      default:
+        throw new IllegalArgumentException("menu option not implemented!!");
+    }
+
+    /*Fragment fragment = HomeContentFragment.newInstance(getString(title));
+    getSupportFragmentManager()
+            .beginTransaction()
+            .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit)
+            .replace(R.id.home_content, fragment)
+            .commit();
+
+    setTitle(getString(title));*/
+
+    drawerLayout.closeDrawer(GravityCompat.START);
+
+    return true;
+  }
+
+  public void logout(){
+    progressBar.setVisibility(View.VISIBLE);
+    Call<Void> call = apiInterface.logoutUser(userName);
+    call.enqueue(new Callback<Void>() {
+      @Override
+      public void onResponse(Call<Void> call, Response<Void> response) {
+
+        if(!response.isSuccessful()){
+          Log.d("LogoutUser", "Error logoutUser"+response.code());
+          Toast.makeText(HomeActivity.this, "User not found" , Toast.LENGTH_LONG).show();
+          progressBar.setVisibility(View.GONE);
+          return;
+        }
+        else{
+          Intent intentLogin = new Intent(HomeActivity.this, Login.class);
+          startActivity(intentLogin);
+        }
+
+      }
+
+      @Override
+      public void onFailure(Call<Void> call, Throwable t) {
+        progressBar.setVisibility(View.GONE);
+        Toast.makeText(HomeActivity.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
+        Log.d("LoginUser", "Error logoutUser in getting response from service using retrofit: "+t.getMessage());
+      }
+    });
+
+
+  }
+
+
+
+  /** Map related functions */
+
+  public void hangarClick(View view) {
+    Intent intent = new Intent(this, Hangar.class);
+    startActivity(intent);
+  }
+
+  public void insigniaClick(View view) {
+    Intent intent = new Intent(this, Insignia.class);
+    startActivity(intent);
+  }
+
+  /** Nav menu configuration */
   @Override
   public void onBackPressed() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -73,51 +184,6 @@ public class HomeActivity extends AppCompatActivity
     } else {
       super.onBackPressed();
     }
-  }
-
-  @Override
-  public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-    int title;
-    switch (menuItem.getItemId()) {
-      case R.id.nav_profile:
-        title = R.string.menu_profile;
-        break;
-      case R.id.nav_stats:
-        title = R.string.menu_stats;
-        Intent intentStats = new Intent(this, Stats.class);
-        startActivity(intentStats);
-        break;
-      case R.id.nav_forum:
-        title = R.string.menu_forum;
-        Intent intentForum = new Intent(this, Forum.class);
-        startActivity(intentForum);
-        break;
-      case R.id.nav_ranking:
-        title = R.string.menu_ranking;
-        Intent intentRanking = new Intent(this, Ranking.class);
-        startActivity(intentRanking);
-        break;
-      case R.id.nav_hangar:
-        title = R.string.menu_hangar;
-        Intent intentHangar = new Intent(this, Hangar.class);
-        startActivity(intentHangar);
-        break;
-      default:
-        throw new IllegalArgumentException("menu option not implemented!!");
-    }
-
-    Fragment fragment = HomeContentFragment.newInstance(getString(title));
-    getSupportFragmentManager()
-            .beginTransaction()
-            .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit)
-            .replace(R.id.home_content, fragment)
-            .commit();
-
-    setTitle(getString(title));
-
-    drawerLayout.closeDrawer(GravityCompat.START);
-
-    return true;
   }
 
   @Override
@@ -140,22 +206,8 @@ public class HomeActivity extends AppCompatActivity
   public void onDrawerStateChanged(int i) {
     //cambio de estado, puede ser STATE_IDLE, STATE_DRAGGING or STATE_SETTLING
     TextView headerTitle;
-    SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
     headerTitle = (TextView) findViewById(R.id.header_title);
-    headerTitle.setText(sharedPref.getString("user","Hola"));
-  }
-
-
-  /** Map related functions */
-
-  public void hangarClick(View view) {
-    Intent intent = new Intent(this, Hangar.class);
-    startActivity(intent);
-  }
-
-  public void insigniaClick(View view) {
-    Intent intent = new Intent(this, Insignia.class);
-    startActivity(intent);
+    headerTitle.setText(userName);
   }
 
 }
