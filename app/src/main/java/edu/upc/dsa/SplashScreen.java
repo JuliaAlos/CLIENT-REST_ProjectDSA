@@ -35,6 +35,7 @@ public class SplashScreen extends AppCompatActivity {
         checkSharedPreferences();
 
     }
+
     public void checkSharedPreferences(){
 
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
@@ -72,4 +73,5 @@ public class SplashScreen extends AppCompatActivity {
         });
 
     }
+
 }

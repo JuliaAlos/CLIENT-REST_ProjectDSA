@@ -17,12 +17,16 @@ import retrofit2.http.Path;
 public interface ApiInterface {
     @POST("user/register")
     Call<UserTO> addUser(@Body RegisterUserTO user);
+
     @POST("user/login")
     Call<LoginUserTO> loginUser(@Body LoginUserTO user);
+
     @GET("user/logout/{userName}")
     Call<Void> logoutUser(@Path("userName") String userName);
+
     @GET("planes/GetAllPlanes")
     Call<List<PlaneModel>> getAllPlanes();
-    @GET("planes/GetListPlanesPlayer")
-    Call<List<PlaneTO>> getListPlanesPlayer();
+
+    @GET("planes/GetListPlanesPlayer/{playername}")
+    Call<List<PlaneTO>> getListPlanesPlayer(@Path("playername") String playerName);
 }

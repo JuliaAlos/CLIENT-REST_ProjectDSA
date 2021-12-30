@@ -26,16 +26,13 @@ import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.transferObjects.PlaneTO;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-
-    List<PlaneTO> planesPlayer; //
-    List<PlaneModel> allPlanes;
+    List<PlaneModel> planes;
+    List<PlaneTO> listPlanesPlayer;
     Context context;
-    Integer numPlanes;
 
-    public RecyclerAdapter(Context context, List<PlaneModel> data, List<PlaneTO> planesPlayer){
-        this.allPlanes = data;
+    public RecyclerAdapter(Context context, List<PlaneTO> listPlanesPlayer){
+        this.listPlanesPlayer = listPlanesPlayer;
         this.context = context;
-        this.planesPlayer = planesPlayer;
     }
 
     //To create the views.
@@ -51,8 +48,95 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Once we have the data set, we put the data in the holder to display it.
-        PlaneModel plane = allPlanes.get(position);
 
+
+        PlaneTO plane = listPlanesPlayer.get(position);
+
+        if (plane.getModel().equals("AirbusA320")){
+            holder.imageView.setImageResource(R.drawable.a320_entry);
+        }
+        if (plane.getModel().equals("Fighter")){
+            holder.imageView.setImageResource(R.drawable.fighter_entry);
+        }
+        if (plane.getModel().equals("Cessna")){
+            holder.imageView.setImageResource(R.drawable.cessna_entry);
+        }
+
+        //And here the IF's with the model, to match them with the corresponding layout.
+
+        /**
+         holder.transparentButton.setOnClickListener(new View.OnClickListener() {
+         //This is the code so that when a particular track is clicked, its information appears in the new layout.
+         @Override
+         public void onClick(View v) {
+         Toast.makeText(context, "Info page of track " + data.get(position).title + " opens" , Toast.LENGTH_SHORT).show();
+         Intent intent = new Intent(context, infoTrack.class);
+         intent.putExtra(EXTRA_MESSAGE_1, holder.title.getText().toString());
+         context.startActivity(intent);
+         }
+         });
+         */
+    }
+
+    //Creates the number of views.
+    @Override
+    public int getItemCount() {
+        return planes.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView title, description;
+        ImageView imageView;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.entryImageID);
+
+        }
+    }
+
+
+
+    //------------------------------------------------------------------------------------------------
+
+
+
+
+
+    /**
+    List<PlaneTO> planesPlayer;
+    List<PlaneModel> allPlanes;
+    Context context;
+    Integer numPlanes;
+
+    public RecyclerAdapter(Context context, List<PlaneModel> allPlanes){
+        this.allPlanes = allPlanes;
+        this.context = context;
+    }
+
+    /**
+    public RecyclerAdapter(Context context, List<PlaneModel> allPlanes, List<PlaneTO> planesPlayer){
+        this.allPlanes = allPlanes;
+        this.context = context;
+        this.planesPlayer = planesPlayer;
+    }
+
+
+    //To create the views.
+    @NonNull
+    @Override
+    public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.fleet_model,parent,false);
+        return new ViewHolder(view);
+    }
+
+    //To insert data into the views.
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //Once we have the data set, we put the data in the holder to display it.
+        PlaneModel plane = this.allPlanes.get(position);
+
+        /**
         for (PlaneModel planeModel : allPlanes){
             String currentPlane = planeModel.getModel();
             int i = 0;
@@ -74,7 +158,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
 
             }
-            if (found == 0){
+            else{
                 if (currentPlane.equals("Airbus")){
                     holder.imageView.setImageResource(R.drawable.a320_bw_entry);
                 }
@@ -87,6 +171,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             }
         }
+
 
 
 
@@ -103,6 +188,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
 
+
+
         /**
         holder.transparentButton.setOnClickListener(new View.OnClickListener() {
             //This is the code so that when a particular track is clicked, its information appears in the new layout.
@@ -115,13 +202,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
 
         });
-         */
+
     }
 
     //Creates the number of views.
     @Override
     public int getItemCount() {
-        this.numPlanes = allPlanes.size();
+        this.numPlanes = this.allPlanes.size();
         return this.numPlanes;
     }
 
@@ -134,4 +221,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         }
     }
+    */
+
 }

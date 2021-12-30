@@ -33,24 +33,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Airbus A380
  * F-16
  * Antonov An-225
- * Space Shuttle? xd
  */
 
 public class Fleet extends AppCompatActivity {
+
     ApiInterface apiInterface;
-    List<PlaneModel> allPlanes;
-    List<PlaneTO> listPlanesUser;
+    List<PlaneModel> listPlanes;
+    List <PlaneTO> listPlanesPlayer;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     RecyclerView recyclerView;
-    String username = "mirarnau";
+    String playerName = "Arnau";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-        //LoginUserTO user = new LoginUserTO(sharedPref.getString("user",null), sharedPref.getString("password",null));
-        //username = user.getUserName();
         setContentView(R.layout.fleet);
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -74,24 +70,16 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        //So that the list is created.
         try {
-            getListPlanesUser();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Here, the allPlanes list is created and the recyclerview is initialized.
-        try {
-            getAllPlanes();
+            getListPlanesPlayer(this.playerName);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void initializeRecyclerView(List<PlaneModel> planes){
-        RecyclerAdapter myAdapter= new RecyclerAdapter(this, planes, this.listPlanesUser);
+    public void initializeRecyclerView(List<PlaneTO> listPlanesPlayer){
+        RecyclerAdapter myAdapter= new RecyclerAdapter(this, listPlanesPlayer);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -110,11 +98,11 @@ public class Fleet extends AppCompatActivity {
                     return;
                 }
 
-                allPlanes = response.body();
-                for (PlaneModel plane : allPlanes) {
+                listPlanes = response.body();
+                for (PlaneModel plane : listPlanes) {
                     Log.d("MYAPP", plane.getModel());
                 }
-                initializeRecyclerView(allPlanes);
+                initializeRecyclerView(listPlanesPlayer);
             }
 
             @Override
@@ -123,10 +111,8 @@ public class Fleet extends AppCompatActivity {
             }
         });
     }
-
-    //Only gets the list of planes of the user, it doesn't initialize the recyclerview.
-    private void getListPlanesUser() throws IOException {
-        Call<List<PlaneTO>> call = apiInterface.getListPlanesPlayer();
+    private void getListPlanesPlayer(String playerName) throws IOException{
+        Call<List<PlaneTO>> call = apiInterface.getListPlanesPlayer(playerName);
         call.enqueue(new Callback<List<PlaneTO>>() {
             @Override
             public void onResponse(Call<List<PlaneTO>> call, Response<List<PlaneTO>> response) {
@@ -135,10 +121,11 @@ public class Fleet extends AppCompatActivity {
                     return;
                 }
 
-                listPlanesUser = response.body();
-                for (PlaneTO plane : listPlanesUser) {
+                listPlanesPlayer = response.body();
+                for (PlaneTO plane : listPlanesPlayer) {
                     Log.d("MYAPP", plane.getModel());
                 }
+                initializeRecyclerView(listPlanesPlayer);
             }
 
             @Override
@@ -147,7 +134,6 @@ public class Fleet extends AppCompatActivity {
             }
         });
     }
-
 
 
 

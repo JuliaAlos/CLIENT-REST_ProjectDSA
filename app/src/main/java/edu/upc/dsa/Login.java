@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginButtonClick(View view) {
-        /**
+
         loginName = (TextView) findViewById(R.id.loginUsernamePlainText);
         loginPassword = (TextView) findViewById(R.id.loginPasswordTextView);
 
@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                 LoginUserTO loginUserTO =response.body();
                 Toast.makeText(Login.this, "Welcome " + loginUserTO.getUserName(), Toast.LENGTH_LONG).show();
                 Log.d("LoginUser", "Successful loginUser "+ loginUserTO.getUserName());
-                saveSharedPreferences(loginUserTO);
+                //saveSharedPreferences(loginUserTO);
                 Intent intent = new Intent(Login.this, HomeActivity.class);
                 startActivity(intent);
 
@@ -82,10 +82,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-         */
 
-        Intent intent = new Intent(Login.this, HomeActivity.class);
-        startActivity(intent);
     }
 
     public void loginToRegister(View view){
