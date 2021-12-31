@@ -27,6 +27,6 @@ public interface ApiInterface {
     @GET("planes/GetAllPlanes")
     Call<List<PlaneModel>> getAllPlanes();
 
-    @GET("planes/GetListPlanesPlayer/{playername}")
+    @GET("planes/getListPlanesPlayer/{playername}")
     Call<List<PlaneTO>> getListPlanesPlayer(@Path("playername") String playerName);
 }

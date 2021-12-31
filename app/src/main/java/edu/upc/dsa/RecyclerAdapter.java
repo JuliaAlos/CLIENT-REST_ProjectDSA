@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Text;
 
+import java.util.Arrays;
 import java.util.List;
 
 import edu.upc.dsa.models.Plane;
@@ -26,6 +27,7 @@ import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.transferObjects.PlaneTO;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+    List<String> allModels = Arrays.asList("Cessna", "Airbus", "Fighter", "Helicopter", "Acrobatic");
     List<PlaneModel> planes;
     List<PlaneTO> listPlanesPlayer;
     Context context;
@@ -48,19 +50,55 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Once we have the data set, we put the data in the holder to display it.
+        String model = this.allModels.get(position);
+
+        int found = 0;
+        int i = 0;
+        while ((i < this.listPlanesPlayer.size()) && (found == 0)){
+            PlaneTO plane = this.listPlanesPlayer.get(i);
+            if (model.equals(plane.getModel())){
+                found = 1;
+                switch (model) {
+                    case "Airbus":
+                        holder.imageView.setImageResource(R.drawable.a320_entry);
+                        break;
+                    case "Cessna":
+                        holder.imageView.setImageResource(R.drawable.cessna_entry);
+                        break;
+                    case "Fighter":
+                        holder.imageView.setImageResource(R.drawable.fighter_entry);
+                        break;
+                    case "Helicopter":
+                        holder.imageView.setImageResource(R.drawable.helicopter_entry);
+                        break;
+                    case "Acrobatic":
+                        holder.imageView.setImageResource(R.drawable.acrobatic_entry);
+                        break;
+                }
+            }
+            else{
+                switch (model) {
+                    case "Airbus":
+                        holder.imageView.setImageResource(R.drawable.a320_bw_entry);
+                        break;
+                    case "Cessna":
+                        holder.imageView.setImageResource(R.drawable.cessna_bw_entry);
+                        break;
+                    case "Fighter":
+                        holder.imageView.setImageResource(R.drawable.fighter_bw_entry);
+                        break;
+                    case "Helicopter":
+                        holder.imageView.setImageResource(R.drawable.helicopter_bw_entry);
+                        break;
+                    case "Acrobatic":
+                        holder.imageView.setImageResource(R.drawable.acrobatic_bw_entry);
+                        break;
+                }
+            }
+            i++;
+        }
 
 
-        PlaneTO plane = listPlanesPlayer.get(position);
-
-        if (plane.getModel().equals("AirbusA320")){
-            holder.imageView.setImageResource(R.drawable.a320_entry);
-        }
-        if (plane.getModel().equals("Fighter")){
-            holder.imageView.setImageResource(R.drawable.fighter_entry);
-        }
-        if (plane.getModel().equals("Cessna")){
-            holder.imageView.setImageResource(R.drawable.cessna_entry);
-        }
 
         //And here the IF's with the model, to match them with the corresponding layout.
 
@@ -81,7 +119,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     //Creates the number of views.
     @Override
     public int getItemCount() {
-        return planes.size();
+        return allModels.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -27,12 +27,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /** BASE LIST OF AIRPLANES INCLUDED IN THE GAME:
- * Cessna 172
- * Diamond DA42
- * Airbus A320
- * Airbus A380
- * F-16
- * Antonov An-225
+ * Cessna 172 - OK
+ * Edge 540 (Acrobatic) - OK
+ * Airbus A320 - OK
+ * Helicopter - OK
+ * Fighter - OK
  */
 
 public class Fleet extends AppCompatActivity {
@@ -70,12 +69,18 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+
+        try {
+            getAllPlanes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             getListPlanesPlayer(this.playerName);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void initializeRecyclerView(List<PlaneTO> listPlanesPlayer){
@@ -102,7 +107,6 @@ public class Fleet extends AppCompatActivity {
                 for (PlaneModel plane : listPlanes) {
                     Log.d("MYAPP", plane.getModel());
                 }
-                initializeRecyclerView(listPlanesPlayer);
             }
 
             @Override
