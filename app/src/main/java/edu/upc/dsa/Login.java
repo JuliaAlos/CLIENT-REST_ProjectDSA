@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                 LoginUserTO loginUserTO =response.body();
                 Toast.makeText(Login.this, "Welcome " + loginUserTO.getUserName(), Toast.LENGTH_LONG).show();
                 Log.d("LoginUser", "Successful loginUser "+ loginUserTO.getUserName());
-                //saveSharedPreferences(loginUserTO);
+                saveSharedPreferences(loginUserTO);
                 Intent intent = new Intent(Login.this, HomeActivity.class);
                 startActivity(intent);
 

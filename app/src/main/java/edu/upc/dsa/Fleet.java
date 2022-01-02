@@ -1,9 +1,11 @@
 package edu.upc.dsa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,11 +43,14 @@ public class Fleet extends AppCompatActivity {
     List <PlaneTO> listPlanesPlayer;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     RecyclerView recyclerView;
-    String playerName = "Arnau";
+    String playerName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fleet);
+
+        SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        playerName = sharedPref.getString("user","Hola");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -124,7 +129,6 @@ public class Fleet extends AppCompatActivity {
                     Log.d("MYAPP", "Error" + response.code());
                     return;
                 }
-
                 listPlanesPlayer = response.body();
                 for (PlaneTO plane : listPlanesPlayer) {
                     Log.d("MYAPP", plane.getModel());
@@ -139,6 +143,14 @@ public class Fleet extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Hangar.class);
+        startActivity(intent);
+    }
 
-
+    public void fleetToHangar(View view) {
+        Intent intent = new Intent(this, Hangar.class);
+        startActivity(intent);
+    }
 }

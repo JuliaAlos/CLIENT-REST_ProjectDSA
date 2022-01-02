@@ -29,6 +29,18 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/fleet_title" />
 
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="32dp"
+        android:layout_height="43dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="fleetToHangar"
+        app:srcCompat="@drawable/back2_button"
+        app:tint="@color/white"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="3dp" />
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"

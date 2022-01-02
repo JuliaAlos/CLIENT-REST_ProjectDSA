@@ -28,7 +28,6 @@ import edu.upc.dsa.transferObjects.PlaneTO;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     List<String> allModels = Arrays.asList("Cessna", "Airbus", "Fighter", "Helicopter", "Acrobatic");
-    List<PlaneModel> planes;
     List<PlaneTO> listPlanesPlayer;
     Context context;
 
@@ -51,6 +50,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Once we have the data set, we put the data in the holder to display it.
         String model = this.allModels.get(position);
+        System.out.println("SIZE: " + this.listPlanesPlayer.size());
 
         int found = 0;
         int i = 0;
@@ -96,6 +96,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             }
             i++;
+        }
+
+        //For the case where the user does not have any airplane yet.
+        if (this.listPlanesPlayer.size() == 0){
+            switch (model) {
+                case "Airbus":
+                    holder.imageView.setImageResource(R.drawable.a320_bw_entry);
+                    break;
+                case "Cessna":
+                    holder.imageView.setImageResource(R.drawable.cessna_bw_entry);
+                    break;
+                case "Fighter":
+                    holder.imageView.setImageResource(R.drawable.fighter_bw_entry);
+                    break;
+                case "Helicopter":
+                    holder.imageView.setImageResource(R.drawable.helicopter_bw_entry);
+                    break;
+                case "Acrobatic":
+                    holder.imageView.setImageResource(R.drawable.acrobatic_bw_entry);
+                    break;
+            }
+
         }
 
          holder.imageView.setOnClickListener(new View.OnClickListener() {

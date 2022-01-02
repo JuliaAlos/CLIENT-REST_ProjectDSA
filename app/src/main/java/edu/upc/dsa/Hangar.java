@@ -25,6 +25,13 @@ public class Hangar extends AppCompatActivity {
     }
 
     public void returnClick(View view) {
-        finish();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }

@@ -90,9 +90,25 @@
         android:layout_marginStart="76dp"
         android:backgroundTint="@color/teal_200"
         android:text="BUY AIRPLANE"
+        android:clickable="true"
+        android:onClick="buyAirplaneClick"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952" />
+        app:layout_constraintVertical_bias="0.952"
+        android:focusable="true" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="32dp"
+        android:layout_height="43dp"
+        android:clickable="true"
+        android:onClick="backClick"
+        app:srcCompat="@drawable/back2_button"
+        app:tint="@color/white"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:focusable="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

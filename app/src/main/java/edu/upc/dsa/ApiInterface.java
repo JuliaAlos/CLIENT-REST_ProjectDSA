@@ -5,6 +5,7 @@ import java.util.List;
 import edu.upc.dsa.models.Plane;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.transferObjects.LoginUserTO;
+import edu.upc.dsa.transferObjects.PlanePlayerTO;
 import edu.upc.dsa.transferObjects.PlaneTO;
 import edu.upc.dsa.transferObjects.RegisterUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
@@ -23,6 +24,9 @@ public interface ApiInterface {
 
     @GET("user/logout/{userName}")
     Call<Void> logoutUser(@Path("userName") String userName);
+
+    @POST("planes/addPlaneToPlayer")
+    Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
 
     @GET("planes/GetAllPlanes")
     Call<List<PlaneModel>> getAllPlanes();

@@ -2,7 +2,9 @@ package edu.upc.dsa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.RegisterUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
@@ -51,8 +54,10 @@ public class Register extends AppCompatActivity {
 
         RegisterUserTO user = new RegisterUserTO(username.getText().toString(),
                 password.getText().toString(),fullName.getText().toString(),email.getText().toString());
+        LoginUserTO userTO = new LoginUserTO(username.getText().toString(), password.getText().toString());
 
         Log.d("AddUser", "Add register new user -> " + user.getUserName());
+        saveSharedPreferences(userTO);
         Call<UserTO> call = apiInterface.addUser(user);
         call.enqueue(new Callback<UserTO>() {
             @Override
@@ -75,6 +80,15 @@ public class Register extends AppCompatActivity {
                 Log.d("AddUser", "Error addUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
+    }
 
+    public void saveSharedPreferences(LoginUserTO loginUserTO){
+        SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("user",loginUserTO.getUserName());
+        editor.putString("password",loginUserTO.getPassword());
+        Log.d("LoginUser", "Save user--> " + loginUserTO.getUserName());
+        Log.d("LoginUser", "Save password --> " + loginUserTO.getPassword());
+        editor.commit();
     }
 }
