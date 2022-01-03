@@ -1,12 +1,12 @@
 package edu.upc.dsa.models;
 
-public class Insignia {
+public class InsigniaModel {
     private String name;
     private String date;
     private String type;
 
-    public Insignia(){}
-    public Insignia(String name, String date, String type) {
+    public InsigniaModel(){}
+    public InsigniaModel(String name, String date, String type) {
         this.name = name;
         this.date = date;
         this.type = type;
