@@ -27,8 +27,6 @@ public interface ApiInterface {
 
 
 
-
-
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
 
@@ -40,11 +38,6 @@ public interface ApiInterface {
 
     @GET("planes/getPlaneByModel/{planeModel}")
     Call<PlaneModel> getPlaneByModel(@Path("planeModel") String planeModel);
-
-
-
-
-
 
 
 
