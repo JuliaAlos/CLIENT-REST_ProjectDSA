@@ -63,9 +63,7 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView = findViewById(R.id.navigation_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    MenuItem menuItem = navigationView.getMenu().getItem(0);
-    onNavigationItemSelected(menuItem);
-    menuItem.setChecked(true);
+
 
     drawerLayout.addDrawerListener(this);
 
@@ -93,6 +91,8 @@ public class HomeActivity extends AppCompatActivity
 
     switch (menuItem.getItemId()) {
       case R.id.nav_profile:
+        Intent intentProfile = new Intent(this, Profile.class);
+        startActivity(intentProfile);
         break;
       case R.id.nav_stats:
         Intent intentStats = new Intent(this, Stats.class);
