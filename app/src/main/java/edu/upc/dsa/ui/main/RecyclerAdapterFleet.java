@@ -1,37 +1,30 @@
-package edu.upc.dsa;
+package edu.upc.dsa.ui.main;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
 
-import edu.upc.dsa.models.Plane;
-import edu.upc.dsa.models.PlaneModel;
+import edu.upc.dsa.InfoPlane;
+import edu.upc.dsa.R;
 import edu.upc.dsa.transferObjects.PlaneTO;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class RecyclerAdapterFleet extends RecyclerView.Adapter<RecyclerAdapterFleet.ViewHolder> {
     List<String> allModels = Arrays.asList("Cessna", "Airbus", "Fighter", "Helicopter", "Acrobatic");
     List<PlaneTO> listPlanesPlayer;
     Context context;
 
-    public RecyclerAdapter(Context context, List<PlaneTO> listPlanesPlayer){
+    public RecyclerAdapterFleet(Context context, List<PlaneTO> listPlanesPlayer){
         this.listPlanesPlayer = listPlanesPlayer;
         this.context = context;
     }
@@ -39,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     //To create the views.
     @NonNull
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerAdapterFleet.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.fleet_model,parent,false);
         return new ViewHolder(view);
@@ -50,7 +43,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Once we have the data set, we put the data in the holder to display it.
         String model = this.allModels.get(position);
-        System.out.println("SIZE: " + this.listPlanesPlayer.size());
 
         int found = 0;
         int i = 0;
@@ -58,7 +50,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             PlaneTO plane = this.listPlanesPlayer.get(i);
             if (model.equals(plane.getModel())){
                 found = 1;
-                switch (model) {l
+                switch (model) {
                     case "Airbus":
                         holder.imageView.setImageResource(R.drawable.a320_entry);
                         break;
@@ -98,28 +90,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             i++;
         }
 
-        //For the case where the user does not have any airplane yet.
-        if (this.listPlanesPlayer.size() == 0){
-            switch (model) {
-                case "Airbus":
-                    holder.imageView.setImageResource(R.drawable.a320_bw_entry);
-                    break;
-                case "Cessna":
-                    holder.imageView.setImageResource(R.drawable.cessna_bw_entry);
-                    break;
-                case "Fighter":
-                    holder.imageView.setImageResource(R.drawable.fighter_bw_entry);
-                    break;
-                case "Helicopter":
-                    holder.imageView.setImageResource(R.drawable.helicopter_bw_entry);
-                    break;
-                case "Acrobatic":
-                    holder.imageView.setImageResource(R.drawable.acrobatic_bw_entry);
-                    break;
-            }
-
-        }
-
          holder.imageView.setOnClickListener(new View.OnClickListener() {
          //This is the code so that when a particular track is clicked, its information appears in the new layout.
          @Override
@@ -140,7 +110,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description;
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

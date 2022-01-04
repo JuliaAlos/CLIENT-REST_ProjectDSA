@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,33 +20,24 @@ import java.util.List;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.transferObjects.PlaneTO;
 import edu.upc.dsa.ui.main.RecyclerAdapterFleet;
+import edu.upc.dsa.ui.main.RecyclerAdapterMechanic;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/** BASE LIST OF AIRPLANES INCLUDED IN THE GAME:
- * Cessna 172 - OK
- * Edge 540 (Acrobatic) - OK
- * Airbus A320 - OK
- * Helicopter - OK
- * Fighter - OK
- */
-
-public class Fleet extends AppCompatActivity {
-
+public class Mechanic extends AppCompatActivity {
     ApiInterface apiInterface;
-    List<PlaneModel> listPlanes;
     List <PlaneTO> listPlanesPlayer;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     RecyclerView recyclerView;
     String playerName;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fleet);
-
+        setContentView(R.layout.mechanic);
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         playerName = sharedPref.getString("user","Hola");
 
@@ -71,6 +63,7 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+
         try {
             getListPlanesPlayer(this.playerName);
         } catch (IOException e) {
@@ -78,38 +71,13 @@ public class Fleet extends AppCompatActivity {
         }
     }
 
-    public void initializeRecyclerView(List<PlaneTO> listPlanesPlayer){
-        RecyclerAdapterFleet myAdapter= new RecyclerAdapterFleet(this, listPlanesPlayer);
+    public void initializeRecyclerView(List<PlaneTO> listPlanesPlayer) {
+        RecyclerAdapterMechanic myAdapter = new RecyclerAdapterMechanic(this, listPlanesPlayer);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
     }
 
-    /************ API OPERATIONS ********************************/
-
-    private void getAllPlanes() throws IOException {
-        Call<List<PlaneModel>> call = apiInterface.getAllPlanes();
-        call.enqueue(new Callback<List<PlaneModel>>() {
-            @Override
-            public void onResponse(Call<List<PlaneModel>> call, Response<List<PlaneModel>> response) {
-                if (!response.isSuccessful()) {
-                    Log.d("MYAPP", "Error" + response.code());
-                    return;
-                }
-
-                listPlanes = response.body();
-                for (PlaneModel plane : listPlanes) {
-                    Log.d("MYAPP", plane.getModel());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PlaneModel>> call, Throwable t) {
-                Log.d("MYAPP", "Error:" + t.getMessage());
-            }
-        });
-    }
     private void getListPlanesPlayer(String playerName) throws IOException{
         Call<List<PlaneTO>> call = apiInterface.getListPlanesPlayer(playerName);
         call.enqueue(new Callback<List<PlaneTO>>() {
@@ -133,13 +101,14 @@ public class Fleet extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
+
+    public void mechanicToHangar(View view) {
         Intent intent = new Intent(this, Hangar.class);
         startActivity(intent);
     }
 
-    public void fleetToHangar(View view) {
+    @Override
+    public void onBackPressed() {
         Intent intent = new Intent(this, Hangar.class);
         startActivity(intent);
     }

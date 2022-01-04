@@ -22,6 +22,8 @@ public class Hangar extends AppCompatActivity {
     }
 
     public void mechanicClick(View view) {
+        Intent intent = new Intent(this, Mechanic.class);
+        startActivity(intent);
     }
 
     public void returnClick(View view) {
