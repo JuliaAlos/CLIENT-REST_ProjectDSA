@@ -20,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+import com.unity3d.player.UnityPlayerActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -168,6 +169,11 @@ public class HomeActivity extends AppCompatActivity
 
   public void hangarClick(View view) {
     Intent intent = new Intent(this, Hangar.class);
+    startActivity(intent);
+  }
+
+  public void gameLaunchClick(View view){
+    Intent intent = new Intent(this, UnityPlayerActivity.class);
     startActivity(intent);
   }
 

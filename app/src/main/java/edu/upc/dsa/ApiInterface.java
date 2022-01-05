@@ -25,6 +25,9 @@ public interface ApiInterface {
     @GET("user/logout/{userName}")
     Call<Void> logoutUser(@Path("userName") String userName);
 
+    @GET("user/{userName}")
+    Call<UserTO> getUser(@Path("userName") String userName);
+
 
 
     @POST("planes/addPlaneToPlayer")
