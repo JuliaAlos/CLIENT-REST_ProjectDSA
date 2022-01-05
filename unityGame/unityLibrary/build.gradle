@@ -74,7 +74,6 @@ def BuildIl2Cpp(String workingDir, String targetDirectory, String architecture, 
 android {
     task BuildIl2CppTask {
         doLast {
-           println('workingDir: ' + projectDir.toString().replaceAll('\\\\', '/'))
               BuildIl2Cpp(projectDir.toString().replaceAll('\\\\', '/'), '/src/main/jniLibs/', 'ARMv7', 'armeabi-v7a', 'Release');
               BuildIl2Cpp(projectDir.toString().replaceAll('\\\\', '/'), '/src/main/jniLibs/', 'ARM64', 'arm64-v8a', 'Release');
         }
