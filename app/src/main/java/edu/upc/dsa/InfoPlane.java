@@ -6,17 +6,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.List;
-
+import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.transferObjects.PlanePlayerTO;
-import edu.upc.dsa.transferObjects.PlaneTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,7 +106,6 @@ public class InfoPlane extends AppCompatActivity {
                     return;
                 }
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("MYAPP", "Error:" + t.getMessage());

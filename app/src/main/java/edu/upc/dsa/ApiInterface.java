@@ -29,6 +29,8 @@ public interface ApiInterface {
     @GET("user/logout/{userName}")
     Call<Void> logoutUser(@Path("userName") String userName);
 
+
+
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
 
@@ -38,8 +40,16 @@ public interface ApiInterface {
     @GET("planes/getListPlanesPlayer/{playername}")
     Call<List<PlaneTO>> getListPlanesPlayer(@Path("playername") String playerName);
 
+<<<<<<< HEAD
     @POST("insignias/addInsigniaToPlayer")
     Call<Void> addInsigniaToUser(@Body InsigniaUserTO insigniaUserTO);
+=======
+    @GET("planes/getPlaneByModel/{planeModel}")
+    Call<PlaneModel> getPlaneByModel(@Path("planeModel") String planeModel);
+
+
+
+>>>>>>> 6ce0360665fc0acc151df42f34470052b77452e5
 
     @GET("insignias/GetAllInsignias")
     Call<List<InsigniaModel>> getAllInsignias();
