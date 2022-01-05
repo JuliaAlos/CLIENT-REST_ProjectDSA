@@ -46,7 +46,7 @@
             android:name=".Fleet"
             android:exported="true" />
         <activity
-            android:name=".Insignia"
+            android:name=".Insignia_menu"
             android:exported="true" />
         <activity
             android:name=".HomeActivity"

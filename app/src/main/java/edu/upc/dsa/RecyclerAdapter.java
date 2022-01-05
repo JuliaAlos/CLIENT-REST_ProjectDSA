@@ -58,7 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             PlaneTO plane = this.listPlanesPlayer.get(i);
             if (model.equals(plane.getModel())){
                 found = 1;
-                switch (model) {l
+                switch (model) {
                     case "Airbus":
                         holder.imageView.setImageResource(R.drawable.a320_entry);
                         break;

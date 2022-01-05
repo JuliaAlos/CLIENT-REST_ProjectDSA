@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -172,7 +171,7 @@ public class HomeActivity extends AppCompatActivity
   }
 
   public void insigniaClick(View view) {
-    Intent intent = new Intent(this, Insignia.class);
+    Intent intent = new Intent(this, Insignia_menu.class);
     startActivity(intent);
   }
 
