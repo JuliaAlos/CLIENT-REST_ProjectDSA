@@ -1,27 +1,48 @@
 package edu.upc.dsa.transferObjects;
 
 public class InsigniaTO {
-    private String userName;
-    private String insigniaName;
+    private String date;
+    private String playerName;
+    private String name;
+    private String type;
 
-    public InsigniaTO(String userName, String insigniaName) {
-        this.userName = userName;
-        this.insigniaName = insigniaName;
+    public InsigniaTO() {
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public InsigniaTO(String date, String playerName, String name, String type) {
+        this.date = date;
+        this.playerName = playerName;
+        this.name = name;
+        this.type = type;
     }
 
-    public void setInsigniaName(String insigniaName) {
-        this.insigniaName = insigniaName;
+    public String getDate() { return date;}
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public String getInsigniaName() {
-        return insigniaName;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
