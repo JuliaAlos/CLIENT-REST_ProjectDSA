@@ -94,7 +94,6 @@ public class RecyclerAdapterFleet extends RecyclerView.Adapter<RecyclerAdapterFl
          //This is the code so that when a particular track is clicked, its information appears in the new layout.
          @Override
          public void onClick(View v) {
-         Toast.makeText(context, "Info page of plane " + model + " opens" , Toast.LENGTH_SHORT).show();
          Intent intent = new Intent(context, InfoPlane.class);
          intent.putExtra("MODEL", model);
          context.startActivity(intent);

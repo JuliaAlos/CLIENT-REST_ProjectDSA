@@ -6,6 +6,7 @@ import edu.upc.dsa.models.InsigniaModel;
 import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.models.Plane;
 import edu.upc.dsa.models.PlaneModel;
+import edu.upc.dsa.models.Upgrade;
 import edu.upc.dsa.transferObjects.InsigniaTO;
 import edu.upc.dsa.transferObjects.InsigniaUserTO;
 import edu.upc.dsa.transferObjects.LoginUserTO;
@@ -43,18 +44,23 @@ public interface ApiInterface {
     @GET("planes/getListPlanesPlayer/{playername}")
     Call<List<PlaneTO>> getListPlanesPlayer(@Path("playername") String playerName);
 
-
-    @POST("insignias/addInsigniaToPlayer")
-    Call<Void> addInsigniaToUser(@Body InsigniaUserTO insigniaUserTO);
-
     @GET("planes/getPlaneByModel/{planeModel}")
     Call<PlaneModel> getPlaneByModel(@Path("planeModel") String planeModel);
+
+    @POST("planes/addUpgradeToPlayer")
+    Call<Void> addUpgradeToPlayer(@Body Upgrade upgrade);
+
+    @GET("planes/getAllUpgradesFromPlayer/{playername}")
+    Call<List<Upgrade>> getAllUpgradesFromPlayer(@Path("playername") String playerName);
 
 
 
 
     @GET("insignias/GetAllInsignias")
     Call<List<InsigniaModel>> getAllInsignias();
+
+    @POST("insignias/addInsigniaToPlayer")
+    Call<Void> addInsigniaToUser(@Body InsigniaUserTO insigniaUserTO);
 
     @GET("insignias/getListInsigniasPlayer/{playername}")
     Call<List<InsigniaTO>> getListInsigniasPlayer(@Path("playername") String playerName);
