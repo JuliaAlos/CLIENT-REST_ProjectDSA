@@ -40,16 +40,13 @@ public interface ApiInterface {
     @GET("planes/getListPlanesPlayer/{playername}")
     Call<List<PlaneTO>> getListPlanesPlayer(@Path("playername") String playerName);
 
-<<<<<<< HEAD
     @POST("insignias/addInsigniaToPlayer")
     Call<Void> addInsigniaToUser(@Body InsigniaUserTO insigniaUserTO);
-=======
+
     @GET("planes/getPlaneByModel/{planeModel}")
     Call<PlaneModel> getPlaneByModel(@Path("planeModel") String planeModel);
 
 
-
->>>>>>> 6ce0360665fc0acc151df42f34470052b77452e5
 
     @GET("insignias/GetAllInsignias")
     Call<List<InsigniaModel>> getAllInsignias();
@@ -57,4 +54,5 @@ public interface ApiInterface {
     @GET("insignias/getListInsigniasPlayer/{playername}")
     Call<List<InsigniaTO>> getListInsigniasPlayer(@Path("playername") String playerName);
 
+    Call<UserTO> getUser(String userName);
 }

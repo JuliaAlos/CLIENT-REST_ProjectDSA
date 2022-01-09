@@ -16,7 +16,7 @@ import java.util.List;
 
 import edu.upc.dsa.models.InsigniaModel;
 import edu.upc.dsa.transferObjects.InsigniaTO;
-import edu.upc.dsa.transferObjects.PlaneTO;
+import edu.upc.dsa.ui.main.InsigniaRecycler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
