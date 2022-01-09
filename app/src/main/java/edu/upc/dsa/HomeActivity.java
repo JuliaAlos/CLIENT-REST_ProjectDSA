@@ -19,6 +19,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+//import com.unity3d.player.UnityPlayerActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -169,6 +170,14 @@ public class HomeActivity extends AppCompatActivity
     Intent intent = new Intent(this, Hangar.class);
     startActivity(intent);
   }
+
+  /*
+  public void gameLaunchClick(View view){
+    Intent intent = new Intent(this, UnityPlayerActivity.class);
+    startActivity(intent);
+  }
+  */
+
 
   public void insigniaClick(View view) {
     Intent intent = new Intent(this, Insignia_menu.class);

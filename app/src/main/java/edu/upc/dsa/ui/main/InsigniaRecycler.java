@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.upc.dsa.R;
+
+import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.transferObjects.InsigniaTO;
 
 public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.ViewHolder>{

@@ -17,6 +17,7 @@ import java.util.List;
 
 import edu.upc.dsa.InfoPlane;
 import edu.upc.dsa.R;
+import edu.upc.dsa.UpgradePlane;
 import edu.upc.dsa.transferObjects.PlaneTO;
 
 public class RecyclerAdapterMechanic extends RecyclerView.Adapter<RecyclerAdapterMechanic.ViewHolder> {
@@ -65,7 +66,7 @@ public class RecyclerAdapterMechanic extends RecyclerView.Adapter<RecyclerAdapte
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Info page of plane " + model + " opens" , Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, InfoPlane.class);
+                Intent intent = new Intent(context, UpgradePlane.class);
                 intent.putExtra("MODEL", model);
                 context.startActivity(intent);
             }
