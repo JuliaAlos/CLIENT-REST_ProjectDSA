@@ -81,7 +81,8 @@ public class HomeActivity extends AppCompatActivity
             .build();
     apiInterface = retrofit.create(ApiInterface.class);
     SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-    userName = sharedPref.getString("user","Hola");
+    userName = sharedPref.getString("user",null);
+    if (userName==null){finish();}
     progressBar= findViewById(R.id.progressBar);
 
   }

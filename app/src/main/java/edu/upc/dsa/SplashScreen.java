@@ -44,6 +44,7 @@ public class SplashScreen extends AppCompatActivity {
         if(sharedPref.getString("user",null)==null){
             Intent intent = new Intent(SplashScreen.this, Login.class);
             startActivity(intent);
+            finish();
             return;
         }
         Call<LoginUserTO> call = apiInterface.loginUser(user);
