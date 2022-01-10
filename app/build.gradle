@@ -6,13 +6,24 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "edu.upc.dsa"
+
+        applicationId 'edu.upc.dsa'
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
         minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
     }
 
     buildTypes {
@@ -39,6 +50,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation project(path: ':unityGame:unityLibrary')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

@@ -14,14 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.upc.dsa.models.Plane;
 import edu.upc.dsa.models.PlaneModel;
-import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.PlaneTO;
-import edu.upc.dsa.transferObjects.PlaneUserTO;
+import edu.upc.dsa.ui.main.RecyclerAdapterFleet;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,13 +71,6 @@ public class Fleet extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
-        try {
-            getAllPlanes();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         try {
             getListPlanesPlayer(this.playerName);
         } catch (IOException e) {
@@ -89,7 +79,7 @@ public class Fleet extends AppCompatActivity {
     }
 
     public void initializeRecyclerView(List<PlaneTO> listPlanesPlayer){
-        RecyclerAdapter myAdapter= new RecyclerAdapter(this, listPlanesPlayer);
+        RecyclerAdapterFleet myAdapter= new RecyclerAdapterFleet(this, listPlanesPlayer);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);

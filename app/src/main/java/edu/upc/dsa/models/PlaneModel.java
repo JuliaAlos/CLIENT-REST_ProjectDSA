@@ -6,12 +6,12 @@ public class PlaneModel {
     private Integer enginesLife;
     private Integer velX;
     private Integer velY;
-    private Double gravity;
+    private Integer gravity;
 
     public PlaneModel() {
     }
 
-    public PlaneModel(String model, Integer fuel, Integer enginesLife, Integer velX, Integer velY, Double gravity) {
+    public PlaneModel(String model, Integer fuel, Integer enginesLife, Integer velX, Integer velY, Integer gravity) {
         this();
         this.model = model;
         this.fuel = fuel;
@@ -61,11 +61,11 @@ public class PlaneModel {
         this.velY = velY;
     }
 
-    public Double getGravity() {
+    public Integer getGravity() {
         return gravity;
     }
 
-    public void setGravity(Double gravity) {
+    public void setGravity(Integer gravity) {
         this.gravity = gravity;
     }
 }

@@ -34,6 +34,12 @@
             android:name=".Login"
             android:exported="true" />
         <activity
+            android:name=".UpgradePlane"
+            android:exported="true" />
+        <activity
+            android:name=".Mechanic"
+            android:exported="true" />
+        <activity
             android:name=".InfoPlane"
             android:exported="true" />
         <activity
@@ -46,7 +52,7 @@
             android:name=".Fleet"
             android:exported="true" />
         <activity
-            android:name=".Insignia"
+            android:name=".Insignia_menu"
             android:exported="true" />
         <activity
             android:name=".HomeActivity"

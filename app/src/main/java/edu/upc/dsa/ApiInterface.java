@@ -2,8 +2,13 @@ package edu.upc.dsa;
 
 import java.util.List;
 
+import edu.upc.dsa.models.InsigniaModel;
+import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.models.Plane;
 import edu.upc.dsa.models.PlaneModel;
+import edu.upc.dsa.models.Upgrade;
+import edu.upc.dsa.transferObjects.InsigniaTO;
+import edu.upc.dsa.transferObjects.InsigniaUserTO;
 import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.PlanePlayerTO;
 import edu.upc.dsa.transferObjects.PlaneTO;
@@ -29,8 +34,12 @@ public interface ApiInterface {
     @GET("user/{userName}")
     Call<UserTO> getUser(@Path("userName") String userName);
 
+<<<<<<< HEAD
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
+=======
+
+>>>>>>> 874796a6eff0ea1d40d4b33664828750223c9003
 
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
@@ -41,8 +50,25 @@ public interface ApiInterface {
     @GET("planes/getListPlanesPlayer/{playername}")
     Call<List<PlaneTO>> getListPlanesPlayer(@Path("playername") String playerName);
 
-    @GET("insignias/GetAllInsignias")
-    Call<List<Insignia>> getAllInsignias();
+    @GET("planes/getPlaneByModel/{planeModel}")
+    Call<PlaneModel> getPlaneByModel(@Path("planeModel") String planeModel);
 
+    @POST("planes/addUpgradeToPlayer")
+    Call<Void> addUpgradeToPlayer(@Body Upgrade upgrade);
+
+    @GET("planes/getAllUpgradesFromPlayer/{playername}")
+    Call<List<Upgrade>> getAllUpgradesFromPlayer(@Path("playername") String playerName);
+
+
+
+
+    @GET("insignias/GetAllInsignias")
+    Call<List<InsigniaModel>> getAllInsignias();
+
+    @POST("insignias/addInsigniaToPlayer")
+    Call<Void> addInsigniaToUser(@Body InsigniaUserTO insigniaUserTO);
+
+    @GET("insignias/getListInsigniasPlayer/{playername}")
+    Call<List<InsigniaTO>> getListInsigniasPlayer(@Path("playername") String playerName);
 
 }

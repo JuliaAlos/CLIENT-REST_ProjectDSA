@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.upc.dsa.Insignia;
-import edu.upc.dsa.RecyclerAdapter;
+
+import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.transferObjects.InsigniaTO;
 
-public class InsigniaRecycler extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>{
+public class InsigniaRecycler extends RecyclerView.Adapter<RecyclerAdapterFleet.ViewHolder>{
 
     List<String> allInsignias = Arrays.asList("Diamond", "first_flight", "first_sale", "sold_out", "zombie", "marathon", "scorched");
     List<InsigniaTO> listInsigniasPlayer;
@@ -30,12 +30,12 @@ public class InsigniaRecycler extends RecyclerView.Adapter<RecyclerAdapter.ViewH
 
     @NonNull
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerAdapterFleet.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerAdapterFleet.ViewHolder holder, int position) {
 
     }
 
