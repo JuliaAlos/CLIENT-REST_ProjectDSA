@@ -11,6 +11,7 @@ import edu.upc.dsa.transferObjects.RegisterUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -27,6 +28,9 @@ public interface ApiInterface {
 
     @GET("user/{userName}")
     Call<UserTO> getUser(@Path("userName") String userName);
+
+    @DELETE("user/{userName}")
+    Call<Void> deleteUser(@Path("userName") String userName);
 
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
