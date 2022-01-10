@@ -34,12 +34,8 @@ public interface ApiInterface {
     @GET("user/{userName}")
     Call<UserTO> getUser(@Path("userName") String userName);
 
-<<<<<<< HEAD
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
-=======
-
->>>>>>> 874796a6eff0ea1d40d4b33664828750223c9003
 
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
