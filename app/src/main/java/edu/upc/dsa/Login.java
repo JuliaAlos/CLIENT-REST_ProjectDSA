@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        getSupportActionBar().hide();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)

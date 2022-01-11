@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
@@ -65,6 +67,7 @@ public class Profile extends AppCompatActivity {
                 user.setText("USER: "+data.getUserName());
                 fullname.setText("NAME: "+data.getFullName());
                 email.setText("EMAIL: "+data.getEmail());
+                Glide.with(Profile.this).load("https://fondosmil.com/fondo/34722.png").into(image);
 
             }
 

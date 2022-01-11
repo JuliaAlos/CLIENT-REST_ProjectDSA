@@ -5,16 +5,18 @@ public class RegisterUserTO {
     private String password;
     private String fullName;
     private String email;
+    private String image_url;
 
     public RegisterUserTO() {
     }
 
-    public RegisterUserTO(String userName, String password, String fullName, String email) {
+    public RegisterUserTO(String userName, String password, String fullName, String email, String image_url) {
         this();
         this.userName = userName;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
+        this.image_url=image_url;
     }
 
     /**********************************************************************
@@ -46,6 +48,14 @@ public class RegisterUserTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public void setEmail(String email) {

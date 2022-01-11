@@ -136,7 +136,6 @@ public class HomeActivity extends AppCompatActivity
   }
 
   public void logout() {
-    progressBar.setVisibility(View.VISIBLE);
     Call<Void> call = apiInterface.logoutUser(userName);
     call.enqueue(new Callback<Void>() {
       @Override
@@ -145,7 +144,6 @@ public class HomeActivity extends AppCompatActivity
         if (!response.isSuccessful()) {
           Log.d("LogoutUser", "Error logoutUser" + response.code());
           Toast.makeText(HomeActivity.this, "User not found", Toast.LENGTH_LONG).show();
-          progressBar.setVisibility(View.GONE);
           return;
         } else {
           Intent intentLogin = new Intent(HomeActivity.this, Login.class);
