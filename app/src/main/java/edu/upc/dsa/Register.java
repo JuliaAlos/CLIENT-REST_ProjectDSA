@@ -1,18 +1,21 @@
 package edu.upc.dsa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.RegisterUserTO;
@@ -58,6 +61,7 @@ public class Register extends AppCompatActivity {
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
         findViewById(R.id.textViewErrorPass).setVisibility(View.GONE);
         findViewById(R.id.textViewErrorCampos).setVisibility(View.GONE);
+        findViewById(R.id.textViewErrorMail).setVisibility(View.GONE);
 
         String user = username.getText().toString();
         String full = fullName.getText().toString();
@@ -69,6 +73,11 @@ public class Register extends AppCompatActivity {
 
         if(user.length()>0 && full.length()>0 && mail.length()>0
                 && pass.length()>0){
+            if (!validarEmail(mail)){
+                findViewById(R.id.textViewErrorMail).setVisibility(View.VISIBLE);
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                return;
+            }
             if (!pass.equals(pass2)){
                 findViewById(R.id.textViewErrorPass).setVisibility(View.VISIBLE);
                 password.setText("");
@@ -106,8 +115,8 @@ public class Register extends AppCompatActivity {
                 Log.d("AddUser", "Save password --> " + userRegister.getPassword());
                 editor.commit();
 
-                Intent intentHomeActivity = new Intent(Register.this, HomeActivity.class);
-                startActivity(intentHomeActivity);
+                Intent intentMainActivity = new Intent(Register.this, HomeActivity.class);
+                startActivity(intentMainActivity);
                 findViewById(R.id.progressBar).setVisibility(View.GONE);
                 finish();
             }
@@ -119,5 +128,16 @@ public class Register extends AppCompatActivity {
                 Log.d("AddUser", "Error addUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
+    }
+    private boolean validarEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intentLoginActivity = new Intent(Register.this, Login.class);
+        startActivity(intentLoginActivity);
+        finish();
     }
 }

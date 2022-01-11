@@ -56,12 +56,14 @@ public class SplashScreen extends AppCompatActivity {
                     Toast.makeText(SplashScreen.this, "User must do login" , Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(SplashScreen.this, Login.class);
                     startActivity(intent);
+                    finish();
                     return;
                 }
                 Toast.makeText(SplashScreen.this, "Welcome again " + user.getUserName(), Toast.LENGTH_LONG).show();
                 Log.d("SplashScreen", "Successful loginUser "+ user.getUserName());
                 Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
                 startActivity(intent);
+                finish();
                 return;
             }
 

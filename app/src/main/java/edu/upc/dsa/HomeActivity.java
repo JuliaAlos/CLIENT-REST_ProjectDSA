@@ -1,10 +1,12 @@
 package edu.upc.dsa;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -43,12 +46,11 @@ public class HomeActivity extends AppCompatActivity
     Intent intent = new Intent(this, Stats.class);
     startActivity(intent);
   }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
-
-
 
 
     Toolbar toolbar = findViewById(R.id.toolbar);
@@ -62,7 +64,6 @@ public class HomeActivity extends AppCompatActivity
 
     NavigationView navigationView = findViewById(R.id.navigation_view);
     navigationView.setNavigationItemSelectedListener(this);
-
 
 
     drawerLayout.addDrawerListener(this);
@@ -81,9 +82,11 @@ public class HomeActivity extends AppCompatActivity
             .build();
     apiInterface = retrofit.create(ApiInterface.class);
     SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-    userName = sharedPref.getString("user",null);
-    if (userName==null){finish();}
-    progressBar= findViewById(R.id.progressBar);
+    userName = sharedPref.getString("user", null);
+    if (userName == null) {
+      finish();
+    }
+    progressBar = findViewById(R.id.progressBar);
 
   }
 
@@ -132,20 +135,19 @@ public class HomeActivity extends AppCompatActivity
     return true;
   }
 
-  public void logout(){
+  public void logout() {
     progressBar.setVisibility(View.VISIBLE);
     Call<Void> call = apiInterface.logoutUser(userName);
     call.enqueue(new Callback<Void>() {
       @Override
       public void onResponse(Call<Void> call, Response<Void> response) {
 
-        if(!response.isSuccessful()){
-          Log.d("LogoutUser", "Error logoutUser"+response.code());
-          Toast.makeText(HomeActivity.this, "User not found" , Toast.LENGTH_LONG).show();
+        if (!response.isSuccessful()) {
+          Log.d("LogoutUser", "Error logoutUser" + response.code());
+          Toast.makeText(HomeActivity.this, "User not found", Toast.LENGTH_LONG).show();
           progressBar.setVisibility(View.GONE);
           return;
-        }
-        else{
+        } else {
           Intent intentLogin = new Intent(HomeActivity.this, Login.class);
           startActivity(intentLogin);
         }
@@ -156,7 +158,7 @@ public class HomeActivity extends AppCompatActivity
       public void onFailure(Call<Void> call, Throwable t) {
         progressBar.setVisibility(View.GONE);
         Toast.makeText(HomeActivity.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
-        Log.d("LoginUser", "Error logoutUser in getting response from service using retrofit: "+t.getMessage());
+        Log.d("LoginUser", "Error logoutUser in getting response from service using retrofit: " + t.getMessage());
       }
     });
 
@@ -164,8 +166,9 @@ public class HomeActivity extends AppCompatActivity
   }
 
 
-
-  /** Map related functions */
+  /**
+   * Map related functions
+   */
 
   public void hangarClick(View view) {
     Intent intent = new Intent(this, Hangar.class);
@@ -185,13 +188,14 @@ public class HomeActivity extends AppCompatActivity
     startActivity(intent);
   }
 
-  /** Nav menu configuration */
+  /**
+   * Nav menu configuration
+   */
   @Override
   public void onBackPressed() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
       drawerLayout.closeDrawer(GravityCompat.START);
     } else {
-      super.onBackPressed();
     }
   }
 
@@ -219,4 +223,29 @@ public class HomeActivity extends AppCompatActivity
     headerTitle.setText(userName);
   }
 
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == event.KEYCODE_BACK) {
+      AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+      alerta.setMessage("Are you sure you want to exit Insignia")
+              .setTitle("EXIT INSIGNIA")
+              .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  logout();
+                  finish();
+                }
+              })
+              .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  dialog.dismiss();
+                }
+              });
+
+      alerta.show();
+    }
+    return super.onKeyDown(keyCode, event);
+  }
 }
+
