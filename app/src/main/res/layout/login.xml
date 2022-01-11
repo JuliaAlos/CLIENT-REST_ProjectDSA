@@ -53,39 +53,37 @@
         android:id="@+id/loginPasswordTextView"
         android:layout_width="193dp"
         android:layout_height="50dp"
-        android:layout_marginTop="84dp"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/loginPassword"
         app:layout_constraintStart_toStartOf="@+id/loginUsernamePlainText"
-        app:layout_constraintTop_toBottomOf="@+id/loginUsernamePlainText" />
+        app:layout_constraintTop_toTopOf="@+id/loginPassword" />
 
     <TextView
         android:id="@+id/loginPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:layout_marginTop="88dp"
         android:text="Password"
         android:textColor="#FFEB3B"
         android:textSize="22sp"
         android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/loginUserName"
         app:layout_constraintTop_toBottomOf="@+id/loginUsernamePlainText" />
 
     <TextView
         android:id="@+id/loginUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:text="Username"
         android:textColor="#FFEB3B"
         android:textSize="22sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/loginUsernamePlainText"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.365" />
@@ -99,12 +97,10 @@
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/loginUserName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.353" />
+        app:layout_constraintStart_toEndOf="@+id/loginUserName"
+        app:layout_constraintTop_toTopOf="@+id/loginUserName" />
 
     <TextView
         android:id="@+id/toRegisterTextView"

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class Register extends AppCompatActivity {
     TextView fullName;
     TextView email;
     TextView password;
+    TextView password2;
 
 
     ApiInterface apiInterface;
@@ -42,53 +44,80 @@ public class Register extends AppCompatActivity {
                 .build();
 
         apiInterface = retrofit.create(ApiInterface.class);
+
+        username = findViewById(R.id.usernamePlainText);
+        fullName = findViewById(R.id.fullNamePlainText);
+        email = findViewById(R.id.emailPlainText);
+        password = findViewById(R.id.passwordTextView);
+        password2 = findViewById(R.id.passwordTextView2);
+
     }
 
     //Returns a TO with the information of the new registered user.
     public void doneClick(View view) throws IOException {
-        this.username = (TextView) findViewById(R.id.usernamePlainText);
-        this.fullName = (TextView) findViewById(R.id.fullNamePlainText);
-        this.email = (TextView) findViewById(R.id.emailPlainText);
-        this.password = (TextView) findViewById(R.id.passwordTextView);
-        Intent intentHomeActivity = new Intent(this, HomeActivity.class);
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        findViewById(R.id.textViewErrorPass).setVisibility(View.GONE);
+        findViewById(R.id.textViewErrorCampos).setVisibility(View.GONE);
 
-        RegisterUserTO user = new RegisterUserTO(username.getText().toString(),
-                password.getText().toString(),fullName.getText().toString(),email.getText().toString());
-        LoginUserTO userTO = new LoginUserTO(username.getText().toString(), password.getText().toString());
+        String user = username.getText().toString();
+        String full = fullName.getText().toString();
+        String mail = email.getText().toString();
+        String pass = password.getText().toString();
+        String pass2 = password2.getText().toString();
 
-        Log.d("AddUser", "Add register new user -> " + user.getUserName());
-        saveSharedPreferences(userTO);
-        Call<UserTO> call = apiInterface.addUser(user);
+
+
+        if(user.length()>0 && full.length()>0 && mail.length()>0
+                && pass.length()>0){
+            if (!pass.equals(pass2)){
+                findViewById(R.id.textViewErrorPass).setVisibility(View.VISIBLE);
+                password.setText("");
+                password2.setText("");
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                return;
+            }
+        } else {
+            findViewById(R.id.textViewErrorCampos).setVisibility(View.VISIBLE);
+            findViewById(R.id.progressBar).setVisibility(View.GONE);
+            return;
+        }
+
+        RegisterUserTO userRegister = new RegisterUserTO(user,pass,full,mail);
+
+        Call<UserTO> call = apiInterface.addUser(userRegister);
         call.enqueue(new Callback<UserTO>() {
             @Override
             public void onResponse(Call<UserTO> call, Response<UserTO> response) {
                 if(!response.isSuccessful()){
                     Log.d("AddUser", "Error addUser"+response.code());
                     Toast.makeText(Register.this, "User name already registered" , Toast.LENGTH_LONG).show();
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
                     return;
                 }
                 UserTO userTO =response.body();
                 Toast.makeText(Register.this, "Welcome " + userTO.getUserName(), Toast.LENGTH_LONG).show();
                 Log.d("AddUser", "Successful addUser "+ userTO.getUserName());
+
+                SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("user",userRegister.getUserName());
+                editor.putString("password",userRegister.getPassword());
+                Log.d("AddUser", "Save user--> " + userRegister.getUserName());
+                Log.d("AddUser", "Save password --> " + userRegister.getPassword());
+                editor.commit();
+
+                Intent intentHomeActivity = new Intent(Register.this, HomeActivity.class);
                 startActivity(intentHomeActivity);
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                finish();
             }
 
             @Override
             public void onFailure(Call<UserTO> call, Throwable t) {
                 Toast.makeText(Register.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
-
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
                 Log.d("AddUser", "Error addUser in getting response from service using retrofit: "+t.getMessage());
             }
         });
-    }
-
-    public void saveSharedPreferences(LoginUserTO loginUserTO){
-        SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("user",loginUserTO.getUserName());
-        editor.putString("password",loginUserTO.getPassword());
-        Log.d("LoginUser", "Save user--> " + loginUserTO.getUserName());
-        Log.d("LoginUser", "Save password --> " + loginUserTO.getPassword());
-        editor.commit();
     }
 }

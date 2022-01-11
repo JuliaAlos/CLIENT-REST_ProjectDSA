@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/passwordTextView2"
-        android:layout_width="193dp"
-        android:layout_height="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
@@ -113,8 +113,8 @@
 
     <EditText
         android:id="@+id/passwordTextView"
-        android:layout_width="193dp"
-        android:layout_height="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
@@ -164,5 +164,45 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/register_button" />
 
+    <TextView
+        android:id="@+id/textViewErrorCampos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="SOME FIELDS ARE EMPTY"
+        android:textSize="18sp"
+        android:textColor="#8F130A"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/usernamePlainText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewErrorPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PASSWORDS DO NOT MATCH"
+        android:textSize="18sp"
+        android:textColor="#8F130A"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:minHeight="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextView2"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
