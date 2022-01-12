@@ -24,19 +24,14 @@ public class RanTimeAdap extends RecyclerView.Adapter<RanTimeAdap.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new
-
-
                 MyViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ran_row, parent, false));
     }
 
-
     public RanTimeAdap(List<Player> playerList, Context context){
-        players=playerList;
+        players = playerList;
         this.context = context;
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -45,8 +40,6 @@ public class RanTimeAdap extends RecyclerView.Adapter<RanTimeAdap.MyViewHolder> 
         holder.rol.setText(player.getRol());
         holder.score.setText(player.getTimeOfFlight().toString());
         holder.images.setImageResource(player.getImage());
-
-
     }
 
     @Override//Numero de items que tenim
