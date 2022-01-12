@@ -37,7 +37,9 @@ public class Fleet extends AppCompatActivity {
 
     ApiInterface apiInterface;
     List<PlaneModel> listPlanes;
+
     List <PlaneTO> listPlanesPlayer;
+
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     RecyclerView recyclerView;
     String playerName;

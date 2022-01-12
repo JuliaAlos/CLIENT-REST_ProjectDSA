@@ -108,6 +108,7 @@ public class RecyclerAdapterFleet extends RecyclerView.Adapter<RecyclerAdapterFl
         return allModels.size();
     }
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {

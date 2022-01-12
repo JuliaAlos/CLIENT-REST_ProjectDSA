@@ -2,6 +2,7 @@ package edu.upc.dsa;
 
 import java.util.List;
 
+import edu.upc.dsa.models.ForumEntry;
 import edu.upc.dsa.models.InsigniaModel;
 import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.models.Plane;
@@ -66,5 +67,14 @@ public interface ApiInterface {
 
     @GET("insignias/getListInsigniasPlayer/{playername}")
     Call<List<InsigniaTO>> getListInsigniasPlayer(@Path("playername") String playerName);
+
+
+
+
+    @POST("forum/addEntry")
+    Call<Void> addEntry(@Body ForumEntry entry);
+
+    @GET("forum/GetAllEntries")
+    Call<List<ForumEntry>> getAllEntries();
 
 }
