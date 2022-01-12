@@ -82,6 +82,7 @@ public class Forum extends AppCompatActivity {
         });
     }
 
+
     public void addEntry (ForumEntry entry){
         Call<Void> call = apiInterface.addEntry(entry);
         call.enqueue(new Callback<Void>() {
