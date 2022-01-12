@@ -23,6 +23,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
+
+    /** USER *******************/
+
     @POST("user/register")
     Call<UserTO> addUser(@Body RegisterUserTO user);
 
@@ -50,6 +53,8 @@ public interface ApiInterface {
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
 
+    /** PLANES *******************/
+
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
 
@@ -68,6 +73,8 @@ public interface ApiInterface {
     @GET("planes/getAllUpgradesFromPlayer/{playername}")
     Call<List<Upgrade>> getAllUpgradesFromPlayer(@Path("playername") String playerName);
 
+    /** INSIGNIAS *******************/
+
     @GET("insignias/GetAllInsignias")
     Call<List<InsigniaModel>> getAllInsignias();
 
@@ -77,8 +84,7 @@ public interface ApiInterface {
     @GET("insignias/getListInsigniasPlayer/{playername}")
     Call<List<InsigniaTO>> getListInsigniasPlayer(@Path("playername") String playerName);
 
-
-
+    /** FORUM *******************/
 
     @POST("forum/addEntry")
     Call<Void> addEntry(@Body ForumEntry entry);
