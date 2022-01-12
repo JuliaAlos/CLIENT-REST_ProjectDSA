@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Profile extends AppCompatActivity {
 
     ImageView image;
-    TextView user,fullname,email;
+    TextView user,fullname,email, number;
 
     ApiInterface apiInterface;
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
@@ -40,6 +40,7 @@ public class Profile extends AppCompatActivity {
         user=findViewById(R.id.user);
         fullname=findViewById(R.id.fullname);
         email=findViewById(R.id.email);
+        //email=findViewById(R.id.number);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
@@ -64,9 +65,10 @@ public class Profile extends AppCompatActivity {
 
                 Log.d("Profile", "Successful getUser "+ userName);
                 UserTO data = response.body();
-                user.setText("USER: "+data.getUserName());
-                fullname.setText("NAME: "+data.getFullName());
-                email.setText("EMAIL: "+data.getEmail());
+                user.setText("Username: "+data.getUserName());
+                fullname.setText(data.getFullName());
+                //number.setText(data.get);
+                email.setText("Email: "+data.getEmail());
                 //Glide.with(Profile.this).load("https://fondosmil.com/fondo/34722.png").into(image);
 
             }
@@ -125,5 +127,9 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+    }
+    public void Back(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }

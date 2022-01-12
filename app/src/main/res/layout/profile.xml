@@ -4,58 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    android:backgroundTint="#1E1E1E"
     tools:context=".Profile">
+
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="32dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back2_button"
+        app:tint="@color/white" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="307dp"
+        android:layout_height="269dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="50dp"
+        android:background="#504E4E"
+        android:backgroundTint="#494949"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_profile" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/profile" />
 
     <TextView
         android:id="@+id/user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:textSize="25dp"
+        android:layout_marginBottom="260dp"
         android:text="User"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toTopOf="@+id/image" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView23" />
 
     <TextView
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:textSize="25dp"
+        android:layout_marginBottom="84dp"
         android:text="Email"
-        app:layout_constraintBottom_toBottomOf="@+id/image"
-        app:layout_constraintStart_toEndOf="@+id/image" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView23" />
 
     <TextView
         android:id="@+id/fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginTop="24dp"
         android:text="Name"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toBottomOf="@+id/user" />
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="123dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_width="92dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:onClick="eliminarUser"
-        android:text="DELETE"
+        android:text="Delete User"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
