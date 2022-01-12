@@ -41,6 +41,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        getSupportActionBar().hide();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -91,7 +92,7 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        RegisterUserTO userRegister = new RegisterUserTO(user,pass,full,mail);
+        RegisterUserTO userRegister = new RegisterUserTO(user,pass,full,mail,"https://fondosmil.com/fondo/34722.png");
 
         Call<UserTO> call = apiInterface.addUser(userRegister);
         call.enqueue(new Callback<UserTO>() {

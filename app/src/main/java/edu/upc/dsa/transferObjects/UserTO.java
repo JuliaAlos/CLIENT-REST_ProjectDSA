@@ -8,16 +8,18 @@ public class UserTO {
     private String email;
     private Boolean status;
     private Player player;
+    private String image_url;
 
     public UserTO() {}
 
-    public UserTO(String userName, String fullName, String email,Boolean status,Player player) {
+    public UserTO(String userName, String fullName, String email,Boolean status,Player player,String image_url) {
         this();
         this.userName=userName;
         this.fullName=fullName;
         this.email=email;
         this.status=status;
         this.player=player;
+        this.image_url=image_url;
     }
 
 
@@ -62,5 +64,13 @@ public class UserTO {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }

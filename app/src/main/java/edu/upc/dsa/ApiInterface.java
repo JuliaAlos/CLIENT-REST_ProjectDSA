@@ -35,6 +35,18 @@ public interface ApiInterface {
     @GET("user/{userName}")
     Call<UserTO> getUser(@Path("userName") String userName);
 
+    @GET("user/getByDistance")
+    Call<List<UserTO>> getByDistance();
+
+    @GET("user/getByMoney")
+    Call<List<UserTO>> getByMoney();
+
+    @GET("user/getByRol")
+    Call<List<UserTO>> getByRol();
+
+    @GET("user/getByRol")
+    Call<List<UserTO>> getByTime();
+
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
 
@@ -55,9 +67,6 @@ public interface ApiInterface {
 
     @GET("planes/getAllUpgradesFromPlayer/{playername}")
     Call<List<Upgrade>> getAllUpgradesFromPlayer(@Path("playername") String playerName);
-
-
-
 
     @GET("insignias/GetAllInsignias")
     Call<List<InsigniaModel>> getAllInsignias();
