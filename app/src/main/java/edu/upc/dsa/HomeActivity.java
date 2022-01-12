@@ -181,6 +181,11 @@ public class HomeActivity extends AppCompatActivity
   */
 
 
+  public void socialClick(View view) {
+    Intent intent = new Intent(this, Forum.class);
+    startActivity(intent);
+  }
+
   public void insigniaClick(View view) {
     Intent intent = new Intent(this, Insignia_menu.class);
     startActivity(intent);
