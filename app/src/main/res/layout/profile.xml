@@ -7,6 +7,30 @@
     android:background="@drawable/profileFondo"
     tools:context=".Profile">
 
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="32dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back2_button"
+        app:tint="@color/white" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/profile" />
+
     <TextView
         android:id="@+id/user"
         android:layout_width="wrap_content"
@@ -76,8 +100,7 @@
         android:textColor="@color/black"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imageView23" />
 
     <Button
         android:id="@+id/button2"
@@ -85,7 +108,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:backgroundTint="#7CB342"
-        android:onClick="updateUser"
         android:text="UPDATE USER"
         android:textColor="@color/black"
         android:textStyle="bold|italic"
