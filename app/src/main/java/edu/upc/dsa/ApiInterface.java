@@ -2,6 +2,7 @@ package edu.upc.dsa;
 
 import java.util.List;
 
+import edu.upc.dsa.models.ForumEntry;
 import edu.upc.dsa.models.InsigniaModel;
 import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.models.Plane;
@@ -22,6 +23,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
+
+    /** USER *******************/
+
     @POST("user/register")
     Call<UserTO> addUser(@Body RegisterUserTO user);
 
@@ -34,8 +38,22 @@ public interface ApiInterface {
     @GET("user/{userName}")
     Call<UserTO> getUser(@Path("userName") String userName);
 
+    @GET("user/getByDistance")
+    Call<List<UserTO>> getByDistance();
+
+    @GET("user/getByMoney")
+    Call<List<UserTO>> getByMoney();
+
+    @GET("user/getByRol")
+    Call<List<UserTO>> getByRol();
+
+    @GET("user/getByRol")
+    Call<List<UserTO>> getByTime();
+
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
+
+    /** PLANES *******************/
 
     @POST("planes/addPlaneToPlayer")
     Call<Void> addPlaneToUser(@Body PlanePlayerTO planePlayerTO);
@@ -55,8 +73,7 @@ public interface ApiInterface {
     @GET("planes/getAllUpgradesFromPlayer/{playername}")
     Call<List<Upgrade>> getAllUpgradesFromPlayer(@Path("playername") String playerName);
 
-
-
+    /** INSIGNIAS *******************/
 
     @GET("insignias/GetAllInsignias")
     Call<List<InsigniaModel>> getAllInsignias();
@@ -66,5 +83,13 @@ public interface ApiInterface {
 
     @GET("insignias/getListInsigniasPlayer/{playername}")
     Call<List<InsigniaTO>> getListInsigniasPlayer(@Path("playername") String playerName);
+
+    /** FORUM *******************/
+
+    @POST("forum/addEntry")
+    Call<Void> addEntry(@Body ForumEntry entry);
+
+    @GET("forum/GetAllEntries")
+    Call<List<ForumEntry>> getAllEntries();
 
 }

@@ -7,6 +7,7 @@ import android.graphics.drawable.RotateDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,8 +33,10 @@ public class UpgradePlane extends AppCompatActivity {
     Integer upgradeRobustness, upgradeSpeed, upgradeManeuverability, upgradeFuel, upgradeWeight;
     ApiInterface apiInterface;
     ProgressBar robustness, speed, maneuverability, fuel, weight;
+    ProgressBar max_robustness, max_speed, max_maneuverability, min_fuel, min_weight;
     ProgressBar circularProgressBar;
     ConstraintLayout layout;
+    ImageView robustness_button, maneuverability_button, speed_button, fuel_button, weight_button;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     List<Upgrade> listUpgradesPlayer;
 
@@ -58,13 +61,26 @@ public class UpgradePlane extends AppCompatActivity {
         upgradeWeight = 0;
 
         circularProgressBar = findViewById(R.id.circularProgressBarID);
-        circularProgressBar.setVisibility(View.INVISIBLE);
+        circularProgressBar.setVisibility(View.VISIBLE);
+
+        robustness_button = findViewById(R.id.robustness_button);
+        maneuverability_button = findViewById(R.id.maneuverability_button);
+        speed_button = findViewById(R.id.speed_button);
+        fuel_button = findViewById(R.id.fuel_button);
+        weight_button = findViewById(R.id.weight_button);
 
         robustness = findViewById(R.id.robustness_progress);
         maneuverability = findViewById(R.id.maneuverability_progress);
         speed = findViewById(R.id.speed_progress);
         fuel = findViewById(R.id.fuel_progress);
         weight = findViewById(R.id.weight_progress);
+
+        max_robustness = findViewById(R.id.max_robustness_progress);
+        max_maneuverability = findViewById(R.id.max_maneuverability_progress);
+        max_speed = findViewById(R.id.max_speed_progress);
+        min_fuel = findViewById(R.id.min_fuel_progress);
+        min_weight = findViewById(R.id.min_weight_progress);
+
         layout = (ConstraintLayout) findViewById(R.id.layoutUpgradesID);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -89,6 +105,7 @@ public class UpgradePlane extends AppCompatActivity {
         }
         getPlaneByModel(model);
         getAllUpgradesFromPlayer(userName, model);
+        circularProgressBar.setVisibility(View.GONE);
 
 
     }
@@ -113,11 +130,15 @@ public class UpgradePlane extends AppCompatActivity {
                     return;
                 }
                 robustness.setProgress(response.body().getEnginesLife());
+                max_robustness.setProgress(response.body().getMaxEnginesLife());
                 maneuverability.setProgress(response.body().getVelY());
+                max_maneuverability.setProgress(response.body().getMaxManoeuvrability());
                 speed.setProgress(response.body().getVelX());
+                max_speed.setProgress(response.body().getMaxSpeed());
                 fuel.setProgress(response.body().getFuel());
+                min_fuel.setProgress(response.body().getMinFuel());
                 weight.setProgress(response.body().getGravity());
-
+                min_weight.setProgress(response.body().getMinWeight());
             }
             @Override
             public void onFailure(Call<PlaneModel> call, Throwable t) {
@@ -127,28 +148,53 @@ public class UpgradePlane extends AppCompatActivity {
     }
 
     public void upgradeRobustness(View view) {
-        upgradeRobustness++;
-        robustness.setProgress(robustness.getProgress() + 10);
+        if (this.robustness.getProgress() == this.max_robustness.getProgress()){
+            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            upgradeRobustness++;
+            robustness.setProgress(robustness.getProgress() + 10);
+        }
     }
 
     public void upgradeManeuverability(View view) {
-        upgradeManeuverability++;
-        maneuverability.setProgress(maneuverability.getProgress() + 10);
+        if (this.maneuverability.getProgress() == this.max_maneuverability.getProgress()){
+            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            upgradeManeuverability++;
+            maneuverability.setProgress(maneuverability.getProgress() + 10);
+        }
     }
 
     public void upgradeSpeed(View view) {
-        upgradeSpeed++;
-        speed.setProgress(speed.getProgress() + 10);
+        if (this.speed.getProgress() == this.max_speed.getProgress()){
+            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            upgradeSpeed++;
+            speed.setProgress(speed.getProgress() + 10);
+        }
     }
 
     public void upgradeFuel(View view) {
-        upgradeFuel++;
-        fuel.setProgress(fuel.getProgress() - 10);
+        if (this.fuel.getProgress() == this.min_fuel.getProgress()){
+            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            upgradeFuel++;
+            fuel.setProgress(fuel.getProgress() - 10);
+        }
     }
 
     public void upgradeWeight(View view) {
-        upgradeWeight++;
-        weight.setProgress(weight.getProgress() - 10);
+        if (this.weight.getProgress() == this.min_weight.getProgress()){
+            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            upgradeWeight++;
+            weight.setProgress(weight.getProgress() - 10);
+        }
     }
 
     public void upgradeAirplaneClick(View view) {
@@ -178,8 +224,10 @@ public class UpgradePlane extends AppCompatActivity {
             this.addUpgradeToPlayer(upgrade);
             this.upgradeWeight--;
         }
-        circularProgressBar.setVisibility(View.INVISIBLE);
-
+        Toast.makeText(this, "Upgrade done!", Toast.LENGTH_LONG).show();
+        getPlaneByModel(this.model);
+        getAllUpgradesFromPlayer(userName, model);
+        circularProgressBar.setVisibility(View.GONE);
     }
 
     public void addUpgradeToPlayer (Upgrade upgrade){
@@ -197,7 +245,7 @@ public class UpgradePlane extends AppCompatActivity {
                 Log.d("MYAPP", "Error:" + t.getMessage());
             }
         });
-        Toast.makeText(UpgradePlane.this, this.model + "purchased correctly.", Toast.LENGTH_LONG).show();
+
     }
 
     private void getAllUpgradesFromPlayer (String playerName, String model){
@@ -214,18 +262,48 @@ public class UpgradePlane extends AppCompatActivity {
                     if (upgrade.getPlaneModelModel().equals(model)) {
                         if (upgrade.getModificationCode().equals("0")) {
                             robustness.setProgress(robustness.getProgress() + 10);
+                            if (robustness.getProgress() == max_robustness.getProgress()){
+                                robustness_button.setImageResource(R.drawable.stars);
+                            }
+                            else{
+                                robustness_button.setImageResource(R.drawable.upgrade);
+                            }
                         }
                         if (upgrade.getModificationCode().equals("1")) {
                             maneuverability.setProgress(maneuverability.getProgress() + 10);
+                            if (maneuverability.getProgress() == max_maneuverability.getProgress()){
+                                maneuverability_button.setImageResource(R.drawable.stars);
+                            }
+                            else{
+                                maneuverability_button.setImageResource(R.drawable.upgrade);
+                            }
                         }
                         if (upgrade.getModificationCode().equals("2")) {
                             speed.setProgress(speed.getProgress() + 10);
+                            if (speed.getProgress() == max_speed.getProgress()){
+                                speed_button.setImageResource(R.drawable.stars);
+                            }
+                            else{
+                                speed_button.setImageResource(R.drawable.upgrade);
+                            }
                         }
                         if (upgrade.getModificationCode().equals("3")) {
                             fuel.setProgress(fuel.getProgress() - 10);
+                            if (fuel.getProgress() == min_fuel.getProgress()){
+                                fuel_button.setImageResource(R.drawable.stars);
+                            }
+                            else{
+                                fuel_button.setImageResource(R.drawable.upgrade_down);
+                            }
                         }
                         if (upgrade.getModificationCode().equals("4")) {
                             weight.setProgress(weight.getProgress() - 10);
+                            if (weight.getProgress() == min_weight.getProgress()){
+                                weight_button.setImageResource(R.drawable.stars);
+                            }
+                            else{
+                                weight_button.setImageResource(R.drawable.upgrade_down);
+                            }
                         }
                     }
                 }

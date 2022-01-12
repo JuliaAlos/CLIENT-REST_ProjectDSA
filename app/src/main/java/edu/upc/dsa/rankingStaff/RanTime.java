@@ -1,50 +1,111 @@
 package edu.upc.dsa.rankingStaff;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.upc.dsa.ApiInterface;
 import edu.upc.dsa.R;
 import edu.upc.dsa.models.Player;
+import edu.upc.dsa.transferObjects.UserTO;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RanTime extends Fragment {
 
-    private RanTimeAdap adapter;
-    private RecyclerView recyclerView;
+    RanTimeAdap adapter;
+    RecyclerView recyclerView;
+    ApiInterface apiInterface;
+    List<UserTO> listUsers;
+    public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
 
     public RanTime() {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.ranking_recyclerview, container, false);
-        List<Player> playerList=new ArrayList<>();
 
-        playerList.add(new Player(R.drawable.ic_menu_profile, "null", 10.0, "Julia", 1000, "Capitan", 1000, 1000));
-        playerList.add(new Player(R.drawable.ic_menu_profile, "null", 9.0, "Pau", 900, "Capitan", 900, 900));
-        playerList.add(new Player(R.drawable.ic_menu_profile, "null", 8.0, "Caty", 800, "Capitan", 800, 800));
-        playerList.add(new Player(R.drawable.ic_menu_profile, "null", 7.0, "Marc", 700, "Capitan", 700, 700));
-        playerList.add(new Player(R.drawable.ic_menu_profile, "null", 6.0, "Arnau", 600, "Capitan", 600, 600));
-        playerList.add(new Player(R.drawable.ic_menu_profile, "null", 5.0, "Edu", 500, "Capitan", 500, 500));
+        View rootView = inflater.inflate(R.layout.ranking_recyclerview, container, false);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiInterface = retrofit.create(ApiInterface.class);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.distanceRanking);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
 
-        adapter = new RanTimeAdap(playerList,getContext());
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
+                            target) {
+                        return false;
+                    }
 
-        recyclerView.setAdapter(adapter);
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                    }
+                };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        try {
+            getByTime();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return rootView;
     }
 
+
+    public void initializeRecyclerView(List<Player> playerList){
+        adapter = new RanTimeAdap(playerList,getContext());
+        recyclerView.setAdapter(adapter);LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setHasFixedSize(true);
+    }
+
+    private void getByTime () throws IOException {
+        Call<List<UserTO>> call = apiInterface.getByTime();
+        call.enqueue(new Callback<List<UserTO>>() {
+            @Override
+            public void onResponse(Call<List<UserTO>> call, Response<List<UserTO>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Ranking", "Error" + response.code());
+                    return;
+                }
+                listUsers = response.body();
+                List<Player> playerList = new ArrayList<Player>();
+                for (UserTO user : listUsers) {
+                    playerList.add(new Player(R.drawable.ic_menu_profile, "", 10.0, user.getPlayer().getPlayerName(), user.getPlayer().getMaxDistance(), user.getPlayer().getRol(), user.getPlayer().getTimeOfFlight(), user.getPlayer().getBitcoins()));
+                }
+                Log.d("Ranking", "Players: " + playerList);
+                initializeRecyclerView(playerList);
+            }
+
+            @Override
+            public void onFailure(Call<List<UserTO>> call, Throwable t) {
+                Log.d("Ranking", "Error:" + t.getMessage());
+            }
+        });
+    }
 }

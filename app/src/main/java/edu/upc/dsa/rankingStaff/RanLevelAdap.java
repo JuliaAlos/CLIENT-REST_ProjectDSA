@@ -24,36 +24,29 @@ public class RanLevelAdap extends RecyclerView.Adapter<RanLevelAdap.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new
-
-
                 MyViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ran_row, parent, false));
     }
-
 
     public RanLevelAdap(List<Player> playerList, Context context){
         players=playerList;
         this.context = context;
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Player player=players.get(position);
         holder.userName.setText(player.getPlayerName());
-        holder.rol.setText(player.getRol());
+        //holder.rol.setText(player.getRol());
+        holder.rol.setText("");
         holder.score.setText(player.getRol());
         holder.images.setImageResource(player.getImage());
-
-
     }
 
     @Override//Numero de items que tenim
     public int getItemCount() {
         return players.size();
     }
-
     /*****************************************************************
             Representa un sola fila del recycler view
      *****************************************************************/
