@@ -13,6 +13,7 @@ import edu.upc.dsa.transferObjects.InsigniaUserTO;
 import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.PlanePlayerTO;
 import edu.upc.dsa.transferObjects.PlaneTO;
+import edu.upc.dsa.transferObjects.RankingTO;
 import edu.upc.dsa.transferObjects.RegisterUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
@@ -37,18 +38,6 @@ public interface ApiInterface {
 
     @GET("user/{userName}")
     Call<UserTO> getUser(@Path("userName") String userName);
-
-    @GET("user/getByDistance")
-    Call<List<UserTO>> getByDistance();
-
-    @GET("user/getByMoney")
-    Call<List<UserTO>> getByMoney();
-
-    @GET("user/getByRol")
-    Call<List<UserTO>> getByRol();
-
-    @GET("user/getByRol")
-    Call<List<UserTO>> getByTime();
 
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
@@ -91,5 +80,30 @@ public interface ApiInterface {
 
     @GET("forum/GetAllEntries")
     Call<List<ForumEntry>> getAllEntries();
+
+    /** RANKING *********************/
+    @GET("user/getByRol/{playername}")
+    Call<RankingTO> getRol(@Path("playername") String playerName);
+
+    @GET("user/getByDistance/{playername}")
+    Call<RankingTO> getDistance(@Path("playername") String playerName);
+
+    @GET("user/getByTime/{playername}")
+    Call<RankingTO> getTime(@Path("playername") String playerName);
+
+    @GET("user/getByMoney/{playername}")
+    Call<RankingTO> getMoney(@Path("playername") String playerName);
+
+    @GET("user/getByDistance")
+    Call<List<RankingTO>> getByDistance();
+
+    @GET("user/getByMoney")
+    Call<List<RankingTO>> getByMoney();
+
+    @GET("user/getByRol")
+    Call<List<RankingTO>> getByRol();
+
+    @GET("user/getByRol")
+    Call<List<RankingTO>> getByTime();
 
 }
