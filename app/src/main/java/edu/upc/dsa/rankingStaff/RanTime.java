@@ -95,6 +95,7 @@ public class RanTime extends Fragment {
                     return;
                 }
                 listUsers = response.body();
+                Log.d("Ranking", "Respuesta" + response.body().get(0).getScore());
                 initializeRecyclerView(listUsers);
             }
 

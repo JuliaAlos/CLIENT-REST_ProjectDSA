@@ -103,7 +103,7 @@ public interface ApiInterface {
     @GET("user/getByRol")
     Call<List<RankingTO>> getByRol();
 
-    @GET("user/getByRol")
+    @GET("user/getByTime")
     Call<List<RankingTO>> getByTime();
 
 }

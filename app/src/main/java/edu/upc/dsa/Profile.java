@@ -40,7 +40,6 @@ public class Profile extends AppCompatActivity {
         user=findViewById(R.id.user);
         fullname=findViewById(R.id.fullname);
         email=findViewById(R.id.email);
-        //email=findViewById(R.id.number);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
@@ -65,10 +64,10 @@ public class Profile extends AppCompatActivity {
 
                 Log.d("Profile", "Successful getUser "+ userName);
                 UserTO data = response.body();
-                user.setText("Username: "+data.getUserName());
+                user.setText(data.getUserName());
                 fullname.setText(data.getFullName());
                 //number.setText(data.get);
-                email.setText("Email: "+data.getEmail());
+                email.setText(data.getEmail());
                 //Glide.with(Profile.this).load("https://fondosmil.com/fondo/34722.png").into(image);
 
             }
