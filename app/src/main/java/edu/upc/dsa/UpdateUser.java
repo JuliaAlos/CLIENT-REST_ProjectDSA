@@ -183,6 +183,7 @@ public class UpdateUser extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("user",userRegister.getUserName());
                 editor.putString("password",userRegister.getPassword());
+                editor.putString("image",userRegister.getImage_url());
                 Log.d("AddUser", "Save user--> " + userRegister.getUserName());
                 Log.d("AddUser", "Save password --> " + userRegister.getPassword());
                 editor.commit();
