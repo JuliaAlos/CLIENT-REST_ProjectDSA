@@ -220,6 +220,8 @@ public class UpdateUser extends AppCompatActivity {
                 if(!m_Text.equals(sharedPref.getString("password", null))) {
                     dialog.cancel();
                     findViewById(R.id.progressBar).setVisibility(View.GONE);
+                    Toast.makeText(UpdateUser.this, "Incorrect password, try again", Toast.LENGTH_LONG).show();
+
                 } else{
                     update();
                 }
@@ -261,6 +263,13 @@ public class UpdateUser extends AppCompatActivity {
     }
     public void imageGalery(View view) {
         Intent intent = new Intent(this, ImageUser.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
         finish();
     }

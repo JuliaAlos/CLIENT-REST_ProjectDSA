@@ -135,6 +135,13 @@ public class Profile extends AppCompatActivity {
         finish();
     }
     public void back(View view) {
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
         finish();
+    }
+    @Override
+    public void onBackPressed() {
+        back(null);
     }
 }
