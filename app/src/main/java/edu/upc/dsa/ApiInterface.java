@@ -42,6 +42,9 @@ public interface ApiInterface {
     @DELETE("user/{userName}")
     Call<Void> deleteUser(@Path("userName") String userName);
 
+    @POST("user/update/{oldUserName}")
+    Call<UserTO> updateUser(@Body RegisterUserTO user,@Path("oldUserName") String userName);
+
     /** PLANES *******************/
 
     @POST("planes/addPlaneToPlayer")

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 //import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.Glide;
+
 import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
@@ -27,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Profile extends AppCompatActivity {
 
     ImageView image;
-    TextView user,fullname,email, password;
+    TextView user,fullname,email,rol;
 
     ApiInterface apiInterface;
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
@@ -39,16 +41,14 @@ public class Profile extends AppCompatActivity {
         image=findViewById(R.id.image);
         user=findViewById(R.id.user);
         fullname=findViewById(R.id.fullname);
-        password=findViewById(R.id.password);
         email=findViewById(R.id.email);
+        rol=findViewById(R.id.rol);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiInterface = retrofit.create(ApiInterface.class);
-
-        getSupportActionBar().hide();
 
 
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
@@ -66,10 +66,10 @@ public class Profile extends AppCompatActivity {
                 Log.d("Profile", "Successful getUser "+ userName);
                 UserTO data = response.body();
                 user.setText(data.getUserName());
-                fullname.setText(data.getFullName());
-                //password.setText(data.get);
-                email.setText(data.getEmail());
-                //Glide.with(Profile.this).load("https://fondosmil.com/fondo/34722.png").into(image);
+                fullname.setText("Full name     "+data.getFullName());
+                email.setText("Full email     "+data.getEmail());
+                rol.setText(data.getPlayer().getRol());
+                Glide.with(Profile.this).load(data.getImage_url()).into(image);
 
             }
 
@@ -128,8 +128,13 @@ public class Profile extends AppCompatActivity {
         });
 
     }
-    public void Back(View view) {
-        Intent intent = new Intent(this, HomeActivity.class);
+
+    public void updateUser(View view) {
+        Intent intent = new Intent(this, UpdateUser.class);
         startActivity(intent);
+        finish();
+    }
+    public void back(View view) {
+        finish();
     }
 }
