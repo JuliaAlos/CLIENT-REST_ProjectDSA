@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        getSupportActionBar().hide();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
@@ -71,6 +72,7 @@ public class Login extends AppCompatActivity {
                 saveSharedPreferences(loginUserTO);
                 Intent intent = new Intent(Login.this, HomeActivity.class);
                 startActivity(intent);
+                finish();
 
             }
 
@@ -88,6 +90,7 @@ public class Login extends AppCompatActivity {
     public void loginToRegister(View view){
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
+        finish();
     }
 
     public void saveSharedPreferences(LoginUserTO loginUserTO){

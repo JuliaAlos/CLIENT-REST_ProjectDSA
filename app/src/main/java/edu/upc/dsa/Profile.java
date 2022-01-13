@@ -1,15 +1,20 @@
 package edu.upc.dsa;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+//import com.bumptech.glide.Glide;
 
 import edu.upc.dsa.transferObjects.LoginUserTO;
 import edu.upc.dsa.transferObjects.UserTO;
@@ -22,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Profile extends AppCompatActivity {
 
     ImageView image;
-    TextView user,fullname,email;
+    TextView user,fullname,email, password;
 
     ApiInterface apiInterface;
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
@@ -34,6 +39,7 @@ public class Profile extends AppCompatActivity {
         image=findViewById(R.id.image);
         user=findViewById(R.id.user);
         fullname=findViewById(R.id.fullname);
+        password=findViewById(R.id.password);
         email=findViewById(R.id.email);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -42,7 +48,7 @@ public class Profile extends AppCompatActivity {
                 .build();
         apiInterface = retrofit.create(ApiInterface.class);
 
-        getSupportActionBar().hide();/** what is this, i don't know, let's see */
+        getSupportActionBar().hide();
 
 
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
@@ -59,9 +65,11 @@ public class Profile extends AppCompatActivity {
 
                 Log.d("Profile", "Successful getUser "+ userName);
                 UserTO data = response.body();
-                user.setText("USER: "+data.getUserName());
-                fullname.setText("NAME: "+data.getFullName());
-                email.setText("EMAIL: "+data.getEmail());
+                user.setText(data.getUserName());
+                fullname.setText(data.getFullName());
+                //password.setText(data.get);
+                email.setText(data.getEmail());
+                //Glide.with(Profile.this).load("https://fondosmil.com/fondo/34722.png").into(image);
 
             }
 
@@ -71,5 +79,57 @@ public class Profile extends AppCompatActivity {
                 Log.d("Profile", "Error in getting response from service: "+t.getMessage());
             }
         });
+    }
+    public void eliminarUser(View v){
+        AlertDialog.Builder alerta = new AlertDialog.Builder(Profile.this);
+        alerta.setMessage("Are you sure you want to delete the user permanently?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteUser();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog titulo = alerta.create();
+        titulo.setTitle("DELETE USER");
+        titulo.show();
+    }
+
+    private void deleteUser(){
+        SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        String userName = sharedPref.getString("user",null).toString();
+
+        Call<Void> call = apiInterface.deleteUser(userName);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Profile", "Error user do not exist");
+                    return;
+                }
+
+                Log.d("Profile", "Successful deleteUser "+ userName);
+                sharedPref.edit().clear().commit();
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(Profile.this, "Error in getting response from service", Toast.LENGTH_LONG).show();
+                Log.d("Profile", "Error in getting response from service: "+t.getMessage());
+            }
+        });
+
+    }
+    public void Back(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
