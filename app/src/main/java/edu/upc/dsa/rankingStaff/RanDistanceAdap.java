@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
         holder.userName.setText(player.getUserName());
         holder.rol.setText(player.getRol());
         holder.score.setText(player.getScore());
-        Glide.with(context).load(player.getImage_url()).into(holder.images);
+        //Glide.with(context).load(player.getImage_url()).into(holder.images);
 
     }
 

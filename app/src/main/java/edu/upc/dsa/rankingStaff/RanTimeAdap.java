@@ -15,10 +15,11 @@ import java.util.List;
 
 import edu.upc.dsa.R;
 import edu.upc.dsa.models.Player;
+import edu.upc.dsa.transferObjects.RankingTO;
 
 public class RanTimeAdap extends RecyclerView.Adapter<RanTimeAdap.MyViewHolder> {
 
-    List<Player> players;
+    List<RankingTO> players;
     Context context;
 
     @Override
@@ -28,18 +29,18 @@ public class RanTimeAdap extends RecyclerView.Adapter<RanTimeAdap.MyViewHolder> 
                 .inflate(R.layout.ran_row, parent, false));
     }
 
-    public RanTimeAdap(List<Player> playerList, Context context){
+    public RanTimeAdap(List<RankingTO> playerList, Context context){
         players = playerList;
         this.context = context;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Player player=players.get(position);
-        holder.userName.setText(player.getPlayerName());
+        RankingTO player = players.get(position);
+        holder.userName.setText(player.getUserName());
         holder.rol.setText(player.getRol());
-        holder.score.setText(player.getTimeOfFlight().toString());
-        holder.images.setImageResource(player.getImage());
+        holder.score.setText(player.getScore());
+        //holder.images.setImageResource(player.getImage());
     }
 
     @Override//Numero de items que tenim

@@ -19,6 +19,7 @@ import java.util.List;
 import edu.upc.dsa.ApiInterface;
 import edu.upc.dsa.R;
 import edu.upc.dsa.models.Player;
+import edu.upc.dsa.transferObjects.RankingTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +32,7 @@ public class RanLevel extends Fragment {
     RanLevelAdap adapter;
     RecyclerView recyclerView;
     ApiInterface apiInterface;
-    List<UserTO> listUsers;
+    List<RankingTO> listUsers;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
 
     public RanLevel() {
@@ -75,7 +76,7 @@ public class RanLevel extends Fragment {
         return rootView;
     }
 
-    public void initializeRecyclerView(List<Player> playerList){
+    public void initializeRecyclerView(List<RankingTO> playerList){
         adapter = new RanLevelAdap(playerList,getContext());
         recyclerView.setAdapter(adapter);LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -84,25 +85,20 @@ public class RanLevel extends Fragment {
     }
 
     private void getByRol () throws IOException {
-        Call<List<UserTO>> call = apiInterface.getByRol();
-        call.enqueue(new Callback<List<UserTO>>() {
+        Call<List<RankingTO>> call = apiInterface.getByRol();
+        call.enqueue(new Callback<List<RankingTO>>() {
             @Override
-            public void onResponse(Call<List<UserTO>> call, Response<List<UserTO>> response) {
+            public void onResponse(Call<List<RankingTO>> call, Response<List<RankingTO>> response) {
                 if (!response.isSuccessful()) {
                     Log.d("Ranking", "Error" + response.code());
                     return;
                 }
                 listUsers = response.body();
-                List<Player> playerList = new ArrayList<Player>();
-                for (UserTO user : listUsers) {
-                    playerList.add(new Player(R.drawable.ic_menu_profile, "", 10.0, user.getPlayer().getPlayerName(), user.getPlayer().getMaxDistance(), user.getPlayer().getRol(), user.getPlayer().getTimeOfFlight(), user.getPlayer().getBitcoins()));
-                }
-                Log.d("Ranking", "Players: " + playerList);
-                initializeRecyclerView(playerList);
+                initializeRecyclerView(listUsers);
             }
 
             @Override
-            public void onFailure(Call<List<UserTO>> call, Throwable t) {
+            public void onFailure(Call<List<RankingTO>> call, Throwable t) {
                 Log.d("Ranking", "Error:" + t.getMessage());
             }
         });
