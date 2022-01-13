@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Profile extends AppCompatActivity {
 
     ImageView image;
-    TextView user,fullname,email, number;
+    TextView user,fullname,email, password;
 
     ApiInterface apiInterface;
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
@@ -39,6 +39,7 @@ public class Profile extends AppCompatActivity {
         image=findViewById(R.id.image);
         user=findViewById(R.id.user);
         fullname=findViewById(R.id.fullname);
+        password=findViewById(R.id.password);
         email=findViewById(R.id.email);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -66,7 +67,7 @@ public class Profile extends AppCompatActivity {
                 UserTO data = response.body();
                 user.setText(data.getUserName());
                 fullname.setText(data.getFullName());
-                //number.setText(data.get);
+                //password.setText(data.get);
                 email.setText(data.getEmail());
                 //Glide.with(Profile.this).load("https://fondosmil.com/fondo/34722.png").into(image);
 
