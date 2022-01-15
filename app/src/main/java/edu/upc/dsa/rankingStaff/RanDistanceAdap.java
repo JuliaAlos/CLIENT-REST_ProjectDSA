@@ -1,5 +1,6 @@
 package edu.upc.dsa.rankingStaff;
 
+/*
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -68,6 +69,7 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
     /*****************************************************************
             Representa un sola fila del recycler view
      *****************************************************************/
+/*
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView userName,rol,score,pos;
@@ -86,3 +88,6 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
         }
     }
 }
+
+
+ */

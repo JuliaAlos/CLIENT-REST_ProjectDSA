@@ -43,6 +43,9 @@
             android:name=".InfoPlane"
             android:exported="true" />
         <activity
+            android:name=".ChooseAirplane"
+            android:exported="true" />
+        <activity
             android:name=".VideoTemplate"
             android:exported="true" />
         <activity

@@ -7,7 +7,7 @@
     android:background="#1E1E1E"
     android:backgroundTint="#222222"
     android:foregroundTint="#1E1E1E"
-    tools:context=".Ranking">
+    tools:context="Ranking">
 
     <ImageView
         android:id="@+id/imageView24"

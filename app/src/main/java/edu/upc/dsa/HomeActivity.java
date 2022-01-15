@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.service.notification.NotificationListenerService;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -107,7 +108,7 @@ public class HomeActivity extends AppCompatActivity
         startActivity(intentForum);
         break;
       case R.id.nav_ranking:
-        Intent intentRanking = new Intent(this, Ranking.class);
+        Intent intentRanking = new Intent(this, NotificationListenerService.Ranking.class);
         startActivity(intentRanking);
         break;
       case R.id.nav_hangar:
@@ -120,6 +121,8 @@ public class HomeActivity extends AppCompatActivity
       default:
         throw new IllegalArgumentException("menu option not implemented!!");
     }
+
+
 
     /*Fragment fragment = HomeContentFragment.newInstance(getString(title));
     getSupportFragmentManager()
@@ -173,12 +176,12 @@ public class HomeActivity extends AppCompatActivity
     startActivity(intent);
   }
 
-  /*
+
   public void gameLaunchClick(View view){
-    Intent intent = new Intent(this, UnityPlayerActivity.class);
+    Intent intent = new Intent(this, ChooseAirplane.class);
     startActivity(intent);
   }
-  */
+
 
 
   public void socialClick(View view) {
