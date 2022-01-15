@@ -40,7 +40,6 @@ public class ChooseAirplane extends AppCompatActivity {
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     String playerName;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,7 +188,6 @@ public class ChooseAirplane extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onBackPressed() {
