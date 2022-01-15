@@ -1,6 +1,5 @@
 package edu.upc.dsa.rankingStaff;
 
-/*
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -13,15 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.bumptech.glide.Glide;
-
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import edu.upc.dsa.Profile;
 import edu.upc.dsa.R;
-import edu.upc.dsa.models.Player;
 import edu.upc.dsa.transferObjects.RankingTO;
 
 public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyViewHolder> {
@@ -69,7 +64,6 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
     /*****************************************************************
             Representa un sola fila del recycler view
      *****************************************************************/
-/*
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView userName,rol,score,pos;
@@ -88,6 +82,3 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
         }
     }
 }
-
-
- */

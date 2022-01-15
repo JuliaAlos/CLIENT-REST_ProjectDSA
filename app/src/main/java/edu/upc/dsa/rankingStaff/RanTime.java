@@ -13,20 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.upc.dsa.ApiInterface;
 import edu.upc.dsa.R;
-import edu.upc.dsa.models.Player;
 import edu.upc.dsa.transferObjects.RankingTO;
-import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-/*
 
 public class RanTime extends Fragment {
 
@@ -107,5 +103,3 @@ public class RanTime extends Fragment {
         });
     }
 }
-
- */

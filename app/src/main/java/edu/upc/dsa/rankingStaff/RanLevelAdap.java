@@ -1,5 +1,5 @@
 package edu.upc.dsa.rankingStaff;
-/*
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import edu.upc.dsa.R;
-import edu.upc.dsa.models.Player;
 import edu.upc.dsa.transferObjects.RankingTO;
 
 public class RanLevelAdap extends RecyclerView.Adapter<RanLevelAdap.MyViewHolder> {
@@ -61,7 +60,7 @@ public class RanLevelAdap extends RecyclerView.Adapter<RanLevelAdap.MyViewHolder
     /*****************************************************************
             Representa un sola fila del recycler view
      *****************************************************************/
-  /*  public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView userName,rol,score,pos;
         ImageView images;
@@ -79,4 +78,3 @@ public class RanLevelAdap extends RecyclerView.Adapter<RanLevelAdap.MyViewHolder
         }
     }
 }
-*/

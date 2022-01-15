@@ -1,8 +1,7 @@
 package edu.upc.dsa.rankingStaff;
-/*
+
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import edu.upc.dsa.R;
-import edu.upc.dsa.models.Player;
 import edu.upc.dsa.transferObjects.RankingTO;
 
 public class RanCoinsAdap extends RecyclerView.Adapter<RanCoinsAdap.MyViewHolder> {
@@ -59,12 +57,10 @@ public class RanCoinsAdap extends RecyclerView.Adapter<RanCoinsAdap.MyViewHolder
     public int getItemCount() {
         return players.size();
     }
-    */
-
     /*****************************************************************
             Representa un sola fila del recycler view
      *****************************************************************/
-  /*  public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView userName,rol,score,pos;
         ImageView images;
@@ -82,4 +78,3 @@ public class RanCoinsAdap extends RecyclerView.Adapter<RanCoinsAdap.MyViewHolder
         }
     }
 }
-        */

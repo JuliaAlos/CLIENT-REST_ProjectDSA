@@ -1,7 +1,5 @@
 package edu.upc.dsa.rankingStaff;
-/*
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,18 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.upc.dsa.ApiInterface;
-import edu.upc.dsa.ui.main.InsigniaRecycler;
 import edu.upc.dsa.R;
-import edu.upc.dsa.models.PlaneModel;
-import edu.upc.dsa.models.Player;
-import edu.upc.dsa.transferObjects.InsigniaTO;
-import edu.upc.dsa.transferObjects.PlaneTO;
 import edu.upc.dsa.transferObjects.RankingTO;
-import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,4 +99,3 @@ public class RanCoins extends Fragment {
         });
     }
 }
-*/

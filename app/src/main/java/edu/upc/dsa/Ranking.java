@@ -1,26 +1,16 @@
 package edu.upc.dsa;
-/*
+
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import edu.upc.dsa.models.Player;
-import edu.upc.dsa.ui.main.SectionsPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
+
 import edu.upc.dsa.databinding.ActivityRankingBinding;
+import edu.upc.dsa.ui.main.SectionsPagerAdapter;
 
 public class Ranking extends AppCompatActivity {
 
@@ -45,4 +35,4 @@ public class Ranking extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
-}*/
+}
