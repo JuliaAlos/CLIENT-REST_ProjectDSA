@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ProjectDSA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ImageUser"
+            android:exported="true" />
+        <activity
+            android:name=".UpdateUser"
+            android:exported="true" />
+        <activity
             android:name=".Ranking"
             android:exported="true"
             android:label="@string/title_activity_ranking2"
