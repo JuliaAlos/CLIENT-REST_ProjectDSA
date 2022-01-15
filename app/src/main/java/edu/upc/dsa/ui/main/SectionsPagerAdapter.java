@@ -1,5 +1,5 @@
 package edu.upc.dsa.ui.main;
-
+/*
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -13,10 +13,10 @@ import edu.upc.dsa.rankingStaff.RanDistance;
 import edu.upc.dsa.rankingStaff.RanLevel;
 import edu.upc.dsa.rankingStaff.RanTime;
 
-/**
+
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
- */
+
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
@@ -59,4 +59,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Show 4 total pages.
         return 4;
     }
-}
+}*/

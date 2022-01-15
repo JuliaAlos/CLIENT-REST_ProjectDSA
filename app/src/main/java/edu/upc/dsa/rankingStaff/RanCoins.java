@@ -1,5 +1,5 @@
 package edu.upc.dsa.rankingStaff;
-
+/*
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.upc.dsa.ApiInterface;
-import edu.upc.dsa.InsigniaRecycler;
+import edu.upc.dsa.ui.main.InsigniaRecycler;
 import edu.upc.dsa.R;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.models.Player;
@@ -108,3 +108,4 @@ public class RanCoins extends Fragment {
         });
     }
 }
+*/

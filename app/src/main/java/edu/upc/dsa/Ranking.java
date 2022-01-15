@@ -1,5 +1,5 @@
 package edu.upc.dsa;
-
+/*
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,4 +45,4 @@ public class Ranking extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
-}
+}*/

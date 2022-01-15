@@ -1,5 +1,5 @@
 package edu.upc.dsa.rankingStaff;
-
+/*
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,3 +104,4 @@ public class RanLevel extends Fragment {
         });
     }
 }
+*/

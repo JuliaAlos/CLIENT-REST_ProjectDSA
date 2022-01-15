@@ -5,10 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.service.notification.NotificationListenerService;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 //import com.unity3d.player.UnityPlayerActivity;
 
@@ -38,6 +41,7 @@ public class HomeActivity extends AppCompatActivity
   public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
 
   private String userName;
+  private String imageProfile;
   ProgressBar progressBar;
 
   private DrawerLayout drawerLayout;
@@ -83,6 +87,7 @@ public class HomeActivity extends AppCompatActivity
     apiInterface = retrofit.create(ApiInterface.class);
     SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
     userName = sharedPref.getString("user", null);
+    imageProfile = sharedPref.getString("image", "https://s03.s3c.es/imag/_v0/770x420/5/9/6/avion-vuelo.jpg");
     if (userName == null) {
       finish();
     }
@@ -97,6 +102,7 @@ public class HomeActivity extends AppCompatActivity
       case R.id.nav_profile:
         Intent intentProfile = new Intent(this, Profile.class);
         startActivity(intentProfile);
+        finish();
         break;
       case R.id.nav_stats:
         Intent intentStats = new Intent(this, Stats.class);
@@ -107,7 +113,7 @@ public class HomeActivity extends AppCompatActivity
         startActivity(intentForum);
         break;
       case R.id.nav_ranking:
-        Intent intentRanking = new Intent(this, Ranking.class);
+        Intent intentRanking = new Intent(this, NotificationListenerService.Ranking.class);
         startActivity(intentRanking);
         break;
       case R.id.nav_hangar:
@@ -120,6 +126,8 @@ public class HomeActivity extends AppCompatActivity
       default:
         throw new IllegalArgumentException("menu option not implemented!!");
     }
+
+
 
     /*Fragment fragment = HomeContentFragment.newInstance(getString(title));
     getSupportFragmentManager()
@@ -173,12 +181,12 @@ public class HomeActivity extends AppCompatActivity
     startActivity(intent);
   }
 
-  /*
+
   public void gameLaunchClick(View view){
-    Intent intent = new Intent(this, UnityPlayerActivity.class);
+    Intent intent = new Intent(this, ChooseAirplane.class);
     startActivity(intent);
   }
-  */
+
 
 
   public void socialClick(View view) {
@@ -224,6 +232,7 @@ public class HomeActivity extends AppCompatActivity
     TextView headerTitle;
     headerTitle = (TextView) findViewById(R.id.header_title);
     headerTitle.setText(userName);
+    Glide.with(this).load(imageProfile).into((ImageView) findViewById(R.id.imageNav));
   }
 
   @Override

@@ -120,11 +120,10 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description;
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.entryImageID);
+            imageView = itemView.findViewById(R.id.imageView16);
 
         }
     }

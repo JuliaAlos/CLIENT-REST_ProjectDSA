@@ -1,5 +1,5 @@
 package edu.upc.dsa.rankingStaff;
-
+/*
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -102,3 +102,5 @@ public class RanDistance extends Fragment {
         });
     }
 }
+
+ */

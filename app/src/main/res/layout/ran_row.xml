@@ -20,13 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#000000"
+            android:id="@+id/row"
             android:padding="8dp">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="#E4D7D7"
+                android:layout_marginStart="60dp"
+                android:background="@color/white"
                 android:src="@drawable/ic_menu_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,14 +63,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@id/imageView"
-                android:background="#000000"
-                android:backgroundTint="#000000"
                 android:text="Score"
                 android:textColor="#F1E9E9"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="#X"
+                android:textColor="#F1E9E9"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

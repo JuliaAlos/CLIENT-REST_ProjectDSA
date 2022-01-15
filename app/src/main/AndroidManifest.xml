@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ProjectDSA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ImageUser"
+            android:exported="true" />
+        <activity
+            android:name=".UpdateUser"
+            android:exported="true" />
+        <activity
             android:name=".Ranking"
             android:exported="true"
             android:label="@string/title_activity_ranking2"
@@ -41,6 +47,9 @@
             android:exported="true" />
         <activity
             android:name=".InfoPlane"
+            android:exported="true" />
+        <activity
+            android:name=".ChooseAirplane"
             android:exported="true" />
         <activity
             android:name=".VideoTemplate"

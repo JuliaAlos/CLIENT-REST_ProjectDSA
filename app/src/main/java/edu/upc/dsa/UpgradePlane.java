@@ -3,6 +3,8 @@ package edu.upc.dsa;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.RotateDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +38,7 @@ public class UpgradePlane extends AppCompatActivity {
     ProgressBar max_robustness, max_speed, max_maneuverability, min_fuel, min_weight;
     ProgressBar circularProgressBar;
     ConstraintLayout layout;
+    Boolean changes;
     ImageView robustness_button, maneuverability_button, speed_button, fuel_button, weight_button;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     List<Upgrade> listUpgradesPlayer;
@@ -45,6 +48,10 @@ public class UpgradePlane extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upgrade_plane);
+
+        circularProgressBar = findViewById(R.id.circularProgressBarID);
+        circularProgressBar.setVisibility(View.VISIBLE);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -59,9 +66,7 @@ public class UpgradePlane extends AppCompatActivity {
         upgradeManeuverability = 0;
         upgradeFuel = 0;
         upgradeWeight = 0;
-
-        circularProgressBar = findViewById(R.id.circularProgressBarID);
-        circularProgressBar.setVisibility(View.VISIBLE);
+        changes = false;
 
         robustness_button = findViewById(R.id.robustness_button);
         maneuverability_button = findViewById(R.id.maneuverability_button);
@@ -104,10 +109,6 @@ public class UpgradePlane extends AppCompatActivity {
                 break;
         }
         getPlaneByModel(model);
-        getAllUpgradesFromPlayer(userName, model);
-        circularProgressBar.setVisibility(View.GONE);
-
-
     }
     public void upgradeToMechanic(View view) {
         Intent intent = new Intent(this, Mechanic.class);
@@ -139,6 +140,8 @@ public class UpgradePlane extends AppCompatActivity {
                 min_fuel.setProgress(response.body().getMinFuel());
                 weight.setProgress(response.body().getGravity());
                 min_weight.setProgress(response.body().getMinWeight());
+
+                getAllUpgradesFromPlayer(userName, model);
             }
             @Override
             public void onFailure(Call<PlaneModel> call, Throwable t) {
@@ -154,6 +157,7 @@ public class UpgradePlane extends AppCompatActivity {
         else {
             upgradeRobustness++;
             robustness.setProgress(robustness.getProgress() + 10);
+            changes = true;
         }
     }
 
@@ -164,6 +168,7 @@ public class UpgradePlane extends AppCompatActivity {
         else {
             upgradeManeuverability++;
             maneuverability.setProgress(maneuverability.getProgress() + 10);
+            changes = true;
         }
     }
 
@@ -174,6 +179,7 @@ public class UpgradePlane extends AppCompatActivity {
         else {
             upgradeSpeed++;
             speed.setProgress(speed.getProgress() + 10);
+            changes = true;
         }
     }
 
@@ -184,6 +190,7 @@ public class UpgradePlane extends AppCompatActivity {
         else {
             upgradeFuel++;
             fuel.setProgress(fuel.getProgress() - 10);
+            changes = true;
         }
     }
 
@@ -194,40 +201,46 @@ public class UpgradePlane extends AppCompatActivity {
         else {
             upgradeWeight++;
             weight.setProgress(weight.getProgress() - 10);
+            changes = true;
         }
     }
 
     public void upgradeAirplaneClick(View view) {
-        circularProgressBar.setVisibility(View.VISIBLE);
-        while (this.upgradeRobustness > 0) {
-            Upgrade upgrade = new Upgrade("0", this.userName, this.model);
-            this.addUpgradeToPlayer(upgrade);
-            this.upgradeRobustness--;
+        if (changes) {
+            circularProgressBar.setVisibility(View.VISIBLE);
+            while (this.upgradeRobustness > 0) {
+                Upgrade upgrade = new Upgrade("0", this.userName, this.model);
+                this.addUpgradeToPlayer(upgrade);
+                this.upgradeRobustness--;
+            }
+            while (this.upgradeManeuverability > 0) {
+                Upgrade upgrade = new Upgrade("1", this.userName, this.model);
+                this.addUpgradeToPlayer(upgrade);
+                this.upgradeManeuverability--;
+            }
+            while (this.upgradeSpeed > 0) {
+                Upgrade upgrade = new Upgrade("2", this.userName, this.model);
+                this.addUpgradeToPlayer(upgrade);
+                this.upgradeSpeed--;
+            }
+            while (this.upgradeFuel > 0) {
+                Upgrade upgrade = new Upgrade("3", this.userName, this.model);
+                this.addUpgradeToPlayer(upgrade);
+                this.upgradeFuel--;
+            }
+            while (this.upgradeWeight > 0) {
+                Upgrade upgrade = new Upgrade("4", this.userName, this.model);
+                this.addUpgradeToPlayer(upgrade);
+                this.upgradeWeight--;
+            }
+            Toast.makeText(this, "Upgrade done!", Toast.LENGTH_LONG).show();
+            getPlaneByModel(this.model);
+            changes = false;
+            circularProgressBar.setVisibility(View.GONE);
         }
-        while (this.upgradeManeuverability > 0) {
-            Upgrade upgrade = new Upgrade("1", this.userName, this.model);
-            this.addUpgradeToPlayer(upgrade);
-            this.upgradeManeuverability--;
+        else{
+            Toast.makeText(this, "Nothing to upgrade!", Toast.LENGTH_LONG).show();
         }
-        while (this.upgradeSpeed > 0) {
-            Upgrade upgrade = new Upgrade("2", this.userName, this.model);
-            this.addUpgradeToPlayer(upgrade);
-            this.upgradeSpeed--;
-        }
-        while (this.upgradeFuel > 0) {
-            Upgrade upgrade = new Upgrade("3", this.userName, this.model);
-            this.addUpgradeToPlayer(upgrade);
-            this.upgradeFuel--;
-        }
-        while (this.upgradeWeight > 0) {
-            Upgrade upgrade = new Upgrade("4", this.userName, this.model);
-            this.addUpgradeToPlayer(upgrade);
-            this.upgradeWeight--;
-        }
-        Toast.makeText(this, "Upgrade done!", Toast.LENGTH_LONG).show();
-        getPlaneByModel(this.model);
-        getAllUpgradesFromPlayer(userName, model);
-        circularProgressBar.setVisibility(View.GONE);
     }
 
     public void addUpgradeToPlayer (Upgrade upgrade){
@@ -263,6 +276,7 @@ public class UpgradePlane extends AppCompatActivity {
                         if (upgrade.getModificationCode().equals("0")) {
                             robustness.setProgress(robustness.getProgress() + 10);
                             if (robustness.getProgress() == max_robustness.getProgress()){
+                                robustness.getProgressDrawable().setColorFilter(Color.parseColor("#FBE627"), PorterDuff.Mode.SRC_IN);
                                 robustness_button.setImageResource(R.drawable.stars);
                             }
                             else{
@@ -272,6 +286,7 @@ public class UpgradePlane extends AppCompatActivity {
                         if (upgrade.getModificationCode().equals("1")) {
                             maneuverability.setProgress(maneuverability.getProgress() + 10);
                             if (maneuverability.getProgress() == max_maneuverability.getProgress()){
+                                maneuverability.getProgressDrawable().setColorFilter(Color.parseColor("#FBE627"), PorterDuff.Mode.SRC_IN);
                                 maneuverability_button.setImageResource(R.drawable.stars);
                             }
                             else{
@@ -281,28 +296,28 @@ public class UpgradePlane extends AppCompatActivity {
                         if (upgrade.getModificationCode().equals("2")) {
                             speed.setProgress(speed.getProgress() + 10);
                             if (speed.getProgress() == max_speed.getProgress()){
+                                speed.getProgressDrawable().setColorFilter(Color.parseColor("#FBE627"), PorterDuff.Mode.SRC_IN);
                                 speed_button.setImageResource(R.drawable.stars);
-                            }
-                            else{
-                                speed_button.setImageResource(R.drawable.upgrade);
                             }
                         }
                         if (upgrade.getModificationCode().equals("3")) {
                             fuel.setProgress(fuel.getProgress() - 10);
                             if (fuel.getProgress() == min_fuel.getProgress()){
+                                fuel.getProgressDrawable().setColorFilter(Color.parseColor("#FBE627"), PorterDuff.Mode.SRC_IN);
                                 fuel_button.setImageResource(R.drawable.stars);
                             }
                             else{
-                                fuel_button.setImageResource(R.drawable.upgrade_down);
+                                fuel_button.setImageResource(R.drawable.upgrade);
                             }
                         }
                         if (upgrade.getModificationCode().equals("4")) {
                             weight.setProgress(weight.getProgress() - 10);
                             if (weight.getProgress() == min_weight.getProgress()){
+                                weight.getProgressDrawable().setColorFilter(Color.parseColor("#FBE627"), PorterDuff.Mode.SRC_IN);
                                 weight_button.setImageResource(R.drawable.stars);
                             }
                             else{
-                                weight_button.setImageResource(R.drawable.upgrade_down);
+                                weight_button.setImageResource(R.drawable.upgrade);
                             }
                         }
                     }
@@ -314,5 +329,6 @@ public class UpgradePlane extends AppCompatActivity {
                 Log.d("MYAPP", "Error:" + t.getMessage());
             }
         });
+        circularProgressBar.setVisibility(View.GONE);
     }
 }

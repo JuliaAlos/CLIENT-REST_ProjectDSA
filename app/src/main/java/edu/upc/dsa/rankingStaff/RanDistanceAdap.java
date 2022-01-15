@@ -1,6 +1,8 @@
 package edu.upc.dsa.rankingStaff;
 
+/*
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 //import com.bumptech.glide.Glide;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -45,7 +49,15 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
         holder.userName.setText(player.getUserName());
         holder.rol.setText(player.getRol());
         holder.score.setText(player.getScore());
-        //Glide.with(context).load(player.getImage_url()).into(holder.images);
+        Glide.with(context).load(player.getImage_url()).into(holder.images);
+        holder.pos.setText(player.getPos());
+        if (player.getPos().equals("1")){
+            holder.row.setBackgroundColor(Color.parseColor("#FFD700"));
+        } else if (player.getPos().equals("2")){
+            holder.row.setBackgroundColor(Color.parseColor("#bfc1c1"));
+        } else if (player.getPos().equals("3")){
+            holder.row.setBackgroundColor(Color.parseColor("#9c5221"));
+        }
 
     }
 
@@ -57,19 +69,25 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
     /*****************************************************************
             Representa un sola fila del recycler view
      *****************************************************************/
+/*
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView userName,rol,score;
+        TextView userName,rol,score,pos;
         ImageView images;
-        ConstraintLayout mainLayout;
+        ConstraintLayout mainLayout,row;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
             userName = itemView.findViewById(R.id.firstLine);
             rol = itemView.findViewById(R.id.secondLine);
             score = itemView.findViewById(R.id.scoreLine);
+            pos = itemView.findViewById(R.id.position);
             images = itemView.findViewById(R.id.imageView);
             mainLayout = itemView.findViewById(R.id.myLayout);
+            row=itemView.findViewById(R.id.row);
         }
     }
 }
+
+
+ */
