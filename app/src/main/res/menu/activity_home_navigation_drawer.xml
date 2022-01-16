@@ -23,7 +23,7 @@
 
     </group>
 
-    <item android:title="--------------------------------------">
+    <item android:title="">
         <menu>
             <group android:checkableBehavior="single">
                 <item

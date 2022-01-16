@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -130,12 +131,9 @@ public class HomeActivity extends AppCompatActivity
 
         break;
       case R.id.nav_distance:
-        Intent intentRanking = new Intent(this, Ranking.class);
-        startActivity(intentRanking);
         break;
       case R.id.nav_time:
-        Intent intentHangar = new Intent(this, Hangar.class);
-        startActivity(intentHangar);
+
         break;
       case R.id.nav_logout:
         logout();
@@ -143,8 +141,6 @@ public class HomeActivity extends AppCompatActivity
       default:
         throw new IllegalArgumentException("menu option not implemented!!");
     }
-
-
 
     /*Fragment fragment = HomeContentFragment.newInstance(getString(title));
     getSupportFragmentManager()
@@ -193,7 +189,7 @@ public class HomeActivity extends AppCompatActivity
         }
         distance = response.body().getScore();
         Log.d("Menu", "Rol: " + response.body().getScore());
-        item.setTitle("Distance: "+ distance);
+        item.setTitle("Distance: "+ distance + " m");
       }
 
       @Override
@@ -215,7 +211,7 @@ public class HomeActivity extends AppCompatActivity
         }
         time = response.body().getScore();
         Log.d("Menu", "Rol: " + response.body().getScore());
-        item.setTitle("Time: "+ time);
+        item.setTitle("Time: "+ time + " h");
       }
 
       @Override
@@ -274,20 +270,19 @@ public class HomeActivity extends AppCompatActivity
     });
   }
 
-
-  /**
-   * Map related functions
-   */
-
   public void hangarClick(View view) {
     Intent intent = new Intent(this, Hangar.class);
     startActivity(intent);
   }
 
-
   public void gameLaunchClick(View view){
     Intent intent = new Intent(this, UnityPlayerActivity.class);
     startActivity(intent);
+  }
+
+  public void rankingClick(View view) {
+    Intent intentRanking = new Intent(this, Ranking.class);
+    startActivity(intentRanking);
   }
 
 
@@ -301,9 +296,6 @@ public class HomeActivity extends AppCompatActivity
     startActivity(intent);
   }
 
-  /**
-   * Nav menu configuration
-   */
   @Override
   public void onBackPressed() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -362,4 +354,3 @@ public class HomeActivity extends AppCompatActivity
     return super.onKeyDown(keyCode, event);
   }
 }
-

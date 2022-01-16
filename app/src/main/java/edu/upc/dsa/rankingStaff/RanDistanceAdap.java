@@ -43,7 +43,7 @@ public class RanDistanceAdap extends RecyclerView.Adapter<RanDistanceAdap.MyView
         RankingTO player = players.get(position);
         holder.userName.setText(player.getUserName());
         holder.rol.setText(player.getRol());
-        holder.score.setText(player.getScore());
+        holder.score.setText(player.getScore()+ " m");
         Glide.with(context).load(player.getImage_url()).into(holder.images);
         holder.pos.setText(player.getPos());
         if (player.getPos().equals("1")){
