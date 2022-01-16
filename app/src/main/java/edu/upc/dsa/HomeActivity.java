@@ -4,17 +4,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +25,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-//import com.unity3d.player.UnityPlayerActivity;
+import com.unity3d.player.UnityPlayerActivity;
 
+import edu.upc.dsa.transferObjects.RankingTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +44,11 @@ public class HomeActivity extends AppCompatActivity
   private String userName;
   private String imageProfile;
   ProgressBar progressBar;
+  String playerName;
+  String rol;
+  String distance;
+  String time;
+  String coins;
 
   private DrawerLayout drawerLayout;
 
@@ -50,11 +57,14 @@ public class HomeActivity extends AppCompatActivity
     startActivity(intent);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.O)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
 
+    SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+    playerName = sharedPref.getString("user","Hola");
 
     Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -67,7 +77,6 @@ public class HomeActivity extends AppCompatActivity
 
     NavigationView navigationView = findViewById(R.id.navigation_view);
     navigationView.setNavigationItemSelectedListener(this);
-
 
     drawerLayout.addDrawerListener(this);
 
@@ -84,15 +93,29 @@ public class HomeActivity extends AppCompatActivity
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     apiInterface = retrofit.create(ApiInterface.class);
-    SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+    sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
     userName = sharedPref.getString("user", null);
     imageProfile = sharedPref.getString("image", "https://s03.s3c.es/imag/_v0/770x420/5/9/6/avion-vuelo.jpg");
     if (userName == null) {
       finish();
     }
+
     progressBar = findViewById(R.id.progressBar);
 
+    MenuItem item = navigationView.getMenu().getItem(0);
+    getRol(this.playerName, item);
+
+    item = navigationView.getMenu().getItem(1);
+    getDistance(this.playerName, item);
+
+    item = navigationView.getMenu().getItem(2);
+    getTime(this.playerName, item);
+
+    item = navigationView.getMenu().getItem(3);
+    getMoney(this.playerName, item);
+
   }
+
 
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -103,19 +126,14 @@ public class HomeActivity extends AppCompatActivity
         startActivity(intentProfile);
         finish();
         break;
-      case R.id.nav_stats:
-        Intent intentStats = new Intent(this, Stats.class);
-        startActivity(intentStats);
+      case R.id.nav_level:
+
         break;
-      case R.id.nav_forum:
-        Intent intentForum = new Intent(this, Forum.class);
-        startActivity(intentForum);
-        break;
-      case R.id.nav_ranking:
+      case R.id.nav_distance:
         Intent intentRanking = new Intent(this, Ranking.class);
         startActivity(intentRanking);
         break;
-      case R.id.nav_hangar:
+      case R.id.nav_time:
         Intent intentHangar = new Intent(this, Hangar.class);
         startActivity(intentHangar);
         break;
@@ -142,6 +160,94 @@ public class HomeActivity extends AppCompatActivity
     return true;
   }
 
+  public String getRol (String playerName , MenuItem item) {
+    Call<RankingTO> call = apiInterface.getRol(playerName);
+    call.enqueue(new Callback<RankingTO>() {
+      @Override
+      public void onResponse(Call<RankingTO> call, Response<RankingTO> response) {
+        if (!response.isSuccessful()) {
+          Log.d("Menu", "Error" + response.code());
+          return;
+        }
+         rol = response.body().getScore();
+         Log.d("Menu", "Rol: " + response.body().getScore());
+         item.setTitle("Rol: " + rol);
+      }
+
+      @Override
+      public void onFailure(Call<RankingTO> call, Throwable t) {
+        Log.d("Menu", "Error:" + t.getMessage());
+      }
+    });
+    return rol;
+  }
+
+  public String getDistance (String playerName , MenuItem item) {
+    Call<RankingTO> call = apiInterface.getDistance(playerName);
+    call.enqueue(new Callback<RankingTO>() {
+      @Override
+      public void onResponse(Call<RankingTO> call, Response<RankingTO> response) {
+        if (!response.isSuccessful()) {
+          Log.d("Menu", "Error" + response.code());
+          return;
+        }
+        distance = response.body().getScore();
+        Log.d("Menu", "Rol: " + response.body().getScore());
+        item.setTitle("Distance: "+ distance);
+      }
+
+      @Override
+      public void onFailure(Call<RankingTO> call, Throwable t) {
+        Log.d("Menu", "Error:" + t.getMessage());
+      }
+    });
+    return distance;
+  }
+
+  public String getTime (String playerName , MenuItem item) {
+    Call<RankingTO> call = apiInterface.getTime(playerName);
+    call.enqueue(new Callback<RankingTO>() {
+      @Override
+      public void onResponse(Call<RankingTO> call, Response<RankingTO> response) {
+        if (!response.isSuccessful()) {
+          Log.d("Menu", "Error" + response.code());
+          return;
+        }
+        time = response.body().getScore();
+        Log.d("Menu", "Rol: " + response.body().getScore());
+        item.setTitle("Time: "+ time);
+      }
+
+      @Override
+      public void onFailure(Call<RankingTO> call, Throwable t) {
+        Log.d("Menu", "Error:" + t.getMessage());
+      }
+    });
+    return time;
+  }
+
+  public String getMoney (String playerName , MenuItem item) {
+    Call<RankingTO> call = apiInterface.getMoney(playerName);
+    call.enqueue(new Callback<RankingTO>() {
+      @Override
+      public void onResponse(Call<RankingTO> call, Response<RankingTO> response) {
+        if (!response.isSuccessful()) {
+          Log.d("Menu", "Error" + response.code());
+          return;
+        }
+        coins = response.body().getScore();
+        Log.d("Menu", "Rol: " + response.body().getScore());
+        item.setTitle("Bitcoins: "+ coins);
+      }
+
+      @Override
+      public void onFailure(Call<RankingTO> call, Throwable t) {
+        Log.d("Menu", "Error:" + t.getMessage());
+      }
+    });
+    return coins;
+  }
+
   public void logout() {
     Call<Void> call = apiInterface.logoutUser(userName);
     call.enqueue(new Callback<Void>() {
@@ -166,8 +272,6 @@ public class HomeActivity extends AppCompatActivity
         Log.d("LoginUser", "Error logoutUser in getting response from service using retrofit: " + t.getMessage());
       }
     });
-
-
   }
 
 
@@ -182,10 +286,9 @@ public class HomeActivity extends AppCompatActivity
 
 
   public void gameLaunchClick(View view){
-    Intent intent = new Intent(this, ChooseAirplane.class);
+    Intent intent = new Intent(this, UnityPlayerActivity.class);
     startActivity(intent);
   }
-
 
 
   public void socialClick(View view) {

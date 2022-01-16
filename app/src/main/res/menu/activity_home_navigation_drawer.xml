@@ -5,45 +5,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_profile"
-            android:title="@string/menu_profile" />
-    </group>
-
-    <group
-        android:id="@+id/group1"
-        android:checkableBehavior="single">
+            android:id="@+id/nav_level"
+            android:icon="@drawable/ic_menu_ranking"
+            android:title="Level" />
         <item
-            android:id="@+id/nav_stats"
-            android:icon="@drawable/ic_menu_stats"
-            android:title="Stats" />
+            android:id="@+id/nav_distance"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Distance" />
+        <item
+            android:id="@+id/nav_time"
+            android:icon="@drawable/ic_menu_flight"
+            android:title="Time" />
+        <item
+            android:id="@+id/nav_coins"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="Coins" />
+
     </group>
 
-    <item android:title="@string/menu_group">
+    <item android:title="--------------------------------------">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_hangar"
-                    android:icon="@drawable/ic_menu_flight"
-                    android:title="Hangar" />
-                <item
-                    android:id="@+id/nav_forum"
-                    android:icon="@drawable/ic_menu_forum"
-                    android:title="Forum" />
-
-                <item
-                    android:id="@+id/nav_ranking"
-                    android:icon="@drawable/ic_menu_ranking"
-                    android:title="Ranking" />
-            </group>
-        </menu>
-    </item>
-    <item android:title="More">
-        <menu>
-            <group android:checkableBehavior="single">
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/ic_menu_profile"
+                    android:title="@string/menu_profile" />
                 <item
                     android:id="@+id/nav_logout"
-                    android:icon="@drawable/ic_menu_logout"
+                    android:icon="@android:drawable/ic_menu_set_as"
                     android:title="Logout" />
 
             </group>
