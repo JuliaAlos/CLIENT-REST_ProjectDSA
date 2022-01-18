@@ -20,7 +20,7 @@ import edu.upc.dsa.transferObjects.InsigniaTO;
 
 public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.ViewHolder>{
 
-    List<String> allInsignias = Arrays.asList("Welcome", "Diamond", "First_purchase", "Zombie", "Scorched");
+    List<String> allInsignias = Arrays.asList("Welcome", "Diamond", "First_purchase", "Zombie", "5min", "1hour", "24/7playing", "Centimetre", "World", "Wealth");
     List<InsigniaTO> listInsigniasPlayer;
     Context context;
 
@@ -64,8 +64,23 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Zombie":
                         holder.imageView.setImageResource(R.drawable.zombie);
                         break;
-                    case "Scorched":
-                        holder.imageView.setImageResource(R.drawable.scorched);
+                    case "5min":
+                        holder.imageView.setImageResource(R.drawable.fivemin);
+                        break;
+                    case "1hour":
+                        holder.imageView.setImageResource(R.drawable.onehour);
+                        break;
+                    case "24/playing":
+                        holder.imageView.setImageResource(R.drawable.alldayplaying);
+                        break;
+                    case "Centimetre":
+                        holder.imageView.setImageResource(R.drawable.centimetre);
+                        break;
+                    case "World":
+                        holder.imageView.setImageResource(R.drawable.world);
+                        break;
+                    case "Wealth":
+                        holder.imageView.setImageResource(R.drawable.wealth);
                         break;
                 }
             } else {
@@ -82,8 +97,23 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Zombie":
                         holder.imageView.setImageResource(R.drawable.zombie_blocked);
                         break;
-                    case "Scorched":
-                        holder.imageView.setImageResource(R.drawable.scorched_blocked);
+                    case "5min":
+                        holder.imageView.setImageResource(R.drawable.fivemin_blocked);
+                        break;
+                    case "1hour":
+                        holder.imageView.setImageResource(R.drawable.onehour_blocked);
+                        break;
+                    case "24/playing":
+                        holder.imageView.setImageResource(R.drawable.alldayplaying_blocked);
+                        break;
+                    case "Centimetre":
+                        holder.imageView.setImageResource(R.drawable.centimitre_blocked);
+                        break;
+                    case "World":
+                        holder.imageView.setImageResource(R.drawable.world_blocked);
+                        break;
+                    case "Wealth":
+                        holder.imageView.setImageResource(R.drawable.wealth_blocked);
                         break;
                 }
             }
@@ -105,8 +135,23 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                 case "Zombie":
                     holder.imageView.setImageResource(R.drawable.zombie_blocked);
                     break;
-                case "Scorched":
-                    holder.imageView.setImageResource(R.drawable.scorched_blocked);
+                case "5min":
+                    holder.imageView.setImageResource(R.drawable.fivemin_blocked);
+                    break;
+                case "1hour":
+                    holder.imageView.setImageResource(R.drawable.onehour_blocked);
+                    break;
+                case "24/playing":
+                    holder.imageView.setImageResource(R.drawable.alldayplaying_blocked);
+                    break;
+                case "Centimetre":
+                    holder.imageView.setImageResource(R.drawable.centimitre_blocked);
+                    break;
+                case "World":
+                    holder.imageView.setImageResource(R.drawable.world_blocked);
+                    break;
+                case "Wealth":
+                    holder.imageView.setImageResource(R.drawable.wealth_blocked);
                     break;
             }
 
