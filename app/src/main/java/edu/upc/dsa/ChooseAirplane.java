@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.unity3d.player.UnityPlayerActivity;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +48,9 @@ public class ChooseAirplane extends AppCompatActivity {
         setContentView(R.layout.choose_airplane);
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         playerName = sharedPref.getString("user","Hola");
+
+        UnityComms.setPlayerName(playerName);
+
 
         planeImage = findViewById(R.id.planeImageID);
         progressBar = findViewById(R.id.circularProgressID);
@@ -146,10 +151,10 @@ public class ChooseAirplane extends AppCompatActivity {
         call.enqueue(new Callback<List<Upgrade>>() {
             @Override
             public void onResponse(Call<List<Upgrade>> call, Response<List<Upgrade>> response) {
-                if (!response.isSuccessful()) {
+                /*if (!response.isSuccessful()) {
                     Log.d("MYAPP", "Error" + response.code());
                     return;
-                }
+                }*/
                 if (response.code() == 200){
                     for (Upgrade upgrade : response.body()) {
                         if (upgrade.getPlaneModelModel().equals(currentlyDisplayed)) {
@@ -170,14 +175,17 @@ public class ChooseAirplane extends AppCompatActivity {
                             }
                         }
                     }
-
+                    System.out.println("Num upgrades: " + response.body().size());
                 }
-                System.out.println("Num upgrades: " + response.body().size());
+
                 System.out.println("Stats mod: " + planeToUnity.getEnginesLife() +" , " +  planeToUnity.getFuel());
                 progressBar.setVisibility(View.GONE);
 
 
                 /** AQUÍ ÉS ON HAS DE PASSAR EL "planeToUnity" ON EL NECESSITIS. */
+                UnityComms.setPlane(planeToUnity);
+                Log.d("DEBUG", planeToUnity.toString());
+                launchUnity();
 
 
             }
@@ -187,6 +195,11 @@ public class ChooseAirplane extends AppCompatActivity {
                 Log.d("MYAPP", "Error:" + t.getMessage());
             }
         });
+    }
+
+    private void launchUnity(){
+        Intent intent = new Intent(this, UnityPlayerActivity.class);
+        startActivity(intent);
     }
 
     @Override

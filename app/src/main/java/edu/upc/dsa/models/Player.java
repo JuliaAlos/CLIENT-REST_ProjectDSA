@@ -5,10 +5,10 @@ public class Player extends ViewModel {
     private String playerName;
     private Integer maxDistance;
     private String rol;
-    private Integer timeOfFlight;
+    private Float timeOfFlight;
     private Integer bitcoins;
 
-    public Player(int image, String description, Double qualification, String playerName, Integer maxDistance, String rol, Integer timeOfFlight, Integer bitcoins){
+    public Player(int image, String description, Double qualification, String playerName, Integer maxDistance, String rol, Float timeOfFlight, Integer bitcoins){
       super(image, description, qualification);
         this.playerName=playerName;
         this.maxDistance=maxDistance;
@@ -44,11 +44,11 @@ public class Player extends ViewModel {
         this.rol = rol;
     }
 
-    public Integer getTimeOfFlight() {
+    public Float getTimeOfFlight() {
         return timeOfFlight;
     }
 
-    public void setTimeOfFlight(Integer timeOfFlight) {
+    public void setTimeOfFlight(Float timeOfFlight) {
         this.timeOfFlight = timeOfFlight;
     }
 

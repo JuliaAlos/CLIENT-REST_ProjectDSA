@@ -65,13 +65,13 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                         holder.imageView.setImageResource(R.drawable.zombie);
                         break;
                     case "5min":
-                        holder.imageView.setImageResource(R.drawable.fivemin);
+                        holder.imageView.setImageResource(R.drawable.five_min);
                         break;
                     case "1hour":
                         holder.imageView.setImageResource(R.drawable.onehour);
                         break;
                     case "24/playing":
-                        holder.imageView.setImageResource(R.drawable.alldayplaying);
+                        holder.imageView.setImageResource(R.drawable.all_day_playing);
                         break;
                     case "Centimetre":
                         holder.imageView.setImageResource(R.drawable.centimetre);
@@ -98,13 +98,13 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                         holder.imageView.setImageResource(R.drawable.zombie_blocked);
                         break;
                     case "5min":
-                        holder.imageView.setImageResource(R.drawable.fivemin_blocked);
+                        holder.imageView.setImageResource(R.drawable.five_min_blocked);
                         break;
                     case "1hour":
                         holder.imageView.setImageResource(R.drawable.onehour_blocked);
                         break;
                     case "24/playing":
-                        holder.imageView.setImageResource(R.drawable.alldayplaying_blocked);
+                        holder.imageView.setImageResource(R.drawable.all_day_playing_blocked);
                         break;
                     case "Centimetre":
                         holder.imageView.setImageResource(R.drawable.centimitre_blocked);
@@ -136,13 +136,13 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     holder.imageView.setImageResource(R.drawable.zombie_blocked);
                     break;
                 case "5min":
-                    holder.imageView.setImageResource(R.drawable.fivemin_blocked);
+                    holder.imageView.setImageResource(R.drawable.five_min_blocked);
                     break;
                 case "1hour":
                     holder.imageView.setImageResource(R.drawable.onehour_blocked);
                     break;
                 case "24/playing":
-                    holder.imageView.setImageResource(R.drawable.alldayplaying_blocked);
+                    holder.imageView.setImageResource(R.drawable.all_day_playing_blocked);
                     break;
                 case "Centimetre":
                     holder.imageView.setImageResource(R.drawable.centimitre_blocked);

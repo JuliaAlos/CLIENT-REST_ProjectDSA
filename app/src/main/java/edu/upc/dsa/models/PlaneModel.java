@@ -30,29 +30,24 @@ public class PlaneModel {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public Integer getFuel() {
         return fuel;
-    }
-
-    public void setFuel(Integer fuel) {
-        this.fuel = fuel;
     }
 
     public Integer getMinFuel() {
         return minFuel;
     }
 
-    public void setMinFuel(Integer minFuel) {
-        this.minFuel = minFuel;
+    public void setModel(String model) {
+        this.model = model;
     }
 
+    public void setFuel(Integer fuel) {
+        this.fuel = fuel;
+    }
 
-    public Integer getEnginesLife() {
-        return enginesLife;
+    public void setMinFuel(Integer minFuel) {
+        this.minFuel = minFuel;
     }
 
     public void setEnginesLife(Integer enginesLife) {
@@ -63,28 +58,12 @@ public class PlaneModel {
         this.maxEnginesLife = maxEnginesLife;
     }
 
-    public Integer getMaxEnginesLife() {
-        return maxEnginesLife;
-    }
-
-    public Integer getVelX() {
-        return velX;
-    }
-
     public void setVelX(Integer velX) {
         this.velX = velX;
     }
 
     public void setMaxSpeed(Integer maxSpeed) {
         this.maxSpeed = maxSpeed;
-    }
-
-    public Integer getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public Integer getVelY() {
-        return velY;
     }
 
     public void setVelY(Integer velY) {
@@ -95,20 +74,40 @@ public class PlaneModel {
         this.maxManoeuvrability = maxManoeuvrability;
     }
 
-    public Integer getMaxManoeuvrability() {
-        return maxManoeuvrability;
-    }
-
-    public Integer getGravity() {
-        return gravity;
-    }
-
     public void setGravity(Integer gravity) {
         this.gravity = gravity;
     }
 
     public void setMinWeight(Integer minWeight) {
         this.minWeight = minWeight;
+    }
+
+    public Integer getEnginesLife() {
+        return enginesLife;
+    }
+
+    public Integer getMaxEnginesLife() {
+        return maxEnginesLife;
+    }
+
+    public Integer getVelX() {
+        return velX;
+    }
+
+    public Integer getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public Integer getVelY() {
+        return velY;
+    }
+
+    public Integer getMaxManoeuvrability() {
+        return maxManoeuvrability;
+    }
+
+    public Integer getGravity() {
+        return gravity;
     }
 
     public Integer getMinWeight() {

@@ -3,6 +3,7 @@ package edu.upc.dsa;
 import java.util.List;
 
 import edu.upc.dsa.models.ForumEntry;
+import edu.upc.dsa.models.GameResults;
 import edu.upc.dsa.models.InsigniaModel;
 import edu.upc.dsa.models.Insignia;
 import edu.upc.dsa.models.Plane;
@@ -45,6 +46,9 @@ public interface ApiInterface {
 
     @POST("user/update/{oldUserName}")
     Call<UserTO> updateUser(@Body RegisterUserTO user,@Path("oldUserName") String userName);
+
+    @POST("user/uploadGame/{userName}")
+    Call<Void> uploadGame(@Body GameResults gameResults, @Path("userName") String userName);
 
     /** PLANES *******************/
 

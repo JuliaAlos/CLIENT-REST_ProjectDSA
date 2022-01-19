@@ -276,7 +276,7 @@ public class HomeActivity extends AppCompatActivity
   }
 
   public void gameLaunchClick(View view){
-    Intent intent = new Intent(this, UnityPlayerActivity.class);
+    Intent intent = new Intent(this, ChooseAirplane.class);
     startActivity(intent);
   }
 
