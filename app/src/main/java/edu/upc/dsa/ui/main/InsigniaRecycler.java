@@ -55,9 +55,6 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Welcome":
                         holder.imageView.setImageResource(R.drawable.welcome);
                         break;
-                    case "Diamond":
-                        holder.imageView.setImageResource(R.drawable.diamond);
-                        break;
                     case "First_purchase":
                         holder.imageView.setImageResource(R.drawable.first_purchase);
                         break;
@@ -79,14 +76,14 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Wealth":
                         holder.imageView.setImageResource(R.drawable.wealth);
                         break;
+                    case "Diamond":
+                        holder.imageView.setImageResource(R.drawable.diamond);
+                        break;
                 }
             } else {
                 switch (model) {
                     case "Welcome":
                         holder.imageView.setImageResource(R.drawable.welcome);
-                        break;
-                    case "Diamond":
-                        holder.imageView.setImageResource(R.drawable.diamond_blocked);
                         break;
                     case "First_purchase":
                         holder.imageView.setImageResource(R.drawable.first_purchase_blocked);
@@ -109,6 +106,9 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Wealth":
                         holder.imageView.setImageResource(R.drawable.wealth_blocked);
                         break;
+                    case "Diamond":
+                        holder.imageView.setImageResource(R.drawable.diamond_blocked);
+                        break;
                 }
             }
             i++;
@@ -119,9 +119,6 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
             switch (model) {
                 case "Welcome":
                     holder.imageView.setImageResource(R.drawable.welcome);
-                    break;
-                case "Diamond":
-                    holder.imageView.setImageResource(R.drawable.diamond_blocked);
                     break;
                 case "First_purchase":
                     holder.imageView.setImageResource(R.drawable.first_purchase_blocked);
@@ -143,6 +140,9 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     break;
                 case "Wealth":
                     holder.imageView.setImageResource(R.drawable.wealth_blocked);
+                    break;
+                case "Diamond":
+                    holder.imageView.setImageResource(R.drawable.diamond_blocked);
                     break;
             }
 
