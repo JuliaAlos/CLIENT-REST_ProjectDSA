@@ -46,7 +46,6 @@ public class UpgradePlane extends AppCompatActivity {
     List<Upgrade> listUpgradesPlayer;
     TextView bitcoins;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -233,38 +232,44 @@ public class UpgradePlane extends AppCompatActivity {
     }
 
     public void upgradeAirplaneClick(View view) {
+        upgradeAirplane();
+    }
+
+    private void upgradeAirplane(){
         if (changes) {
             circularProgressBar.setVisibility(View.VISIBLE);
-            while (this.upgradeRobustness > 0) {
+            if (this.upgradeRobustness > 0) {
                 Upgrade upgrade = new Upgrade("0", this.userName, this.model);
                 this.addUpgradeToPlayer(upgrade);
                 this.upgradeRobustness--;
             }
-            while (this.upgradeManeuverability > 0) {
+            else if (this.upgradeManeuverability > 0) {
                 Upgrade upgrade = new Upgrade("1", this.userName, this.model);
                 this.addUpgradeToPlayer(upgrade);
                 this.upgradeManeuverability--;
             }
-            while (this.upgradeSpeed > 0) {
+            else if (this.upgradeSpeed > 0) {
                 Upgrade upgrade = new Upgrade("2", this.userName, this.model);
                 this.addUpgradeToPlayer(upgrade);
                 this.upgradeSpeed--;
             }
-            while (this.upgradeFuel > 0) {
+            else if (this.upgradeFuel > 0) {
                 Upgrade upgrade = new Upgrade("3", this.userName, this.model);
                 this.addUpgradeToPlayer(upgrade);
                 this.upgradeFuel--;
             }
-            while (this.upgradeWeight > 0) {
+            else if (this.upgradeWeight > 0) {
                 Upgrade upgrade = new Upgrade("4", this.userName, this.model);
                 this.addUpgradeToPlayer(upgrade);
                 this.upgradeWeight--;
+            }else{
+
+                Toast.makeText(this, "Upgrade done!", Toast.LENGTH_LONG).show();
+                getPlaneByModel(this.model);
+                changes = false;
+                circularProgressBar.setVisibility(View.GONE);
+                getUserByName();
             }
-            Toast.makeText(this, "Upgrade done!", Toast.LENGTH_LONG).show();
-            getPlaneByModel(this.model);
-            changes = false;
-            circularProgressBar.setVisibility(View.GONE);
-            getUserByName();
         }
         else{
             Toast.makeText(this, "Nothing to upgrade!", Toast.LENGTH_LONG).show();
@@ -280,6 +285,7 @@ public class UpgradePlane extends AppCompatActivity {
                     Log.d("MYAPP", "Error" + response.code());
                     return;
                 }
+                upgradeAirplane();
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
