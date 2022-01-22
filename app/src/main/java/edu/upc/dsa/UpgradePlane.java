@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import java.util.List;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.models.Upgrade;
 import edu.upc.dsa.transferObjects.PlanePlayerTO;
+import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +44,7 @@ public class UpgradePlane extends AppCompatActivity {
     ImageView robustness_button, maneuverability_button, speed_button, fuel_button, weight_button;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     List<Upgrade> listUpgradesPlayer;
+    TextView bitcoins;
 
 
     @Override
@@ -86,6 +89,8 @@ public class UpgradePlane extends AppCompatActivity {
         min_fuel = findViewById(R.id.min_fuel_progress);
         min_weight = findViewById(R.id.min_weight_progress);
 
+        bitcoins = findViewById(R.id.bitcoinsID);
+
         layout = (ConstraintLayout) findViewById(R.id.layoutUpgradesID);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -109,6 +114,7 @@ public class UpgradePlane extends AppCompatActivity {
                 break;
         }
         getPlaneByModel(model);
+        getUserByName();
     }
     public void upgradeToMechanic(View view) {
         Intent intent = new Intent(this, Mechanic.class);
@@ -149,6 +155,27 @@ public class UpgradePlane extends AppCompatActivity {
             }
         });
     }
+
+    public void getUserByName() {
+        Call<UserTO> call = apiInterface.getUser(this.userName);
+        call.enqueue(new Callback<UserTO>() {
+            @Override
+            public void onResponse (Call<UserTO> call, Response<UserTO> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("MYAPP", "Error" + response.code());
+                    return;
+                }
+                assert response.body() != null;
+                bitcoins.setText(response.body().getPlayer().getBitcoins().toString());
+            }
+            @Override
+            public void onFailure(Call<UserTO> call, Throwable t) {
+                Log.d("MYAPP", "Error:" + t.getMessage());
+            }
+        });
+    }
+
+
 
     public void upgradeRobustness(View view) {
         if (this.robustness.getProgress() == this.max_robustness.getProgress()){
@@ -237,6 +264,7 @@ public class UpgradePlane extends AppCompatActivity {
             getPlaneByModel(this.model);
             changes = false;
             circularProgressBar.setVisibility(View.GONE);
+            getUserByName();
         }
         else{
             Toast.makeText(this, "Nothing to upgrade!", Toast.LENGTH_LONG).show();
