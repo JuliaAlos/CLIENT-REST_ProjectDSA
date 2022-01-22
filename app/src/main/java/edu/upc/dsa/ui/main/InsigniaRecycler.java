@@ -20,7 +20,7 @@ import edu.upc.dsa.transferObjects.InsigniaTO;
 
 public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.ViewHolder>{
 
-    List<String> allInsignias = Arrays.asList("Welcome", "Diamond", "First_purchase", "Zombie", "5min", "1hour", "24/7playing", "Centimetre", "World", "Wealth");
+    List<String> allInsignias = Arrays.asList("Welcome", "Diamond", "First_purchase", "5min", "1hour", "24/7playing", "Centimetre", "World", "Wealth");
     List<InsigniaTO> listInsigniasPlayer;
     Context context;
 
@@ -55,14 +55,8 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Welcome":
                         holder.imageView.setImageResource(R.drawable.welcome);
                         break;
-                    case "Diamond":
-                        holder.imageView.setImageResource(R.drawable.diamond);
-                        break;
                     case "First_purchase":
                         holder.imageView.setImageResource(R.drawable.first_purchase);
-                        break;
-                    case "Zombie":
-                        holder.imageView.setImageResource(R.drawable.zombie);
                         break;
                     case "5min":
                         holder.imageView.setImageResource(R.drawable.five_min);
@@ -82,20 +76,17 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Wealth":
                         holder.imageView.setImageResource(R.drawable.wealth);
                         break;
+                    case "Diamond":
+                        holder.imageView.setImageResource(R.drawable.diamond);
+                        break;
                 }
             } else {
                 switch (model) {
                     case "Welcome":
                         holder.imageView.setImageResource(R.drawable.welcome);
                         break;
-                    case "Diamond":
-                        holder.imageView.setImageResource(R.drawable.diamond_blocked);
-                        break;
                     case "First_purchase":
                         holder.imageView.setImageResource(R.drawable.first_purchase_blocked);
-                        break;
-                    case "Zombie":
-                        holder.imageView.setImageResource(R.drawable.zombie_blocked);
                         break;
                     case "5min":
                         holder.imageView.setImageResource(R.drawable.five_min_blocked);
@@ -115,6 +106,9 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "Wealth":
                         holder.imageView.setImageResource(R.drawable.wealth_blocked);
                         break;
+                    case "Diamond":
+                        holder.imageView.setImageResource(R.drawable.diamond_blocked);
+                        break;
                 }
             }
             i++;
@@ -126,14 +120,8 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                 case "Welcome":
                     holder.imageView.setImageResource(R.drawable.welcome);
                     break;
-                case "Diamond":
-                    holder.imageView.setImageResource(R.drawable.diamond_blocked);
-                    break;
                 case "First_purchase":
                     holder.imageView.setImageResource(R.drawable.first_purchase_blocked);
-                    break;
-                case "Zombie":
-                    holder.imageView.setImageResource(R.drawable.zombie_blocked);
                     break;
                 case "5min":
                     holder.imageView.setImageResource(R.drawable.five_min_blocked);
@@ -152,6 +140,9 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     break;
                 case "Wealth":
                     holder.imageView.setImageResource(R.drawable.wealth_blocked);
+                    break;
+                case "Diamond":
+                    holder.imageView.setImageResource(R.drawable.diamond_blocked);
                     break;
             }
 
