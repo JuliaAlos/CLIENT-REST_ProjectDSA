@@ -110,7 +110,7 @@
         app:layout_constraintVertical_bias="0.716" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonBuyAirplaneID"
         android:layout_width="186dp"
         android:layout_height="61dp"
         android:layout_marginStart="116dp"
@@ -130,12 +130,16 @@
         android:layout_width="32dp"
         android:layout_height="43dp"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="backClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/back2_button"
-        app:tint="@color/white"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp"
-        android:focusable="true" />
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/imageView17"

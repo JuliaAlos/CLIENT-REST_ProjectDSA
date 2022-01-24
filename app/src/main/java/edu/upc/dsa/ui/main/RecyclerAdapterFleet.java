@@ -90,12 +90,20 @@ public class RecyclerAdapterFleet extends RecyclerView.Adapter<RecyclerAdapterFl
             i++;
         }
 
-         holder.imageView.setOnClickListener(new View.OnClickListener() {
+        int finalFound = found;
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
          //This is the code so that when a particular track is clicked, its information appears in the new layout.
          @Override
          public void onClick(View v) {
          Intent intent = new Intent(context, InfoPlane.class);
          intent.putExtra("MODEL", model);
+         if (finalFound == 1){
+             intent.putExtra("PURCHASED", "Yes");
+         }
+         else{
+             intent.putExtra("PURCHASED", "No");
+         }
+
          context.startActivity(intent);
          }
          });

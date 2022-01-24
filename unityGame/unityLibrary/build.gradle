@@ -47,6 +47,7 @@ def getSdkDir() {
     return local.getProperty('sdk.dir')
 }
 
+/*
 def BuildIl2Cpp(String workingDir, String targetDirectory, String architecture, String abi, String configuration) {
     exec {
         commandLine(workingDir + "/src/main/Il2CppOutputProject/IL2CPP/build/deploy/netcoreapp3.1/il2cpp",
@@ -91,6 +92,8 @@ android {
         }
     }
 }
+
+ */
 
 
 

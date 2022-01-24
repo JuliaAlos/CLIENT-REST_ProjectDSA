@@ -4,24 +4,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.io.IOException;
 import java.util.List;
 
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.models.Upgrade;
 import edu.upc.dsa.transferObjects.PlanePlayerTO;
-import edu.upc.dsa.transferObjects.PlaneTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InfoPlane extends AppCompatActivity {
     String model;
+    String purchased;
     ApiInterface apiInterface;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     String userName;
@@ -38,6 +38,9 @@ public class InfoPlane extends AppCompatActivity {
     ConstraintLayout layout;
     List<Upgrade> listUpgradesPlayer;
     TextView pricePlane, currentBitcoins;
+    Button buyAirplaneButton;
+    Integer bitcoins;
+    Integer price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +62,23 @@ public class InfoPlane extends AppCompatActivity {
         weight = findViewById(R.id.progressWeight);
         pricePlane = findViewById(R.id.priceTextID);
         currentBitcoins = findViewById(R.id.currentBitcoinsID);
+        buyAirplaneButton = findViewById(R.id.buttonBuyAirplaneID);
         layout = (ConstraintLayout) findViewById(R.id.layoutID);
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             model = extras.getString("MODEL");
+            purchased = extras.getString("PURCHASED");
         }
+        System.out.println(purchased);
+
+        if (purchased.equals("Yes")){
+            String messageButton = "Purchased";
+            buyAirplaneButton.setText(messageButton);
+            buyAirplaneButton.setBackgroundColor(Color.GRAY);
+            buyAirplaneButton.setClickable(false);
+        }
+
         switch (model) {
             case "Airbus":
                 layout.setBackgroundResource(R.drawable.a320_info);
@@ -82,7 +97,6 @@ public class InfoPlane extends AppCompatActivity {
                 break;
         }
         getPlaneByModel(this.model);
-        getAllUpgradesFromPlayer(userName, model);
         getUserByName();
     }
 
@@ -96,6 +110,7 @@ public class InfoPlane extends AppCompatActivity {
                     return;
                 }
                 assert response.body() != null;
+                bitcoins = response.body().getPlayer().getBitcoins();
                 currentBitcoins.setText(response.body().getPlayer().getBitcoins().toString());
             }
             @Override
@@ -112,22 +127,32 @@ public class InfoPlane extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PlanePlayerTO planePlayerTO = new PlanePlayerTO(userName, model);
-                        Call<Void> call = apiInterface.addPlaneToUser(planePlayerTO);
-                        call.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse (Call<Void> call, Response<Void> response) {
-                                if (!response.isSuccessful()) {
-                                    Log.d("MYAPP", "Error" + response.code());
-                                    return;
+                        if (bitcoins >= price) {
+                            PlanePlayerTO planePlayerTO = new PlanePlayerTO(userName, model);
+                            Call<Void> call = apiInterface.addPlaneToUser(planePlayerTO);
+                            call.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (!response.isSuccessful()) {
+                                        Log.d("MYAPP", "Error" + response.code());
+                                        return;
+                                    }
                                 }
-                            }
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Log.d("MYAPP", "Error:" + t.getMessage());
-                            }
-                        });
-                        informPurchaseCompleted();
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    Log.d("MYAPP", "Error:" + t.getMessage());
+                                }
+                            });
+                            informPurchaseCompleted();
+                            String messageButton = "Purchased";
+                            buyAirplaneButton.setText(messageButton);
+                            buyAirplaneButton.setBackgroundColor(Color.GRAY);
+                            buyAirplaneButton.setClickable(false);
+                        }
+                        else{
+                            informNoMoney();
+                        }
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -143,7 +168,7 @@ public class InfoPlane extends AppCompatActivity {
 
     public void informPurchaseCompleted(){
         AlertDialog.Builder confirmation = new AlertDialog.Builder(InfoPlane.this);
-        confirmation.setMessage("Aircraft purchased correctly.")
+        confirmation.setMessage("Aircraft purchased!")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -153,11 +178,25 @@ public class InfoPlane extends AppCompatActivity {
                     }
                 });
         AlertDialog title = confirmation.create();
-        title.setTitle("BUY AIRCRAFT");
         title.show();
-
-
     }
+
+    public void informNoMoney() {
+        AlertDialog.Builder confirmation = new AlertDialog.Builder(InfoPlane.this);
+        confirmation.setMessage("You don't have enough bitcoins to buy this aircraft.")
+                .setCancelable(false)
+                .setPositiveButton("FUCK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getUserByName();
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog title = confirmation.create();
+        title.setTitle("NO MONEY");
+        title.show();
+    }
+
 
     public void getPlaneByModel(String planeModelModel) {
         Call<PlaneModel> call = apiInterface.getPlaneByModel(planeModelModel);
@@ -174,6 +213,9 @@ public class InfoPlane extends AppCompatActivity {
                 fuel.setProgress(response.body().getFuel());
                 weight.setProgress(response.body().getGravity());
                 pricePlane.setText(response.body().getPrice().toString());
+                price = response.body().getPrice();
+
+                getAllUpgradesFromPlayer(userName, model);
 
             }
             @Override
