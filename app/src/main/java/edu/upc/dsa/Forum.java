@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -20,6 +23,7 @@ import edu.upc.dsa.models.ForumEntry;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.models.Upgrade;
 import edu.upc.dsa.transferObjects.PlaneTO;
+import edu.upc.dsa.transferObjects.UserTO;
 import edu.upc.dsa.ui.main.RecyclerAdapterFleet;
 import edu.upc.dsa.ui.main.RecyclerAdapterForum;
 import retrofit2.Call;
@@ -35,6 +39,7 @@ public class Forum extends AppCompatActivity {
     RecyclerView recyclerView;
     String playerName;
     TextView post;
+    ImageView profilePic;
 
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
     @Override
@@ -48,10 +53,12 @@ public class Forum extends AppCompatActivity {
         apiInterface = retrofit.create(ApiInterface.class);
         recyclerView = findViewById(R.id.recyclerForumID);
         post = findViewById(R.id.postTextID);
+        profilePic = findViewById(R.id.imageForumID);
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         playerName = sharedPref.getString("user","Hola");
 
         getAllEntries();
+        getUserByName();
     }
 
     public void initializeRecyclerView(List<ForumEntry> listEntries){
@@ -106,5 +113,25 @@ public class Forum extends AppCompatActivity {
         this.post.setText("");
         ForumEntry entry = new ForumEntry(this.playerName, message);
         addEntry(entry);
+    }
+
+    public void getUserByName() {
+        Call<UserTO> call = apiInterface.getUser(this.playerName);
+        call.enqueue(new Callback<UserTO>() {
+            @Override
+            public void onResponse (Call<UserTO> call, Response<UserTO> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("MYAPP", "Error" + response.code());
+                    return;
+                }
+                Log.d("Profile", "Successful getUser "+ playerName);
+                UserTO data = response.body();
+                Glide.with(Forum.this).load(data.getImage_url()).into(profilePic);
+            }
+            @Override
+            public void onFailure(Call<UserTO> call, Throwable t) {
+                Log.d("MYAPP", "Error:" + t.getMessage());
+            }
+        });
     }
 }

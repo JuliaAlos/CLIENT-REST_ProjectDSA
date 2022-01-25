@@ -34,22 +34,22 @@
         app:layout_constraintHorizontal_bias="0.288"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113"
+        app:layout_constraintVertical_bias="0.111"
         app:srcCompat="@drawable/play_button" />
 
     <ImageView
         android:id="@+id/imageView15"
-        android:layout_width="78dp"
-        android:layout_height="93dp"
+        android:layout_width="77dp"
+        android:layout_height="88dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="insigniaClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.114"
+        app:layout_constraintVertical_bias="0.111"
         app:srcCompat="@drawable/insignia_button" />
 
     <ImageView
@@ -72,8 +72,8 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="127dp"
-        android:layout_height="110dp"
+        android:layout_width="117dp"
+        android:layout_height="107dp"
         android:layout_marginStart="16dp"
         android:onClick="rankingClick"
         app:layout_constraintBottom_toBottomOf="parent"

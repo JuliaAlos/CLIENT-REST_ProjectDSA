@@ -51,6 +51,7 @@ public class UpgradePlane extends AppCompatActivity {
     Integer priceUpgrade = 0;
     TextView bitcoins, costUpgrade;
     Button upgradeButton;
+    Context thisContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class UpgradePlane extends AppCompatActivity {
 
         circularProgressBar = findViewById(R.id.circularProgressBarID);
         circularProgressBar.setVisibility(View.VISIBLE);
+
+        thisContext = this;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -127,14 +130,58 @@ public class UpgradePlane extends AppCompatActivity {
         getUserByName();
     }
     public void upgradeToMechanic(View view) {
-        Intent intent = new Intent(this, Mechanic.class);
-        startActivity(intent);
+        if (changes) {
+            AlertDialog.Builder confirmation = new AlertDialog.Builder(UpgradePlane.this);
+            confirmation.setMessage("Are you sure you want to leave? The upgrade will be discarded!")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(thisContext, Mechanic.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog titulo = confirmation.create();
+            titulo.show();
+        }
+        else{
+            Intent intent = new Intent(thisContext, Mechanic.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, Mechanic.class);
-        startActivity(intent);
+        if (changes) {
+            AlertDialog.Builder confirmation = new AlertDialog.Builder(UpgradePlane.this);
+            confirmation.setMessage("Are you sure you want to leave? The upgrade will be discarded!")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(thisContext, Mechanic.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog titulo = confirmation.create();
+            titulo.show();
+        }
+        else{
+            Intent intent = new Intent(thisContext, Mechanic.class);
+            startActivity(intent);
+        }
     }
 
     public void getPlaneByModel(String planeModelModel) {
