@@ -198,8 +198,11 @@ public class ChooseAirplane extends AppCompatActivity {
     }
 
     private void launchUnity(){
+
         Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
+
+
     }
 
     @Override

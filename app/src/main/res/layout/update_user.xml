@@ -96,8 +96,6 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="100dp"
         android:backgroundTint="#7CB342"
         android:onClick="done"
         android:text="DONE"
@@ -105,8 +103,10 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPassword2" />
+        app:layout_constraintTop_toBottomOf="@+id/textPassword2"
+        app:layout_constraintVertical_bias="0.313" />
 
     <EditText
         android:id="@+id/textPlayer"

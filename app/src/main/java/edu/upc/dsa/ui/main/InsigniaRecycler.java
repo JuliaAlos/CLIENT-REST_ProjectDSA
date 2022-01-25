@@ -64,7 +64,7 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "1hour":
                         holder.imageView.setImageResource(R.drawable.onehour);
                         break;
-                    case "24/playing":
+                    case "24/7playing":
                         holder.imageView.setImageResource(R.drawable.all_day_playing);
                         break;
                     case "Centimetre":
@@ -94,11 +94,11 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                     case "1hour":
                         holder.imageView.setImageResource(R.drawable.onehour_blocked);
                         break;
-                    case "24/playing":
+                    case "24/7playing":
                         holder.imageView.setImageResource(R.drawable.all_day_playing_blocked);
                         break;
                     case "Centimetre":
-                        holder.imageView.setImageResource(R.drawable.centimitre_blocked);
+                        holder.imageView.setImageResource(R.drawable.centimetre_blocked);
                         break;
                     case "World":
                         holder.imageView.setImageResource(R.drawable.world_blocked);
@@ -129,11 +129,11 @@ public class InsigniaRecycler extends RecyclerView.Adapter<InsigniaRecycler.View
                 case "1hour":
                     holder.imageView.setImageResource(R.drawable.onehour_blocked);
                     break;
-                case "24/playing":
+                case "24/7playing":
                     holder.imageView.setImageResource(R.drawable.all_day_playing_blocked);
                     break;
                 case "Centimetre":
-                    holder.imageView.setImageResource(R.drawable.centimitre_blocked);
+                    holder.imageView.setImageResource(R.drawable.centimetre_blocked);
                     break;
                 case "World":
                     holder.imageView.setImageResource(R.drawable.world_blocked);

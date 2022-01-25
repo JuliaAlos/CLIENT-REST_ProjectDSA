@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,11 +10,14 @@ import android.graphics.drawable.RotateDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -22,6 +26,7 @@ import java.util.List;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.models.Upgrade;
 import edu.upc.dsa.transferObjects.PlanePlayerTO;
+import edu.upc.dsa.transferObjects.UserTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +47,11 @@ public class UpgradePlane extends AppCompatActivity {
     ImageView robustness_button, maneuverability_button, speed_button, fuel_button, weight_button;
     public static final String BASE_URL = "http://147.83.7.203:8080/dsaApp/";
     List<Upgrade> listUpgradesPlayer;
-
+    Integer bitcoinsAvailable;
+    Integer priceUpgrade = 0;
+    TextView bitcoins, costUpgrade;
+    Button upgradeButton;
+    Context thisContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +60,8 @@ public class UpgradePlane extends AppCompatActivity {
 
         circularProgressBar = findViewById(R.id.circularProgressBarID);
         circularProgressBar.setVisibility(View.VISIBLE);
+
+        thisContext = this;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -74,6 +85,9 @@ public class UpgradePlane extends AppCompatActivity {
         fuel_button = findViewById(R.id.fuel_button);
         weight_button = findViewById(R.id.weight_button);
 
+        upgradeButton = findViewById(R.id.upgradeButtonID);
+        upgradeButton.setBackgroundColor(Color.GRAY);
+
         robustness = findViewById(R.id.robustness_progress);
         maneuverability = findViewById(R.id.maneuverability_progress);
         speed = findViewById(R.id.speed_progress);
@@ -85,6 +99,10 @@ public class UpgradePlane extends AppCompatActivity {
         max_speed = findViewById(R.id.max_speed_progress);
         min_fuel = findViewById(R.id.min_fuel_progress);
         min_weight = findViewById(R.id.min_weight_progress);
+
+        bitcoins = findViewById(R.id.bitcoinsID);
+        costUpgrade = findViewById(R.id.costUpgradeID);
+        costUpgrade.setText("0");
 
         layout = (ConstraintLayout) findViewById(R.id.layoutUpgradesID);
         Bundle extras = getIntent().getExtras();
@@ -109,16 +127,61 @@ public class UpgradePlane extends AppCompatActivity {
                 break;
         }
         getPlaneByModel(model);
+        getUserByName();
     }
     public void upgradeToMechanic(View view) {
-        Intent intent = new Intent(this, Mechanic.class);
-        startActivity(intent);
+        if (changes) {
+            AlertDialog.Builder confirmation = new AlertDialog.Builder(UpgradePlane.this);
+            confirmation.setMessage("Are you sure you want to leave? The upgrade will be discarded!")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(thisContext, Mechanic.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog titulo = confirmation.create();
+            titulo.show();
+        }
+        else{
+            Intent intent = new Intent(thisContext, Mechanic.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, Mechanic.class);
-        startActivity(intent);
+        if (changes) {
+            AlertDialog.Builder confirmation = new AlertDialog.Builder(UpgradePlane.this);
+            confirmation.setMessage("Are you sure you want to leave? The upgrade will be discarded!")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(thisContext, Mechanic.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog titulo = confirmation.create();
+            titulo.show();
+        }
+        else{
+            Intent intent = new Intent(thisContext, Mechanic.class);
+            startActivity(intent);
+        }
     }
 
     public void getPlaneByModel(String planeModelModel) {
@@ -142,6 +205,7 @@ public class UpgradePlane extends AppCompatActivity {
                 min_weight.setProgress(response.body().getMinWeight());
 
                 getAllUpgradesFromPlayer(userName, model);
+
             }
             @Override
             public void onFailure(Call<PlaneModel> call, Throwable t) {
@@ -150,12 +214,37 @@ public class UpgradePlane extends AppCompatActivity {
         });
     }
 
+    public void getUserByName() {
+        Call<UserTO> call = apiInterface.getUser(this.userName);
+        call.enqueue(new Callback<UserTO>() {
+            @Override
+            public void onResponse (Call<UserTO> call, Response<UserTO> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("MYAPP", "Error" + response.code());
+                    return;
+                }
+                assert response.body() != null;
+                bitcoins.setText(response.body().getPlayer().getBitcoins().toString());
+                bitcoinsAvailable = response.body().getPlayer().getBitcoins();
+            }
+            @Override
+            public void onFailure(Call<UserTO> call, Throwable t) {
+                Log.d("MYAPP", "Error:" + t.getMessage());
+            }
+        });
+    }
+
+
+
     public void upgradeRobustness(View view) {
         if (this.robustness.getProgress() == this.max_robustness.getProgress()){
-            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
         }
         else {
+            upgradeButton.setBackgroundColor(Color.parseColor("#FF03DAC5"));
             upgradeRobustness++;
+            priceUpgrade = priceUpgrade + 10;
+            String displayedCost = "-" + priceUpgrade.toString();
+            costUpgrade.setText(displayedCost);
             robustness.setProgress(robustness.getProgress() + 10);
             changes = true;
         }
@@ -163,10 +252,13 @@ public class UpgradePlane extends AppCompatActivity {
 
     public void upgradeManeuverability(View view) {
         if (this.maneuverability.getProgress() == this.max_maneuverability.getProgress()){
-            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
         }
         else {
+            upgradeButton.setBackgroundColor(Color.parseColor("#FF03DAC5"));
             upgradeManeuverability++;
+            priceUpgrade = priceUpgrade + 10;
+            String displayedCost = "-" + priceUpgrade.toString();
+            costUpgrade.setText(displayedCost);
             maneuverability.setProgress(maneuverability.getProgress() + 10);
             changes = true;
         }
@@ -174,10 +266,13 @@ public class UpgradePlane extends AppCompatActivity {
 
     public void upgradeSpeed(View view) {
         if (this.speed.getProgress() == this.max_speed.getProgress()){
-            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
         }
         else {
+            upgradeButton.setBackgroundColor(Color.parseColor("#FF03DAC5"));
             upgradeSpeed++;
+            priceUpgrade = priceUpgrade + 10;
+            String displayedCost = "-" + priceUpgrade.toString();
+            costUpgrade.setText(displayedCost);
             speed.setProgress(speed.getProgress() + 10);
             changes = true;
         }
@@ -185,10 +280,13 @@ public class UpgradePlane extends AppCompatActivity {
 
     public void upgradeFuel(View view) {
         if (this.fuel.getProgress() == this.min_fuel.getProgress()){
-            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
         }
         else {
+            upgradeButton.setBackgroundColor(Color.parseColor("#FF03DAC5"));
             upgradeFuel++;
+            priceUpgrade = priceUpgrade + 10;
+            String displayedCost = "-" + priceUpgrade.toString();
+            costUpgrade.setText(displayedCost);
             fuel.setProgress(fuel.getProgress() - 10);
             changes = true;
         }
@@ -196,50 +294,142 @@ public class UpgradePlane extends AppCompatActivity {
 
     public void upgradeWeight(View view) {
         if (this.weight.getProgress() == this.min_weight.getProgress()){
-            Toast.makeText(this, "Upgrade already at maximum!", Toast.LENGTH_LONG).show();
         }
         else {
+            upgradeButton.setBackgroundColor(Color.parseColor("#FF03DAC5"));
             upgradeWeight++;
+            priceUpgrade = priceUpgrade + 10;
+            String displayedCost = "-" + priceUpgrade.toString();
+            costUpgrade.setText(displayedCost);
             weight.setProgress(weight.getProgress() - 10);
             changes = true;
         }
     }
 
     public void upgradeAirplaneClick(View view) {
-        if (changes) {
-            circularProgressBar.setVisibility(View.VISIBLE);
-            while (this.upgradeRobustness > 0) {
-                Upgrade upgrade = new Upgrade("0", this.userName, this.model);
-                this.addUpgradeToPlayer(upgrade);
-                this.upgradeRobustness--;
+        confirmUpdate();
+    }
+
+    public void confirmUpdate(){
+        if(changes) {
+            if (this.bitcoinsAvailable - this.priceUpgrade < 0){
+                this.priceUpgrade = 0;
+                upgradeRobustness = 0;
+                upgradeWeight = 0;
+                upgradeFuel = 0;
+                upgradeSpeed = 0;
+                upgradeManeuverability = 0;
+                AlertDialog.Builder notification = new AlertDialog.Builder(UpgradePlane.this);
+                notification.setMessage("You don't have enough bitcoins for such upgrade.")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                costUpgrade.setText("0");
+                                upgradeButton.setBackgroundColor(Color.GRAY);
+                                changes = false;
+                                getPlaneByModel(model);
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog title = notification.create();
+                title.setTitle("NO MONEY");
+                title.show();
             }
-            while (this.upgradeManeuverability > 0) {
-                Upgrade upgrade = new Upgrade("1", this.userName, this.model);
-                this.addUpgradeToPlayer(upgrade);
-                this.upgradeManeuverability--;
+            else {
+                AlertDialog.Builder confirmation = new AlertDialog.Builder(UpgradePlane.this);
+                confirmation.setMessage("Are you sure you want these upgrades?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                AlertDialog.Builder notification = new AlertDialog.Builder(UpgradePlane.this);
+                                notification.setMessage("New upgrade acquired!")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                priceUpgrade = 0;
+                                                costUpgrade.setText("0");
+                                                changes = false;
+                                                upgradeButton.setBackgroundColor(Color.GRAY);
+                                                upgradeAirplane();
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog title = notification.create();
+                                title.show();
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                priceUpgrade = 0;
+                                upgradeRobustness = 0;
+                                upgradeWeight = 0;
+                                upgradeFuel = 0;
+                                upgradeSpeed = 0;
+                                upgradeManeuverability = 0;
+                                costUpgrade.setText("0");
+                                changes = false;
+                                upgradeButton.setBackgroundColor(Color.GRAY);
+                                getPlaneByModel(model);
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog titulo = confirmation.create();
+                titulo.setTitle("NEW UPGRADE");
+                titulo.show();
             }
-            while (this.upgradeSpeed > 0) {
-                Upgrade upgrade = new Upgrade("2", this.userName, this.model);
-                this.addUpgradeToPlayer(upgrade);
-                this.upgradeSpeed--;
-            }
-            while (this.upgradeFuel > 0) {
-                Upgrade upgrade = new Upgrade("3", this.userName, this.model);
-                this.addUpgradeToPlayer(upgrade);
-                this.upgradeFuel--;
-            }
-            while (this.upgradeWeight > 0) {
-                Upgrade upgrade = new Upgrade("4", this.userName, this.model);
-                this.addUpgradeToPlayer(upgrade);
-                this.upgradeWeight--;
-            }
-            Toast.makeText(this, "Upgrade done!", Toast.LENGTH_LONG).show();
+        }
+        else{
+            AlertDialog.Builder notification = new AlertDialog.Builder(UpgradePlane.this);
+            notification.setMessage("Nothing to upgrade")
+                    .setCancelable(false)
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog title = notification.create();
+            title.show();
+        }
+    }
+
+    private void upgradeAirplane(){
+        circularProgressBar.setVisibility(View.VISIBLE);
+        if (this.upgradeRobustness > 0) {
+            Upgrade upgrade = new Upgrade("0", this.userName, this.model);
+            this.addUpgradeToPlayer(upgrade);
+            this.upgradeRobustness--;
+        }
+        else if (this.upgradeManeuverability > 0) {
+            Upgrade upgrade = new Upgrade("1", this.userName, this.model);
+            this.addUpgradeToPlayer(upgrade);
+            this.upgradeManeuverability--;
+        }
+        else if (this.upgradeSpeed > 0) {
+            Upgrade upgrade = new Upgrade("2", this.userName, this.model);
+            this.addUpgradeToPlayer(upgrade);
+            this.upgradeSpeed--;
+        }
+        else if (this.upgradeFuel > 0) {
+            Upgrade upgrade = new Upgrade("3", this.userName, this.model);
+            this.addUpgradeToPlayer(upgrade);
+            this.upgradeFuel--;
+        }
+        else if (this.upgradeWeight > 0) {
+            Upgrade upgrade = new Upgrade("4", this.userName, this.model);
+            this.addUpgradeToPlayer(upgrade);
+            this.upgradeWeight--;
+        }
+        else{
             getPlaneByModel(this.model);
             changes = false;
             circularProgressBar.setVisibility(View.GONE);
-        }
-        else{
-            Toast.makeText(this, "Nothing to upgrade!", Toast.LENGTH_LONG).show();
+            getUserByName();
         }
     }
 
@@ -252,6 +442,8 @@ public class UpgradePlane extends AppCompatActivity {
                     Log.d("MYAPP", "Error" + response.code());
                     return;
                 }
+                costUpgrade.setText("0");
+                upgradeAirplane();
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
@@ -326,7 +518,7 @@ public class UpgradePlane extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Upgrade>> call, Throwable t) {
-                Log.d("MYAPP", "Error:" + t.getMessage());
+                Log.d("MYAPP_UPGRADES", "Error:" + t.getMessage());
             }
         });
         circularProgressBar.setVisibility(View.GONE);

@@ -26,7 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.unity3d.player.UnityPlayerActivity;
+//import com.unity3d.player.UnityPlayerActivity;
 
 import edu.upc.dsa.transferObjects.RankingTO;
 import retrofit2.Call;
