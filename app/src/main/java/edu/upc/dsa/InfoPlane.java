@@ -185,7 +185,7 @@ public class InfoPlane extends AppCompatActivity {
         AlertDialog.Builder confirmation = new AlertDialog.Builder(InfoPlane.this);
         confirmation.setMessage("You don't have enough bitcoins to buy this aircraft.")
                 .setCancelable(false)
-                .setPositiveButton("FUCK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getUserByName();

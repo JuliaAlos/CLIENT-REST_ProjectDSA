@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerViewID"
         android:paddingTop="20dp"
-        android:layout_marginTop="180dp">
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
     </androidx.recyclerview.widget.RecyclerView>
 
     <ImageView
@@ -22,10 +24,14 @@
         android:clickable="true"
         android:focusable="true"
         android:onClick="mechanicToHangar"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/back2_button"
-        app:tint="@color/white"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="3dp" />
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/imageView4"
