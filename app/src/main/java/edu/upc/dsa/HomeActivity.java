@@ -168,6 +168,10 @@ public class HomeActivity extends AppCompatActivity
          rol = response.body().getScore();
          Log.d("Menu", "Rol: " + response.body().getScore());
          item.setTitle("Rol: " + rol);
+         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+         SharedPreferences.Editor editor = sharedPref.edit();
+         editor.putString("image",response.body().getImage_url());
+         editor.commit();
       }
 
       @Override
