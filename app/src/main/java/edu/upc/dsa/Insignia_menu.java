@@ -1,9 +1,11 @@
 package edu.upc.dsa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -131,4 +133,9 @@ public class Insignia_menu extends AppCompatActivity {
         });
     }
 
+    public void insigniaToMap(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        this.startActivity(intent);
+        super.onBackPressed();
+    }
 }

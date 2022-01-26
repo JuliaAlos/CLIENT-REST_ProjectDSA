@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.os.Process;
 
-
 public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecycleEvents
 {
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
@@ -162,4 +161,3 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
     @Override public boolean onTouchEvent(MotionEvent event)          { return mUnityPlayer.injectEvent(event); }
     /*API12*/ public boolean onGenericMotionEvent(MotionEvent event)  { return mUnityPlayer.injectEvent(event); }
 }
-

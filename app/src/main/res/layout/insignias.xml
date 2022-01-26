@@ -7,6 +7,21 @@
     android:background="@color/black"
     tools:context=".Insignia_menu">
 
+    <ImageView
+        android:id="@+id/back_image2"
+        android:layout_width="32dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="insigniaToMap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back2_button"
+        app:tint="@color/white"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewID"
         android:layout_width="345dp"

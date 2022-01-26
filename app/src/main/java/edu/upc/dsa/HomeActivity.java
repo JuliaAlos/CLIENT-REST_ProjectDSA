@@ -249,6 +249,11 @@ public class HomeActivity extends AppCompatActivity
   }
 
   public void logout() {
+
+    SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPref.edit();
+    editor.clear().apply();
+
     Call<Void> call = apiInterface.logoutUser(userName);
     call.enqueue(new Callback<Void>() {
       @Override
