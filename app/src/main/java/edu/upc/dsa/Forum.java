@@ -23,6 +23,7 @@ import edu.upc.dsa.models.ForumEntry;
 import edu.upc.dsa.models.PlaneModel;
 import edu.upc.dsa.models.Upgrade;
 import edu.upc.dsa.transferObjects.PlaneTO;
+import edu.upc.dsa.transferObjects.RankingTO;
 import edu.upc.dsa.transferObjects.UserTO;
 import edu.upc.dsa.ui.main.RecyclerAdapterFleet;
 import edu.upc.dsa.ui.main.RecyclerAdapterForum;
@@ -40,6 +41,7 @@ public class Forum extends AppCompatActivity {
     String playerName;
     TextView post;
     ImageView profilePic;
+    List<RankingTO> listUsers;
 
     public static final String API_URL = "http://147.83.7.203:8080/dsaApp/";
     @Override
@@ -53,16 +55,16 @@ public class Forum extends AppCompatActivity {
         apiInterface = retrofit.create(ApiInterface.class);
         recyclerView = findViewById(R.id.recyclerForumID);
         post = findViewById(R.id.postTextID);
-        profilePic = findViewById(R.id.imageForumID);
+        profilePic = findViewById(R.id.profilePicForumID);
         SharedPreferences sharedPref = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         playerName = sharedPref.getString("user","Hola");
 
         getAllEntries();
-        getUserByName();
+        getUsers();
     }
 
     public void initializeRecyclerView(List<ForumEntry> listEntries){
-        RecyclerAdapterForum myAdapter= new RecyclerAdapterForum(this, listEntries);
+        RecyclerAdapterForum myAdapter= new RecyclerAdapterForum(this, listEntries, this.playerName, this.listUsers);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -115,22 +117,26 @@ public class Forum extends AppCompatActivity {
         addEntry(entry);
     }
 
-    public void getUserByName() {
-        Call<UserTO> call = apiInterface.getUser(this.playerName);
-        call.enqueue(new Callback<UserTO>() {
+    private void getUsers () {
+        Call<List<RankingTO>> call = apiInterface.getByDistance();
+        call.enqueue(new Callback<List<RankingTO>>() {
             @Override
-            public void onResponse (Call<UserTO> call, Response<UserTO> response) {
+            public void onResponse(Call<List<RankingTO>> call, Response<List<RankingTO>> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("MYAPP", "Error" + response.code());
+                    Log.d("Ranking", "Error" + response.code());
                     return;
                 }
-                Log.d("Profile", "Successful getUser "+ playerName);
-                UserTO data = response.body();
-                Glide.with(Forum.this).load(data.getImage_url()).into(profilePic);
+                listUsers = response.body();
+                for (RankingTO user : listUsers){
+                    if (user.getUserName().equals(playerName)){
+                        Glide.with(Forum.this).load(user.getImage_url()).into(profilePic);
+                    }
+                }
             }
+
             @Override
-            public void onFailure(Call<UserTO> call, Throwable t) {
-                Log.d("MYAPP", "Error:" + t.getMessage());
+            public void onFailure(Call<List<RankingTO>> call, Throwable t) {
+                Log.d("Ranking", "Error:" + t.getMessage());
             }
         });
     }
